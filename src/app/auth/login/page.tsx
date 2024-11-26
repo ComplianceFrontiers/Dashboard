@@ -10,9 +10,9 @@ const UserLogin = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (session) {
+    // if (session) {
       router.push("/dashboard/ecommerce");
-    }
+    // }
   }, [session, router]);
 
   if (session) return null;
