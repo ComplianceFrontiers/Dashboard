@@ -1,46 +1,97 @@
-import { Card, CardBody, CardHeader, Col, Row, TabContent, TabPane } from "reactstrap";
-import { Contacts, Personal } from "@/Constant";
-import { useCallback, useState } from "react";
-import ListNewContact from "./ListNewContact";
-import UpdateUser from "./UpdateUser";
-import ContactDetailsClass from "./ContactDetailsClass";
-import { PersonalTabPropsType, UserCallbackUser, UserUpdateType } from "@/Type/Application/Contacts/Contacts";
+import { Card, CardBody, CardHeader, Col, Row, Table } from "reactstrap";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-const PersonalTab: React.FC<PersonalTabPropsType> = ({ users }) => {
-  const [selectedUser, setSelectedUser] = useState<undefined | UserCallbackUser | UserUpdateType>();
-  const [editing, setEditing] = useState(false);
-  const [editData, setEditData] = useState({});
-  const userCallback = useCallback((user: UserCallbackUser) => {
-    setSelectedUser(user);
+// Define the interface
+interface FormRecord {
+  profile_id: string;
+  email: string;
+  Website?: boolean; // Optional field
+  App?: boolean; // Another optional field
+  [key: string]: any; // Allow additional fields
+}
+
+const flattenObject = (obj: any) => {
+  const flattened: { [key: string]: any } = {};
+  for (const key in obj) {
+    if (typeof obj[key] === "object" && obj[key] !== null) {
+      flattened[key] = JSON.stringify(obj[key]); // Flatten nested objects into strings
+    } else {
+      flattened[key] = obj[key];
+    }
+  }
+  return flattened;
+};
+
+const PersonalTab = () => {
+  const [formData, setFormData] = useState<FormRecord[]>([]); // Typed state
+  const [loading, setLoading] = useState(true);
+
+  // Fetch data from API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms2");
+        const processedData = response.data.map((item: any) => flattenObject(item)); // Flatten data
+        setFormData(processedData);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
-  const userEditCallback = useCallback((edit: boolean, usersData: UserCallbackUser) => {
-    setEditData(usersData);
-    setSelectedUser(usersData);
-    setEditing(edit);
-  }, []);
+
   return (
-    <Card className="mb-0">
-      <CardHeader className="d-flex">
-        <h4>{Personal}</h4>
-        <span className="f-14 pull-right mt-0">
-          {users.length} {Contacts}
-        </span>
+    <Card>
+      <CardHeader>
+        <h4>Fetched Form Data</h4>
       </CardHeader>
-      <CardBody className="p-0">
-        <Row className="list-persons" id="addIcon">
-          <ListNewContact users={users} userCallback={userCallback} />
-          <Col xl="8" md="7" className="xl-50">
-            {editing ? (
-              <UpdateUser editData={editData} userEditCallback={userEditCallback} />
-            ) : (
-              <TabContent activeTab={0}>
-                <TabPane tabId={0}>
-                  <ContactDetailsClass selectedUser={selectedUser ? selectedUser : users[0]} userEditCallback={userEditCallback} setSelectedUser={setSelectedUser} />
-                </TabPane>
-              </TabContent>
-            )}
-          </Col>
-        </Row>
+      <CardBody>
+        {loading ? (
+          <p>Loading data...</p>
+        ) : (
+          <Table bordered>
+  <thead>
+    <tr>
+      {/* Static keys first, followed by other dynamic keys */}
+      {['profile_id', 'email', 
+        ...new Set(
+          formData.flatMap((record) => Object.keys(record))
+          .filter((key) => key !== 'profile_id' && key !== 'email')
+        )
+      ].map((key) => (
+        <th key={key}>{key.replace(/_/g, " ").toUpperCase()}</th>
+      ))}
+    </tr>
+  </thead>
+  <tbody>
+    {formData.map((record, index) => (
+      <tr key={index}>
+        {['profile_id', 'email',
+          ...new Set(
+            formData.flatMap((record) => Object.keys(record))
+            .filter((key) => key !== 'profile_id' && key !== 'email')
+          )
+        ].map((key) => (
+          <td key={key}>
+            {record.hasOwnProperty(key)
+              ? typeof record[key] === "boolean"
+                ? record[key]
+                  ? "Yes"
+                  : "No"
+                : record[key]
+              : "N/A"}
+          </td>
+        ))}
+      </tr>
+    ))}
+  </tbody>
+</Table>
+
+        )}
       </CardBody>
     </Card>
   );
