@@ -6,11 +6,14 @@ import CategoryCreate from "../../ContactSideBar/CategoryCreate"; // Import the 
 // Define the interface for the data
 interface FormRecord {
   profile_id: string;
-  email?: string; // Optional email field
+  email?: string;
   Website?: boolean;
   App?: boolean;
-  [key: string]: any; // Allow additional fields
+  phone?: string;
+  year?: string;
+  [key: string]: string | boolean | undefined; // Index signature for other dynamic properties
 }
+
 
 const flattenObject = (obj: any) => {
   const flattened: { [key: string]: any } = {};
@@ -67,13 +70,8 @@ const PersonalTab = () => {
           <Table bordered>
             <thead>
               <tr>
-                {/* Static keys first, followed by other dynamic keys */}
-                {["profile_id", "email",
-                  ...new Set(
-                    formData.flatMap((record) => Object.keys(record))
-                    .filter((key) => key !== "profile_id" && key !== "email")
-                  )
-                ].map((key) => (
+                {/* Define the static columns you want to display */}
+                {["profile_id", "email", "phone", "year", "tabs"].map((key) => (
                   <th key={key}>{key.replace(/_/g, " ").toUpperCase()}</th>
                 ))}
               </tr>
@@ -81,20 +79,54 @@ const PersonalTab = () => {
             <tbody>
               {filteredData.map((record, index) => (
                 <tr key={index}>
-                  {["profile_id", "email",
-                    ...new Set(
-                      formData.flatMap((record) => Object.keys(record))
-                      .filter((key) => key !== "profile_id" && key !== "email")
-                    )
-                  ].map((key) => (
+                  {["profile_id", "email", "phone", "year", "tabs"].map((key) => (
                     <td key={key}>
-                      {record.hasOwnProperty(key)
-                        ? typeof record[key] === "boolean"
-                          ? record[key]
-                            ? "Yes"
-                            : "No"
-                          : record[key]
-                        : "N/A"}
+                      {key === "tabs" ? (
+                        <div>
+                          {record.Website && (
+                            <div
+                              style={{
+                                display: "inline-block",
+                                padding: "8px 16px",
+                                backgroundColor: "#007bff",
+                                color: "white",
+                                borderRadius: "4px",
+                                marginRight: "8px",
+                                fontSize: "14px",
+                                textAlign: "center",
+                                whiteSpace: "nowrap",
+                              }}
+                            >
+                              Website
+                            </div>
+                          )}
+                          {record.App && (
+                            <div
+                              style={{
+                                display: "inline-block",
+                                padding: "8px 16px",
+                                backgroundColor: "#007bff",
+                                color: "white",
+                                borderRadius: "4px",
+                                marginRight: "8px",
+                                fontSize: "14px",
+                                textAlign: "center",
+                                whiteSpace: "nowrap",
+                              }}
+                            >
+                              App
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        record.hasOwnProperty(key)
+                          ? typeof record[key] === "boolean"
+                            ? record[key]
+                              ? "Yes"
+                              : "No"
+                            : record[key]
+                          : "N/A"
+                      )}
                     </td>
                   ))}
                 </tr>
