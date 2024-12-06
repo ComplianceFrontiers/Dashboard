@@ -8,13 +8,13 @@ const InboxContent = () => {
   return (
     <TabPane tabId="1">
       <div className="mail-body-wrapper">
-        <ul>
+        {/* <ul>
           {inboxEmail.map((data, index) => (
-            <li className={`inbox-data ${page ? (index < 7 ? "hidden" : "") : index < 7 ? "" : "hidden"}`} key={index}>
-              <InboxEmailContent data={data} index={index} />
-            </li>
+            <li className={`inbox-data ${page ? (index < 7 ? "hidden" : "") : index < 7 ? "" : "hidden"}`} key={index}> */}
+              <InboxEmailContent  />
+            {/* </li>
           ))}
-        </ul>
+        </ul> */}
       </div>
       <MailPagination />
     </TabPane>
