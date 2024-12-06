@@ -1,4 +1,4 @@
-import { Card, CardBody, CardHeader, Table, Button } from "reactstrap";
+import { Card, CardBody, CardHeader, Table, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import CategoryCreate from "../../ContactSideBar/CategoryCreate"; // Import the CategoryCreate component
@@ -33,6 +33,10 @@ const PersonalTab = () => {
   const [loading, setLoading] = useState(true);
   const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set()); // Tracks selected rows
   const [selectAll, setSelectAll] = useState(false); // State for "select all" checkbox
+  const [tabFilter, setTabFilter] = useState<string>(""); // State for the tab filter ("Website" or "App")
+
+  const [modalOpen, setModalOpen] = useState(false); // Modal state
+  const toggleModal = () => setModalOpen(!modalOpen); // Toggle modal open/close
 
   // Fetch data from API
   useEffect(() => {
@@ -52,9 +56,17 @@ const PersonalTab = () => {
     fetchData();
   }, []);
 
-  // Handle Email Filter: Only show records with email
-  const handleEmailFilter = () => {
-    const filtered = formData.filter((record) => record.email && record.email.trim() !== "");
+  // Handle Tab Filter: Filter records based on "Website" or "App"
+  const handleTabFilter = (filter: string) => {
+    setTabFilter(filter);
+    const filtered = formData.filter((record) => {
+      if (filter === "Website") {
+        return record.Website === true;
+      } else if (filter === "App") {
+        return record.App === true;
+      }
+      return true; // If no filter is applied, return all data
+    });
     setFilteredData(filtered);
   };
 
@@ -105,11 +117,19 @@ const PersonalTab = () => {
     <Card>
       <CardHeader>
         <h4>Fetched Form Data</h4>
-        {/* Pass the filter function to CategoryCreate */}
-        <CategoryCreate onEmailFilter={handleEmailFilter} />
+        <CategoryCreate onEmailFilter={() => {}} />
+        {/* Filter Icon Button */}
+        <Button
+          color="secondary"
+          style={{ float: "right", marginRight: "10px" }}
+          onClick={toggleModal}
+        >
+          Filter <i className="fa fa-filter"></i>
+        </Button>
+        {/* Export to Excel */}
         <Button
           color="primary"
-          style={{ float: "right" }}
+          style={{ float: "right", marginRight: "10px" }}
           onClick={exportToExcel}
         >
           Export to Excel
@@ -129,9 +149,17 @@ const PersonalTab = () => {
                     onChange={toggleSelectAll}
                   />
                 </th>
-                {/* Define the static columns you want to display */}
+                {/* Define the static columns you want to display with filter icons */}
                 {["profile_id", "email", "phone", "year", "tabs"].map((key) => (
-                  <th key={key}>{key.replace(/_/g, " ").toUpperCase()}</th>
+                  <th key={key}>
+                    {key.replace(/_/g, " ").toUpperCase()}
+                    {/* Filter Icon */}
+                    <i
+                      className="fa fa-filter"
+                      style={{ cursor: "pointer", marginLeft: "5px" }}
+                      onClick={() => handleTabFilter(key)} // Trigger filter for the column
+                    />
+                  </th>
                 ))}
               </tr>
             </thead>
@@ -201,6 +229,25 @@ const PersonalTab = () => {
           </Table>
         )}
       </CardBody>
+
+      {/* Modal for Filter */}
+      <Modal isOpen={modalOpen} toggle={toggleModal}>
+        <ModalHeader toggle={toggleModal}>Select Filter</ModalHeader>
+        <ModalBody>
+          <Input
+            type="select"
+            value={tabFilter}
+            onChange={(e) => handleTabFilter(e.target.value)}
+          >
+            <option value="">All</option>
+            <option value="Website">Website</option>
+            <option value="App">App</option>
+          </Input>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="secondary" onClick={toggleModal}>Close</Button>
+        </ModalFooter>
+      </Modal>
     </Card>
   );
 };
