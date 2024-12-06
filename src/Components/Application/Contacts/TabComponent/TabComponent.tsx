@@ -15,7 +15,7 @@ const TabComponent: React.FunctionComponent<ContactNavProps> = ({ activeTab }): 
         <div className="ps-0">
           <TabContent activeTab={activeTab}>
           <TabPane tabId="1">
-              <PersonalTab users={users} />
+              <PersonalTab />
             </TabPane>
             <TabPane tabId="2">
               <OrganizationTab />
