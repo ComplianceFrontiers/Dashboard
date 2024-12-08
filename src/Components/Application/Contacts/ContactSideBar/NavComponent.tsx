@@ -26,7 +26,7 @@ const NavComponent:React.FC<ContactNavPropsType> = ({ callbackActive }) => {
         </a>
       </NavItem>
       <NavItem>
-        <CategoryCreate />
+        {/* <CategoryCreate />temp  */} 
       </NavItem>
       {sideBarData.map((data, index) => (
         <NavItem key={index}>
