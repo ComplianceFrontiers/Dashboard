@@ -1,5 +1,5 @@
 import { Card, Col, Nav, NavItem, NavLink, Row } from 'reactstrap'
-import { All, Doing, Done, Href } from '@/Constant'
+import { All, ChessChamps, Done, Href,Dvlc,Bcc } from '@/Constant'
 import { useAppDispatch, useAppSelector } from '@/Redux/Hooks'
 import CreateNewProject from './CreateNewProject'
 import SvgIcon from '@/CommonComponent/SVG/SvgIcon'
@@ -20,12 +20,17 @@ const ProjectListHead = () => {
             </NavItem>
             <NavItem>
               <NavLink className={activeTab === "2" ? "active" : ""} onClick={() => dispatch(setActiveTab("2"))} href={Href}>
-                <SvgIcon className='feather' iconId='info' /> {Doing}
+                <SvgIcon className='feather' iconId='info' /> {ChessChamps}
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink className={activeTab === "3" ? "active" : ""} onClick={() => dispatch(setActiveTab("3"))} href={Href}> 
-                <SvgIcon className='feather' iconId='check-circle' /> {Done}
+                <SvgIcon className='feather' iconId='check-circle' /> {Dvlc}
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink className={activeTab === "4" ? "active" : ""} onClick={() => dispatch(setActiveTab("4"))} href={Href}> 
+                <SvgIcon className='feather' iconId='check-circle' /> {Bcc}
               </NavLink>
             </NavItem>
           </Nav>

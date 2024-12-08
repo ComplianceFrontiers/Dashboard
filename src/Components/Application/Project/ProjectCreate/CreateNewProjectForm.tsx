@@ -21,7 +21,7 @@ const CreateNewProjectForm = () => {
       const submittedData = {
         id: randomValue.toString(),
         title: values.title,
-        badge: values.progress === 100 ? "Done" : "Doing",
+        badge: values.title,
         image: "3.jpg",
         sites: "Themeforest, australia",
         description: values.description,

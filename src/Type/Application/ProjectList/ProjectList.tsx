@@ -4,6 +4,7 @@ export type ProjectListData = {
   badge: string;
   image: string;
   sites: string;
+  admin: string;
   description: string;
   issue: string;
   resolved: string;
