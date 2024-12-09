@@ -7,6 +7,8 @@ export type ProjectListData = {
   admin: string;
   backend: string;
   database: string;
+  git_backend:string;
+  git_frontend:string;
   description: string;
   issue: string;
   resolved: string;
