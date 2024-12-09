@@ -40,7 +40,7 @@ const ProjectCommon: React.FC<CommonProjectInterFace> = ({ item }) => {
           </div>
         </div>
         <div className="box p-3 bg-light border rounded w-50 text-center">
-            <Link href={item.sites} className="text-decoration-none text-dark d-flex align-items-center justify-content-center gap-2">
+            <Link href={item.database} className="text-decoration-none text-dark d-flex align-items-center justify-content-center gap-2">
             <FaDatabase size={20} />
               <h6 className="mb-0">Database</h6>
               </Link>

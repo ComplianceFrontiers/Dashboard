@@ -34,6 +34,16 @@ const EmailSubInput = ({ccShow,bccShow}:EmailSubInputType) => {
           </Col>
         </Row>
       </FormGroup>
+      <FormGroup>
+        <Row className={`collapse ${bccShow ? "show" : ""}`} id="collapseBcc">
+          <Col sm="2">
+            <Label className="col-form-label" for="composeTo"> BulkEmail: </Label>
+          </Col>
+          <Col sm="10">
+            <Input id="composeTo" type="email" />
+          </Col>
+        </Row>
+      </FormGroup>
     </>
   );
 };
