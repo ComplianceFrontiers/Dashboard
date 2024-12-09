@@ -1580,6 +1580,7 @@ export const ChessChamps = "ChessChamps";
 export const Dvlc = "Dvlc";
 export const Bcc = "Bcc";
 export const ComplianceFrontiers = "ComplianceFrontiers";
+export const BulkEmail = "BulkEmail";
 export const Issues = "Issues";
 export const Resolved = "Resolved";
 export const Comment = "Comment";
