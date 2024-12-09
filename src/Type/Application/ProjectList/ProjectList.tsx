@@ -5,6 +5,8 @@ export type ProjectListData = {
   image: string;
   sites: string;
   admin: string;
+  backend: string;
+  database: string;
   description: string;
   issue: string;
   resolved: string;

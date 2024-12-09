@@ -18,18 +18,27 @@ const ProjectCommon: React.FC<CommonProjectInterFace> = ({ item }) => {
             {item.title}
           </Link>
         </h5>
+        
         <div className="d-flex mb-2">
-          <Image
-            width={20}
-            height={20}
-            className="img-20 me-1 rounded-circle"
-            src={`${ImagePath}/user/${item.image}`}
-            alt="images"
-          />
+          
           <Link href={item.sites} className="font-light text-decoration-none text-dark">
             {item.sites}
           </Link>
         </div>
+        <div className="d-flex gap-3 mt-4 mb-4">
+        
+            <div className="box p-3 bg-light border rounded w-50 text-center">
+            <Link href={item.sites}>
+              <h6 className="mb-0">Backend</h6>
+              </Link>
+            </div>
+       
+  <div className="box p-3 bg-light border rounded w-50 text-center">
+  <Link href={item.sites}>
+    <h6 className="mb-0">Database</h6>
+    </Link>
+  </div>
+</div>
         <p>{item.description}</p>
         <ProjectDetails item={item} />
         <ProjectCustomers item={item} />
