@@ -110,7 +110,7 @@ const PersonalTab = () => {
   return (
     <Card>
       <CardHeader>
-        <h4>Form Data</h4>
+        <h4>MPES After School</h4>
         <Button
           color="primary"
           onClick={exportToExcel}
@@ -127,8 +127,7 @@ const PersonalTab = () => {
             <Table bordered>
               <thead>
                 <tr>
-                  <th>Si No.</th>
-                  <th>
+                <th>
                     <Input
                       type="checkbox"
                       onChange={(e) =>
@@ -144,6 +143,8 @@ const PersonalTab = () => {
                       }
                     />
                   </th>
+                  <th>Si No.</th>
+                  
                   {["profile_id", "phone", "year", "child_name", "SchoolName"].map((column) => (
                     <th key={column}>
                       <div style={{ display: "flex", alignItems: "center" }}>
@@ -169,7 +170,6 @@ const PersonalTab = () => {
               <tbody>
                 {paginatedData.map((record, index) => (
                   <tr key={record.profile_id}>
-                    <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
                     <td>
                       <Input
                         type="checkbox"
@@ -177,6 +177,8 @@ const PersonalTab = () => {
                         onChange={() => handleSelectRow(record.profile_id)}
                       />
                     </td>
+                    <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
+                    
                     <td>{record.profile_id}</td>
                     <td>{record.phone || "N/A"}</td>
                     <td>{record.year || "N/A"}</td>

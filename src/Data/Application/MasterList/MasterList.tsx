@@ -3,9 +3,9 @@ export let sideBarData =[
     {value:"3",tittle:"MPES After School"},
     {value:"4",tittle:"Lombardy After School"},
     {value:"5",tittle:"JCC Chess Champs"},
-    {value:"6",tittle:"Important"},
-    {value:"7",tittle:"Business"},
-    {value:"8",tittle:"Holidays"},
+    {value:"6",tittle:"Website"},
+    {value:"7",tittle:"club registration-delaware"},
+    {value:"8",tittle:"Chess Champs App"},
 ]
 export const organizationList = [
     {
