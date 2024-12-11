@@ -1,7 +1,7 @@
 export let sideBarData =[
     {value:"2",tittle:"Organization"},
-    {value:"3",tittle:"Mpes Chess Program"},
-    {value:"4",tittle:"Lombardy Chess Program"},
+    {value:"3",tittle:"MPES After School"},
+    {value:"4",tittle:"Lombardy After School"},
     {value:"5",tittle:"JCC Chess Champs"},
     {value:"6",tittle:"Important"},
     {value:"7",tittle:"Business"},

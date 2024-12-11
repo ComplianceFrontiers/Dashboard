@@ -1783,7 +1783,7 @@ export const Subject = "Subject";
 // Contact
 export const Contacts = "Contacts";
 export const ContactFilter = "Contact Filter";
-export const MpesChessProgram = "Mpes Chess Program";
+export const MPESAfterSchool = "MPES After School";
 export const JCC_ChessChamps = "JCC Chess Champs";
 export const NewContacts = "New Contacts";
 export const AddContacts = "Add Contacts";
@@ -1796,7 +1796,7 @@ export const Organization = "Organization";
 export const Gender = "Gender";
 export const ContactHistory = "Contact History";
 export const ContactCreated = "Contact Created";
-export const LombardyChessProgram = "Lombardy Chess Program";
+export const LombardyAfterSchool = "Lombardy After School";
 export const EnterCategoryName = "Enter category name";
 export const AddCategory = "Add Category";
 export const Phone = "Phone";

@@ -1,5 +1,5 @@
 import { Card, CardBody, CardHeader, TabPane } from "reactstrap";
-import { LombardyChessProgram } from "@/Constant";
+import { LombardyAfterSchool } from "@/Constant";
 import FavDataLoop from "./FavDataLoop";
 import { useAppSelector } from "@/Redux/Hooks";
 import ViewBookmark from "../Common/ViewBookmarks";
@@ -10,7 +10,7 @@ const FavDataTab = () => {
     <TabPane tabId="2">
       <Card className="mb-0">
         <CardHeader className="d-flex">
-          <h4 className="mb-0">{LombardyChessProgram}</h4>
+          <h4 className="mb-0">{LombardyAfterSchool}</h4>
           <ViewBookmark />
         </CardHeader>
         <CardBody>
