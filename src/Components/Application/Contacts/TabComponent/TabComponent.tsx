@@ -3,9 +3,10 @@ import PersonalTab from './PersonalTab/PersonalTab'
 import { useAppSelector } from '@/Redux/Hooks'
 import OrganizationTab from './OrganizationTab/OrganizationTab'
 import NoDataFoundClass from './Common/NoDataFoundClass'
-import { Business, Favorites, FollowUp, Holidays, Ideas, Important } from '@/Constant'
+import { Business, Favorites, MpesChessProgram, Holidays, Ideas, Important } from '@/Constant'
 import HistoryClass from './HistoryClass/HistoryClass'
 import { ContactNavProps } from '@/Type/Application/Contacts/Contacts'
+import PersonalTab1 from './PersonalTab/PersonalTab1'
 
 const TabComponent: React.FunctionComponent<ContactNavProps> = ({ activeTab }): React.ReactElement => {
   const {users} = useAppSelector((state)=>state.contact)
@@ -21,7 +22,7 @@ const TabComponent: React.FunctionComponent<ContactNavProps> = ({ activeTab }): 
               <OrganizationTab />
             </TabPane>
             <TabPane tabId="3">
-              <NoDataFoundClass title={FollowUp} />
+            <PersonalTab1 />
             </TabPane>
             <TabPane tabId="4">
               <NoDataFoundClass title={Favorites} />

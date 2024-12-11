@@ -1,6 +1,6 @@
 export let sideBarData =[
     {value:"2",tittle:"Organization"},
-    {value:"3",tittle:"Follow Up"},
+    {value:"3",tittle:"Mpes Chess Program"},
     {value:"4",tittle:"Favorites"},
     {value:"5",tittle:"Ideas"},
     {value:"6",tittle:"Important"},

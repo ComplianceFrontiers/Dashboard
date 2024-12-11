@@ -1783,7 +1783,7 @@ export const Subject = "Subject";
 // Contact
 export const Contacts = "Contacts";
 export const ContactFilter = "Contact Filter";
-export const FollowUp = "Follow Up";
+export const MpesChessProgram = "Mpes Chess Program";
 export const Ideas = "Ideas";
 export const NewContacts = "New Contacts";
 export const AddContacts = "Add Contacts";
