@@ -30,7 +30,7 @@ const PersonalTab = () => {
         const data = response.data;
   
         // Filter data for "Lombardy Elementary School"
-        const lombardyData = data.filter((record: FormRecord) => record.SchoolName === "Mount Pleasant Elementary School");
+        const lombardyData = data.filter((record: FormRecord) => record.SchoolName === "Lombardy Elementary School");
   
         setFormData(lombardyData); // Set filtered data to state
         setFilteredData(lombardyData);
