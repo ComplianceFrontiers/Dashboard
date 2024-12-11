@@ -1,139 +1,119 @@
-import { Card, CardBody, CardHeader, Table, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
+import React, { useState, useEffect } from "react";
+import { Card, CardBody, CardHeader, Table, Button, Input, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import CategoryCreate from "../../ContactSideBar/CategoryCreate"; // Import the CategoryCreate component
-import * as XLSX from "xlsx"; // Import xlsx library
+import { FaSearch } from 'react-icons/fa';
+import * as XLSX from "xlsx";
 
-// Define the interface for the data
 interface FormRecord {
   profile_id: string;
   email?: string;
-  Website?: boolean;
-  App?: boolean;
   phone?: string;
   year?: string;
-  [key: string]: string | boolean | undefined; // Index signature for other dynamic properties
+  tabs?: boolean;
+  Website?: boolean;
+  App?: boolean;
+  [key: string]: string | boolean | undefined;
 }
-
-const flattenObject = (obj: any) => {
-  const flattened: { [key: string]: any } = {};
-  for (const key in obj) {
-    if (typeof obj[key] === "object" && obj[key] !== null) {
-      flattened[key] = JSON.stringify(obj[key]); // Flatten nested objects into strings
-    } else {
-      flattened[key] = obj[key];
-    }
-  }
-  return flattened;
-};
 
 const PersonalTab = () => {
   const [formData, setFormData] = useState<FormRecord[]>([]);
-  const [filteredData, setFilteredData] = useState<FormRecord[]>([]); // State for filtered rows
+  const [filteredData, setFilteredData] = useState<FormRecord[]>([]);
+  const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
+  const [selectAll, setSelectAll] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [selectedRows, setSelectedRows] = useState<Set<number>>(new Set()); // Tracks selected rows
-  const [selectAll, setSelectAll] = useState(false); // State for "select all" checkbox
-  const [tabFilter, setTabFilter] = useState<string>(""); // State for the tab filter ("Website" or "App")
+  const [searchValues, setSearchValues] = useState<{ [key: string]: string }>({});
+  const [searchVisibility, setSearchVisibility] = useState<{ [key: string]: boolean }>({
+    profile_id: false,
+    email: false,
+    phone: false,
+    year: false,
+    tabs: false,
+  });
+  const [modalOpen, setModalOpen] = useState(false);
+  const [tabFilter, setTabFilter] = useState("");
 
-  const [modalOpen, setModalOpen] = useState(false); // Modal state
-  const toggleModal = () => setModalOpen(!modalOpen); // Toggle modal open/close
-
-  // Fetch data from API
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms2");
-        const processedData = response.data.map((item: any) => flattenObject(item));
-        setFormData(processedData);
-        setFilteredData(processedData); // Initialize filtered data with all data
+        const response = await axios.get(
+          "https://backend-chess-tau.vercel.app/get_forms2"
+        );
+        setFormData(response.data);
+        setFilteredData(response.data);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
-  // Handle Tab Filter: Filter records based on "Website" or "App"
-  const handleTabFilter = (filter: string) => {
-    setTabFilter(filter);
-    const filtered = formData.filter((record) => {
-      if (filter === "Website") {
-        return record.Website === true;
-      } else if (filter === "App") {
-        return record.App === true;
-      }
-      return true; // If no filter is applied, return all data
-    });
-    setFilteredData(filtered);
+  const handleSearchChange = (key: string, value: string) => {
+    const newSearchValues = { ...searchValues, [key]: value };
+    setSearchValues(newSearchValues);
+
+    const newFilteredData = formData.filter((record) =>
+      Object.keys(newSearchValues).every((col) => {
+        const searchValue = newSearchValues[col].toLowerCase();
+        const cellValue = (record[col] || "").toString().toLowerCase();
+        return cellValue.includes(searchValue);
+      })
+    );
+    setFilteredData(newFilteredData);
   };
 
-  // Toggle individual row selection
-  const toggleRowSelection = (index: number) => {
-    const newSelectedRows = new Set(selectedRows);
-    if (newSelectedRows.has(index)) {
-      newSelectedRows.delete(index);
+  const toggleSearchVisibility = (key: string) => {
+    setSearchVisibility((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
+
+  const toggleModal = () => setModalOpen(!modalOpen);
+
+  const handleTabFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setTabFilter(value);
+
+    if (value === "") {
+      setFilteredData(formData);
     } else {
-      newSelectedRows.add(index);
+      const newFilteredData = formData.filter((record) => record[value as keyof FormRecord]);
+      setFilteredData(newFilteredData);
     }
-    setSelectedRows(newSelectedRows);
-    setSelectAll(newSelectedRows.size === filteredData.length); // Update "select all" checkbox state
   };
 
-  // Toggle select all checkbox
-  const toggleSelectAll = () => {
+  const exportSelectedToExcel = () => {
+    const selectedData = filteredData.filter((record) => selectedRows.has(record.profile_id));
+    if (selectedData.length === 0) {
+      alert("No rows selected for export!");
+      return;
+    }
+    const worksheet = XLSX.utils.json_to_sheet(selectedData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Selected Data");
+    XLSX.writeFile(workbook, "SelectedData.xlsx");
+  };
+
+  const handleSelectAll = () => {
     if (selectAll) {
-      setSelectedRows(new Set()); // Deselect all rows
+      setSelectedRows(new Set());
     } else {
-      const allIndexes = new Set(filteredData.map((_, index) => index));
-      setSelectedRows(allIndexes); // Select all rows
+      setSelectedRows(new Set(filteredData.map((record) => record.profile_id)));
     }
-    setSelectAll(!selectAll); // Toggle select all state
-  };
-
-  // Export selected rows to Excel
-  const exportToExcel = () => {
-    const selectedData = filteredData.filter((_, index) => selectedRows.has(index)); // Get selected records
-    const formattedData = selectedData.map((record) => {
-      // Format the data to a flat structure suitable for Excel
-      const flatRecord: { [key: string]: any } = {};
-      Object.keys(record).forEach((key) => {
-        flatRecord[key] = record[key];
-      });
-      return flatRecord;
-    });
-
-    const ws = XLSX.utils.json_to_sheet(formattedData); // Convert JSON data to sheet
-    const wb = XLSX.utils.book_new(); // Create a new workbook
-    XLSX.utils.book_append_sheet(wb, ws, "Selected Records"); // Append the sheet to the workbook
-
-    // Trigger the download
-    XLSX.writeFile(wb, "selected_records.xlsx");
+    setSelectAll(!selectAll);
   };
 
   return (
     <Card>
       <CardHeader>
-        <h4>Fetched Form Data</h4>
-        <CategoryCreate onEmailFilter={() => {}} />
-        {/* Filter Icon Button */}
-        <Button
-          color="secondary"
-          style={{ float: "right", marginRight: "10px" }}
-          onClick={toggleModal}
-        >
-          Filter <i className="fa fa-filter"></i>
-        </Button>
-        {/* Export to Excel */}
-        <Button
-          color="primary"
-          style={{ float: "right", marginRight: "10px" }}
-          onClick={exportToExcel}
-        >
-          Export to Excel
-        </Button>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <h4>Fetched Form Data</h4>
+          <Button color="success" onClick={exportSelectedToExcel}>
+            Export to Excel
+          </Button>
+        </div>
       </CardHeader>
       <CardBody>
         {loading ? (
@@ -146,31 +126,78 @@ const PersonalTab = () => {
                   <input
                     type="checkbox"
                     checked={selectAll}
-                    onChange={toggleSelectAll}
+                    onChange={handleSelectAll}
                   />
                 </th>
-                {/* Define the static columns you want to display with filter icons */}
                 {["profile_id", "email", "phone", "year", "tabs"].map((key) => (
                   <th key={key}>
-                    {key.replace(/_/g, " ").toUpperCase()}
-                    {/* Filter Icon */}
-                    <i
-                      className="fa fa-filter"
-                      style={{ cursor: "pointer", marginLeft: "5px" }}
-                      onClick={() => handleTabFilter(key)} // Trigger filter for the column
-                    />
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                      <span>{key.toUpperCase()}</span>
+                      {key !== "tabs" && (
+                        <Button
+                          color="link"
+                          size="sm"
+                          onClick={() => toggleSearchVisibility(key)}
+                        >
+                          <FaSearch />
+                        </Button>
+                      )}
+                    </div>
+                    {key === "tabs" && (
+                      <>
+                        <Button color="primary" size="sm" onClick={toggleModal} style={{ marginTop: "8px" }}>
+                          Filter Tabs
+                        </Button>
+                        <Modal isOpen={modalOpen} toggle={toggleModal}>
+                          <ModalHeader toggle={toggleModal}>Select Filter</ModalHeader>
+                          <ModalBody>
+                            <Input
+                              type="select"
+                              value={tabFilter}
+                              onChange={handleTabFilterChange}
+                            >
+                              <option value="">All</option>
+                              <option value="Website">Website</option>
+                              <option value="App">App</option>
+                            </Input>
+                          </ModalBody>
+                          <ModalFooter>
+                            <Button color="secondary" onClick={toggleModal}>
+                              Close
+                            </Button>
+                          </ModalFooter>
+                        </Modal>
+                      </>
+                    )}
+                    {searchVisibility[key] && key !== "tabs" && (
+                      <Input
+                        type="text"
+                        value={searchValues[key] || ""}
+                        placeholder={`Search ${key}`}
+                        onChange={(e) => handleSearchChange(key, e.target.value)}
+                        style={{ marginTop: "8px" }}
+                      />
+                    )}
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {filteredData.map((record, index) => (
-                <tr key={index}>
+              {filteredData.map((record) => (
+                <tr key={record.profile_id}>
                   <td>
                     <input
                       type="checkbox"
-                      checked={selectedRows.has(index)}
-                      onChange={() => toggleRowSelection(index)}
+                      checked={selectedRows.has(record.profile_id)}
+                      onChange={() => {
+                        const newSelectedRows = new Set(selectedRows);
+                        if (newSelectedRows.has(record.profile_id)) {
+                          newSelectedRows.delete(record.profile_id);
+                        } else {
+                          newSelectedRows.add(record.profile_id);
+                        }
+                        setSelectedRows(newSelectedRows);
+                      }}
                     />
                   </td>
                   {["profile_id", "email", "phone", "year", "tabs"].map((key) => (
@@ -212,14 +239,10 @@ const PersonalTab = () => {
                             </div>
                           )}
                         </div>
+                      ) : record.hasOwnProperty(key) ? (
+                        typeof record[key] === "boolean" ? (record[key] ? "Yes" : "No") : record[key]
                       ) : (
-                        record.hasOwnProperty(key)
-                          ? typeof record[key] === "boolean"
-                            ? record[key]
-                              ? "Yes"
-                              : "No"
-                            : record[key]
-                          : "N/A"
+                        "N/A"
                       )}
                     </td>
                   ))}
@@ -229,25 +252,6 @@ const PersonalTab = () => {
           </Table>
         )}
       </CardBody>
-
-      {/* Modal for Filter */}
-      <Modal isOpen={modalOpen} toggle={toggleModal}>
-        <ModalHeader toggle={toggleModal}>Select Filter</ModalHeader>
-        <ModalBody>
-          <Input
-            type="select"
-            value={tabFilter}
-            onChange={(e) => handleTabFilter(e.target.value)}
-          >
-            <option value="">All</option>
-            <option value="Website">Website</option>
-            <option value="App">App</option>
-          </Input>
-        </ModalBody>
-        <ModalFooter>
-          <Button color="secondary" onClick={toggleModal}>Close</Button>
-        </ModalFooter>
-      </Modal>
     </Card>
   );
 };
