@@ -100,7 +100,7 @@ export const MenuList: MenuItem[] = [
         ],
       },
       { path: `/app/bookmark`, icon: "Bookmark", type: "link", title: "Bookmark", id: 10 },
-      { path: `/app/contacts`, title: "Contact", icon: "Contacts", type: "link", id: 11, active: false },
+      { path: `/app/MasterList`, title: "MasterList", icon: "Contacts", type: "link", id: 11, active: false },
       { path: `/app/task`, icon: "Tick-square", type: "link", title: "Task" },
       { path: `/app/calendar`, icon: "Calendar", type: "link", title: "Calendar" },
       { path: `/app/socialapp`, icon: "Camera", type: "link", title: "Social App" },

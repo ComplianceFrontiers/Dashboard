@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { organizationList } from '@/Data/Application/Contacts/Contacts';
+import { organizationList } from '@/Data/Application/MasterList/MasterList';
 import { Col, Nav, NavItem, NavLink } from 'reactstrap';
 import { Href, ImagePath } from '@/Constant';
-import { NavOrgPropType } from '@/Type/Application/Contacts/Contacts';
+import { NavOrgPropType } from '@/Type/Application/MasterList/MasterList';
 import Image from 'next/image';
 
 const NavOrganization:React.FC<NavOrgPropType> = ({ callback }) => {

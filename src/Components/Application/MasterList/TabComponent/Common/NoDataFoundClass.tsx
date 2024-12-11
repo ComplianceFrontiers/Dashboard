@@ -1,5 +1,5 @@
 import { Card, CardBody, CardHeader } from 'reactstrap'
-import { NoDataFoundPropsType } from '@/Type/Application/Contacts/Contacts'
+import { NoDataFoundPropsType } from '@/Type/Application/MasterList/MasterList'
 
 const NoDataFoundClass:React.FC<NoDataFoundPropsType> = ({ title }) => {
   return (

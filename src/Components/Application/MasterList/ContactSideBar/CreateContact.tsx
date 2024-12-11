@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '@/Redux/Hooks';
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { AddContacts, Cancel, EmailAddress, FirstName, LastName, Name, NewContacts, Phone, Save } from '@/Constant';
 import { Button, Col, Form, Input, Label, Modal, ModalBody, ModalHeader, Row } from 'reactstrap';
-import { ContactUsersType } from '@/Type/Application/Contacts/Contacts';
+import { ContactUsersType } from '@/Type/Application/MasterList/MasterList';
 import { createUser, setContactValidation, setModal } from '@/Redux/Reducers/ContactSlice';
 import SvgIcon from '@/CommonComponent/SVG/SvgIcon';
 

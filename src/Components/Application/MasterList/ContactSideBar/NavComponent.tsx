@@ -1,6 +1,6 @@
 import { Href, Personal, Views } from '@/Constant';
-import { sideBarData } from '@/Data/Application/Contacts/Contacts';
-import { ContactNavPropsType } from '@/Type/Application/Contacts/Contacts';
+import { sideBarData } from '@/Data/Application/MasterList/MasterList';
+import { ContactNavPropsType } from '@/Type/Application/MasterList/MasterList';
 import { useState } from 'react';
 import { Nav, NavItem } from 'reactstrap';
 import CategoryCreate from './CategoryCreate';

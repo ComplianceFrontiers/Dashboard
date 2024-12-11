@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '@/Redux/Hooks';
 import SweetAlert from 'sweetalert2';
 import { Delete, Edit, EmailAddress, General, History, Href, ImagePath, MobileNo, Name, Print } from '@/Constant';
 import PrintModalPreview from './PrintModalPreview';
-import { ContactDetailsPropsType, UserCallbackUser } from '@/Type/Application/Contacts/Contacts';
+import { ContactDetailsPropsType, UserCallbackUser } from '@/Type/Application/MasterList/MasterList';
 import { deletedUser, setHistory, setTempId } from '@/Redux/Reducers/ContactSlice';
 import { NavLink } from 'reactstrap';
 import SearchNotFoundClass from '@/Components/Application/Common/SearchNotFoundClass';

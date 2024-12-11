@@ -2,7 +2,7 @@ import { Button, Card, CardBody } from 'reactstrap'
 import { useAppDispatch, useAppSelector } from '@/Redux/Hooks';
 import { ContactFilter, ImagePath } from '@/Constant';
 import NavComponent from './NavComponent';
-import { ContactSidebarCallbackProp } from '@/Type/Application/Contacts/Contacts';
+import { ContactSidebarCallbackProp } from '@/Type/Application/MasterList/MasterList';
 import { setContactFilter } from '@/Redux/Reducers/ContactSlice';
 import Image from 'next/image';
 

@@ -3,7 +3,7 @@ import { Button, Modal, ModalBody, ModalHeader } from "reactstrap";
 import { Cancel, Print, PrintViews } from "@/Constant";
 import ReactToPrint from "react-to-print";
 import PrintPreview from "./PrintPreview";
-import { PrintModalPropsTypes } from "@/Type/Application/Contacts/Contacts";
+import { PrintModalPropsTypes } from "@/Type/Application/MasterList/MasterList";
 
 const PrintModalPreview:React.FC<PrintModalPropsTypes> = ({ printModal, selectedUser, toggleCallback }) => {
   const printModalToggle = () => {

@@ -1,9 +1,9 @@
-import { organizationList } from '@/Data/Application/Contacts/Contacts'
+import { organizationList } from '@/Data/Application/MasterList/MasterList'
 import { NavLink, TabPane } from 'reactstrap'
 import { Delete, Edit, EmailAddress, Gender, General, History, Href, ImagePath, Name, Personal, Print } from '@/Constant'
 import { useState } from 'react'
 import PrintModalPreview from './PrintModalPreview'
-import { OrganizationTabType } from '@/Type/Application/Contacts/Contacts'
+import { OrganizationTabType } from '@/Type/Application/MasterList/MasterList'
 import Image from 'next/image'
 
 const TabOrganization = () => {

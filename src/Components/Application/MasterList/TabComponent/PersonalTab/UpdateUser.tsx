@@ -3,7 +3,7 @@ import { useAppDispatch } from '@/Redux/Hooks';
 import { toast } from 'react-toastify';
 import { Button, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import { Cancel, Email, Mobile, Name, Phone, Save } from '@/Constant';
-import { UpdateUserPropsType, UserUpdateType } from '@/Type/Application/Contacts/Contacts';
+import { UpdateUserPropsType, UserUpdateType } from '@/Type/Application/MasterList/MasterList';
 import { setEditData } from '@/Redux/Reducers/ContactSlice';
 
 const UpdateUser = ({ editData, userEditCallback }:UpdateUserPropsType) => {

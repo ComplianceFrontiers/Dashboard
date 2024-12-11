@@ -6,7 +6,7 @@ import TabComponent from './TabComponent/TabComponent';
 import { Apps, Contacts } from '@/Constant';
 import Breadcrumbs from '@/CommonComponent/Breadcrumbs/Breadcrumbs';
 
-const ContactsContainer = () => {
+const MasterList = () => {
   const [activeTab, setActiveTab] = useState("1");
   const callback = useCallback((tab: string) => {
     setActiveTab(tab);
@@ -28,4 +28,4 @@ const ContactsContainer = () => {
   )
 }
 
-export default ContactsContainer
+export default MasterList

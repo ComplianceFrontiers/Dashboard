@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ContactSliceType } from '@/Type/Application/Contacts/Contacts';
+import { ContactSliceType } from '@/Type/Application/MasterList/MasterList';
 
 const initialState: ContactSliceType = {
     users: [],

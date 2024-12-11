@@ -1,6 +1,6 @@
 import { Media } from 'reactstrap'
 import { EmailAddress, General, ImagePath } from '@/Constant'
-import { PrintPreviewPropsType } from '@/Type/Application/Contacts/Contacts'
+import { PrintPreviewPropsType } from '@/Type/Application/MasterList/MasterList'
 import Image from 'next/image'
 
 const PrintPreview:React.FC<PrintPreviewPropsType> = ({selectedUser}) => {

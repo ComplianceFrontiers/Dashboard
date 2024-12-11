@@ -1,6 +1,6 @@
 import { Col, Nav, NavLink } from 'reactstrap';
 import { useState } from 'react';
-import { ListNewContactPropsType, UserCallbackUser } from '@/Type/Application/Contacts/Contacts';
+import { ListNewContactPropsType, UserCallbackUser } from '@/Type/Application/MasterList/MasterList';
 import { Href, ImagePath } from '@/Constant';
 import Image from 'next/image';
 import SearchNotFoundClass from '@/Components/Application/Common/SearchNotFoundClass';

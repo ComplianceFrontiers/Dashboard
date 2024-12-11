@@ -3,7 +3,7 @@ import { Button, Modal, ModalBody, ModalHeader } from "reactstrap";
 import ReactToPrint from "react-to-print";
 import PrintPreview from "../PersonalTab/PrintPreview";
 import { useRef } from "react";
-import { PrintModalPreviewPropsType } from "@/Type/Application/Contacts/Contacts";
+import { PrintModalPreviewPropsType } from "@/Type/Application/MasterList/MasterList";
 
 const PrintModalPreview = ({ printModal, setPrintModal, selectedUser }: PrintModalPreviewPropsType) => {
   const componentRef = useRef();
