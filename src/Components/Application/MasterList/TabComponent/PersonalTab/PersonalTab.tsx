@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, CardBody, CardHeader, Table, Button, Input } from "reactstrap";
 import axios from "axios";
 import * as XLSX from "xlsx";
+import ProfileModal from "./ProfileModal";
 
 interface FormRecord {
   profile_id: string;
@@ -22,6 +23,9 @@ const PersonalTab = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [selectAll, setSelectAll] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);  // To control the modal visibility
+  const [selectedProfileId, setSelectedProfileId] = useState<string>("");
+
   const itemsPerPage = 10;
 
   useEffect(() => {
@@ -100,12 +104,19 @@ const PersonalTab = () => {
     XLSX.writeFile(workbook, "selected_records.xlsx");
   };
 
+  const handleProfileClick = (profileId: string) => {
+    setSelectedProfileId(profileId);  // Set the selected profile id
+    setIsModalOpen(true);  // Open the modal
+  };
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   return (
-    <Card>
+    <><Card>
       <CardHeader>
-        <div
-          style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
-        >
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <h4>Master List</h4>
           <Button
             color="primary"
@@ -125,8 +136,7 @@ const PersonalTab = () => {
                   <Input
                     type="checkbox"
                     checked={selectAll}
-                    onChange={handleSelectAll}
-                  />
+                    onChange={handleSelectAll} />                                        
                 </th>
                 <th>Profile ID</th>
                 <th>Email</th>
@@ -142,10 +152,24 @@ const PersonalTab = () => {
                     <Input
                       type="checkbox"
                       checked={selectedRows.has(record.profile_id)}
-                      onChange={() => handleRowSelect(record.profile_id)}
-                    />
+                      onChange={() => handleRowSelect(record.profile_id)} />
                   </td>
-                  <td>{record.profile_id}</td>
+                  <td>
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleProfileClick(record.profile_id);
+                      } }
+                      style={{
+                        color: 'blue',  // Make the profile ID blue
+                        textDecoration: 'underline', // Add underline to indicate clickability
+                        cursor: 'pointer', // Change cursor to pointer on hover
+                      }}
+                    >
+                      {record.profile_id}
+                    </a>
+                  </td>
                   <td>{record.email || "N/A"}</td>
                   <td>{record.phone || "N/A"}</td>
                   <td>{record.year || "N/A"}</td>
@@ -209,7 +233,7 @@ const PersonalTab = () => {
                           Lombardy
                         </div>
                       )}
-                       {record.jcc && (
+                      {record.jcc && (
                         <div
                           style={{
                             padding: "5px 10px",
@@ -244,7 +268,12 @@ const PersonalTab = () => {
           </Button>
         </div>
       </CardBody>
-    </Card>
+    </Card>  <ProfileModal
+        isOpen={isModalOpen}
+        toggle={toggleModal}
+        profileId={selectedProfileId}
+      />
+      </>
   );
 };
 

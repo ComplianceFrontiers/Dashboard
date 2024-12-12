@@ -3,6 +3,8 @@ import { Card, CardBody, CardHeader, Table, Button, Input } from "reactstrap";
 import { FaSearch } from "react-icons/fa"; // Import search icon
 import axios from "axios";
 import * as XLSX from "xlsx";
+import ProfileModal from "./ProfileModal"; // Make sure this component exists
+
 
 interface FormRecord {
   profile_id: string;
@@ -29,6 +31,9 @@ const PersonalTab = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const itemsPerPage = 10;
+  const [isModalOpen, setIsModalOpen] = useState(false);  // To control the modal visibility
+  const [selectedProfileId, setSelectedProfileId] = useState<string>("");
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -118,6 +123,15 @@ const PersonalTab = () => {
       }
       return newSelectedRows;
     });
+  };
+  
+  const handleProfileClick = (profileId: string) => {
+    setSelectedProfileId(profileId);  // Set the selected profile id
+    setIsModalOpen(true);  // Open the modal
+  };
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
   };
 
   return (
@@ -209,7 +223,22 @@ const PersonalTab = () => {
                   />
                 </td>
                 <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
-                <td>{record.profile_id}</td>
+                <td>
+                        <a
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleProfileClick(record.profile_id);
+                          }}
+                          style={{
+                            color: 'blue',  // Make the profile ID blue
+                            textDecoration: 'underline', // Add underline to indicate clickability
+                            cursor: 'pointer', // Change cursor to pointer on hover
+                          }}
+                        >
+                          {record.profile_id}
+                        </a>
+                      </td>
                 <td>
                   {record.parent_name
                     ? `${record.parent_name.first || ""} ${record.parent_name.last || ""}`
@@ -262,6 +291,11 @@ const PersonalTab = () => {
     </>
   )}
 </CardBody>
+<ProfileModal
+        isOpen={isModalOpen}
+        toggle={toggleModal}
+        profileId={selectedProfileId}
+      />
 
     </Card>
   );
