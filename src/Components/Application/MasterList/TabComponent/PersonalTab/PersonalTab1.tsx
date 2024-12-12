@@ -176,7 +176,7 @@ const PersonalTab = () => {
                 "year",
               ].map((column) => (
                 <th key={column}>
-                  <div style={{ display: "flex", alignItems: "center" }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     {column.replace(/_/g, " ")}{" "}
                     <FaSearch
                       style={{ marginLeft: "8px", cursor: "pointer" }}
