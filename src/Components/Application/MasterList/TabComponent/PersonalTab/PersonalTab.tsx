@@ -209,6 +209,18 @@ const PersonalTab = () => {
                           Lombardy
                         </div>
                       )}
+                       {record.jcc && (
+                        <div
+                          style={{
+                            padding: "5px 10px",
+                            backgroundColor: "#28a745",
+                            color: "white",
+                            borderRadius: "5px",
+                          }}
+                        >
+                          JCC
+                        </div>
+                      )}
                     </div>
                   </td>
                 </tr>
