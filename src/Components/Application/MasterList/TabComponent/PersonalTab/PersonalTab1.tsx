@@ -123,6 +123,8 @@ const PersonalTab = () => {
   return (
     <Card>
       <CardHeader>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+
         <h4>MPES After School</h4>
         <Button
           color="primary"
@@ -131,6 +133,7 @@ const PersonalTab = () => {
         >
           Export to Excel
         </Button>
+        </div>
       </CardHeader>
       <CardBody>
   {loading ? (

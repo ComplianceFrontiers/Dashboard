@@ -31,16 +31,23 @@ const PersonalTab = () => {
   });
   const [modalOpen, setModalOpen] = useState(false);
   const [tabFilter, setTabFilter] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  // State for continuation records
+  const [continuationRecords, setContinuationRecords] = useState<FormRecord[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "https://backend-chess-tau.vercel.app/get_forms2"
-        );
+        const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms2");
         setFormData(response.data);
         setFilteredData(response.data);
         setLoading(false);
+
+        // Fetch continuation data
+        const continuationResponse = await axios.get("https://backend-chess-tau.vercel.app/get_forms");
+        setContinuationRecords(continuationResponse.data);
       } catch (error) {
         console.error("Error fetching data:", error);
         setLoading(false);
@@ -96,6 +103,18 @@ const PersonalTab = () => {
     XLSX.writeFile(workbook, "SelectedData.xlsx");
   };
 
+  const handleNext = () => {
+    if (currentPage < Math.ceil(combinedData.length / itemsPerPage)) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
+
   const handleSelectAll = () => {
     if (selectAll) {
       setSelectedRows(new Set());
@@ -104,6 +123,13 @@ const PersonalTab = () => {
     }
     setSelectAll(!selectAll);
   };
+
+  // Combine formData and continuationRecords into a single array
+  const combinedData = [...formData, ...continuationRecords];
+  const paginatedData = combinedData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
     <Card>
@@ -119,137 +145,166 @@ const PersonalTab = () => {
         {loading ? (
           <p>Loading data...</p>
         ) : (
-          <Table bordered>
-            <thead>
-              <tr>
-                <th>
-                  <input
-                    type="checkbox"
-                    checked={selectAll}
-                    onChange={handleSelectAll}
-                  />
-                </th>
-                {["profile_id", "email", "phone", "year", "tabs"].map((key) => (
-                  <th key={key}>
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                      <span>{key.toUpperCase()}</span>
-                      {key !== "tabs" && (
-                        <Button
-                          color="link"
-                          size="sm"
-                          onClick={() => toggleSearchVisibility(key)}
-                        >
-                          <FaSearch />
-                        </Button>
-                      )}
-                    </div>
-                    {key === "tabs" && (
-                      <>
-                        <Button color="primary" size="sm" onClick={toggleModal} style={{ marginTop: "8px" }}>
-                          Filter Tabs
-                        </Button>
-                        <Modal isOpen={modalOpen} toggle={toggleModal}>
-                          <ModalHeader toggle={toggleModal}>Select Filter</ModalHeader>
-                          <ModalBody>
-                            <Input
-                              type="select"
-                              value={tabFilter}
-                              onChange={handleTabFilterChange}
-                            >
-                              <option value="">All</option>
-                              <option value="Website">Website</option>
-                              <option value="App">App</option>
-                            </Input>
-                          </ModalBody>
-                          <ModalFooter>
-                            <Button color="secondary" onClick={toggleModal}>
-                              Close
-                            </Button>
-                          </ModalFooter>
-                        </Modal>
-                      </>
-                    )}
-                    {searchVisibility[key] && key !== "tabs" && (
-                      <Input
-                        type="text"
-                        value={searchValues[key] || ""}
-                        placeholder={`Search ${key}`}
-                        onChange={(e) => handleSearchChange(key, e.target.value)}
-                        style={{ marginTop: "8px" }}
+          <>
+            <div style={{ overflowX: "auto" }}>
+              <Table bordered>
+                <thead>
+                  <tr>
+                    <th>
+                      <input
+                        type="checkbox"
+                        checked={selectAll}
+                        onChange={handleSelectAll}
                       />
-                    )}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {filteredData.map((record) => (
-                <tr key={record.profile_id}>
-                  <td>
-                    <input
-                      type="checkbox"
-                      checked={selectedRows.has(record.profile_id)}
-                      onChange={() => {
-                        const newSelectedRows = new Set(selectedRows);
-                        if (newSelectedRows.has(record.profile_id)) {
-                          newSelectedRows.delete(record.profile_id);
-                        } else {
-                          newSelectedRows.add(record.profile_id);
-                        }
-                        setSelectedRows(newSelectedRows);
-                      }}
-                    />
-                  </td>
-                  {["profile_id", "email", "phone", "year", "tabs"].map((key) => (
-                    <td key={key}>
-                      {key === "tabs" ? (
-                        <div>
-                          {record.Website && (
-                            <div
-                              style={{
-                                display: "inline-block",
-                                padding: "8px 16px",
-                                backgroundColor: "#007bff",
-                                color: "white",
-                                borderRadius: "4px",
-                                marginRight: "8px",
-                                fontSize: "14px",
-                                textAlign: "center",
-                                whiteSpace: "nowrap",
-                              }}
+                    </th>
+                    {["profile_id", "email", "phone", "year", "tabs"].map((key) => (
+                      <th key={key}>
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                          <span>{key.toUpperCase()}</span>
+                          {key !== "tabs" && (
+                            <Button
+                              color="link"
+                              size="sm"
+                              onClick={() => toggleSearchVisibility(key)}
                             >
-                              Website
-                            </div>
-                          )}
-                          {record.App && (
-                            <div
-                              style={{
-                                display: "inline-block",
-                                padding: "8px 16px",
-                                backgroundColor: "#007bff",
-                                color: "white",
-                                borderRadius: "4px",
-                                marginRight: "8px",
-                                fontSize: "14px",
-                                textAlign: "center",
-                                whiteSpace: "nowrap",
-                              }}
-                            >
-                              App
-                            </div>
+                              <FaSearch />
+                            </Button>
                           )}
                         </div>
-                      ) : record.hasOwnProperty(key) ? (
-                        typeof record[key] === "boolean" ? (record[key] ? "Yes" : "No") : record[key]
-                      ) : (
-                        "N/A"
-                      )}
-                    </td>
+                        {key === "tabs" && (
+                          <>
+                            <Button color="primary" size="sm" onClick={toggleModal} style={{ marginTop: "8px" }}>
+                              Filter Tabs
+                            </Button>
+                            <Modal isOpen={modalOpen} toggle={toggleModal}>
+                              <ModalHeader toggle={toggleModal}>Select Filter</ModalHeader>
+                              <ModalBody>
+                                <Input
+                                  type="select"
+                                  value={tabFilter}
+                                  onChange={handleTabFilterChange}
+                                >
+                                  <option value="">All</option>
+                                  <option value="Website">Website</option>
+                                  <option value="App">App</option>
+                                </Input>
+                              </ModalBody>
+                              <ModalFooter>
+                                <Button color="secondary" onClick={toggleModal}>
+                                  Close
+                                </Button>
+                              </ModalFooter>
+                            </Modal>
+                          </>
+                        )}
+                        {searchVisibility[key] && key !== "tabs" && (
+                          <Input
+                            type="text"
+                            value={searchValues[key] || ""}
+                            placeholder={`Search ${key}`}
+                            onChange={(e) => handleSearchChange(key, e.target.value)}
+                            style={{ marginTop: "8px" }}
+                          />
+                        )}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {paginatedData.map((record) => (
+                    <tr key={record.profile_id}>
+                      <td>
+                        <input
+                          type="checkbox"
+                          checked={selectedRows.has(record.profile_id)}
+                          onChange={() => {
+                            const newSelectedRows = new Set(selectedRows);
+                            if (newSelectedRows.has(record.profile_id)) {
+                              newSelectedRows.delete(record.profile_id);
+                            } else {
+                              newSelectedRows.add(record.profile_id);
+                            }
+                            setSelectedRows(newSelectedRows);
+                          }}
+                        />
+                      </td>
+                      {["profile_id", "email", "phone", "year", "tabs"].map((key) => (
+                        <td key={key}>
+                          {key === "tabs" ? (
+                            <div>
+                              {record.Website && (
+                                <div
+                                  style={{
+                                    display: "inline-block",
+                                    padding: "8px 16px",
+                                    backgroundColor: "#007bff",
+                                    color: "white",
+                                    borderRadius: "4px",
+                                    marginRight: "8px",
+                                    fontSize: "14px",
+                                    textAlign: "center",
+                                    whiteSpace: "nowrap",
+                                  }}
+                                >
+                                  Website
+                                </div>
+                              )}
+                              {record.App && (
+                                <div
+                                  style={{
+                                    display: "inline-block",
+                                    padding: "8px 16px",
+                                    backgroundColor: "#007bff",
+                                    color: "white",
+                                    borderRadius: "4px",
+                                    marginRight: "8px",
+                                    fontSize: "14px",
+                                    textAlign: "center",
+                                    whiteSpace: "nowrap",
+                                  }}
+                                >
+                                  App
+                                </div>
+                              )}
+                            </div>
+                          ) : record.hasOwnProperty(key) ? (
+                            typeof record[key] === "boolean" ? (record[key] ? "Yes" : "No") : record[key]
+                          ) : (
+                            "N/A"
+                          )}
+                        </td>
+                      ))}
+                    </tr>
                   ))}
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+                </tbody>
+              </Table>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: "10px",
+              }}
+            >
+              <Button
+                color="secondary"
+                onClick={handlePrevious}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </Button>
+              <span>
+                Page {currentPage} of {Math.ceil(combinedData.length / itemsPerPage)}
+              </span>
+              <Button
+                color="secondary"
+                onClick={handleNext}
+                disabled={currentPage === Math.ceil(combinedData.length / itemsPerPage)}
+              >
+                Next
+              </Button>
+            </div>
+          </>
         )}
       </CardBody>
     </Card>
