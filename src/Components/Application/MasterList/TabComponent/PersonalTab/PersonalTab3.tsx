@@ -8,8 +8,15 @@ interface FormRecord {
   profile_id: string;
   phone?: string;
   year?: string;
+  parent_name?: { first: string; last: string };
   child_name?: { first: string; last: string };
+  child_grade?: string;
+  email?: string;
+  RequestFinancialAssistance?: boolean;
   SchoolName?: string;
+  group?: string;
+  level?: string;
+  program?: string;
   [key: string]: any;
 }
 
@@ -28,10 +35,10 @@ const PersonalTab = () => {
       try {
         const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms");
         const data = response.data;
-  
+
         // Filter data for "Lombardy Elementary School"
         const lombardyData = data.filter((record: FormRecord) => record.SchoolName === "JCC_Chess_champs");
-  
+
         setFormData(lombardyData); // Set filtered data to state
         setFilteredData(lombardyData);
         setLoading(false);
@@ -42,7 +49,6 @@ const PersonalTab = () => {
     };
     fetchData();
   }, []);
-  
 
   const handleSearch = (term: string, column: string | null) => {
     setSearchTerm(term);
@@ -66,11 +72,18 @@ const PersonalTab = () => {
     );
     const ws = XLSX.utils.json_to_sheet(
       rowsToExport.map((record) => ({
-        ProfileID: record.profile_id,
+        "Sl.": record.profile_id,
+        "Parent's Name": `${record.parent_name?.first || ""} ${record.parent_name?.last || ""}`,
+        "Child's Name": `${record.child_name?.first || ""} ${record.child_name?.last || ""}`,
+        Grade: record.child_grade,
+        Email: record.email,
         Phone: record.phone,
-        Year: record.year,
-        ChildName: `${record.child_name?.first || ""} ${record.child_name?.last || ""}`,
-        SchoolName: record.SchoolName,
+        RequestFinancialAssistance: record.RequestFinancialAssistance ? "Yes" : "No",
+        "School Name": record.SchoolName,
+        group: record.group || "N/A",
+        level: record.level || "N/A",
+        Program: record.program || "N/A",
+        Year: record.year || "N/A",
       }))
     );
     const wb = XLSX.utils.book_new();
@@ -120,100 +133,133 @@ const PersonalTab = () => {
         </Button>
       </CardHeader>
       <CardBody>
-        {loading ? (
-          <p>Loading data...</p>
-        ) : (
-          <>
-            <Table bordered>
-              <thead>
-                <tr>
-                <th>
-                    <Input
-                      type="checkbox"
-                      onChange={(e) =>
-                        setSelectedRows(
-                          e.target.checked
-                            ? new Set(filteredData.map((record) => record.profile_id))
-                            : new Set()
-                        )
-                      }
-                      checked={
-                        selectedRows.size > 0 &&
-                        selectedRows.size === filteredData.length
+  {loading ? (
+    <p>Loading data...</p>
+  ) : (
+    <>
+      <div style={{ overflowX: "auto" }}>
+        <Table bordered>
+          <thead>
+            <tr>
+              <th>
+                <Input
+                  type="checkbox"
+                  onChange={(e) =>
+                    setSelectedRows(
+                      e.target.checked
+                        ? new Set(filteredData.map((record) => record.profile_id))
+                        : new Set()
+                    )
+                  }
+                  checked={
+                    selectedRows.size > 0 &&
+                    selectedRows.size === filteredData.length
+                  }
+                />
+              </th>
+              <th>Sl.</th>
+              {[
+                "profile_id",
+                "parent_name",
+                "child_name",
+                "child_grade",
+                "email",
+                "phone",
+                "RequestFinancialAssistance",
+                "SchoolName",
+                "Group",
+                "Level",
+                "program",
+                "year",
+              ].map((column) => (
+                <th key={column}>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    {column.replace(/_/g, " ")}{" "}
+                    <FaSearch
+                      style={{ marginLeft: "8px", cursor: "pointer" }}
+                      onClick={() =>
+                        setActiveColumn(column === activeColumn ? null : column)
                       }
                     />
-                  </th>
-                  <th>Si No.</th>
-                  
-                  {["profile_id", "phone", "year", "child_name", "SchoolName"].map((column) => (
-                    <th key={column}>
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        {column.replace("_", " ")}{" "}
-                        <FaSearch
-                          style={{ marginLeft: "8px", cursor: "pointer" }}
-                          onClick={() => setActiveColumn(column === activeColumn ? null : column)}
-                        />
-                      </div>
-                      {activeColumn === column && (
-                        <Input
-                          type="text"
-                          placeholder={`Search ${column.replace("_", " ")}...`}
-                          value={searchTerm}
-                          onChange={(e) => handleSearch(e.target.value, column)}
-                          style={{ marginTop: "5px" }}
-                        />
-                      )}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {paginatedData.map((record, index) => (
-                  <tr key={record.profile_id}>
-                     <td>
-                      <Input
-                        type="checkbox"
-                        checked={selectedRows.has(record.profile_id)}
-                        onChange={() => handleSelectRow(record.profile_id)}
-                      />
-                    </td>
-                    <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
-                   
-                    <td>{record.profile_id}</td>
-                    <td>{record.phone || "N/A"}</td>
-                    <td>{record.year || "N/A"}</td>
-                    <td>
-                      {record.child_name
-                        ? `${record.child_name.first || ""} ${record.child_name.last || ""}`.trim()
-                        : "N/A"}
-                    </td>
-                    <td>{record.SchoolName || "N/A"}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-            <div style={{ display: "flex", justifyContent: "space-between", marginTop: "10px" }}>
-              <Button
-                color="secondary"
-                onClick={handlePrevious}
-                disabled={currentPage === 1}
-              >
-                Previous
-              </Button>
-              <span>
-                Page {currentPage} of {Math.ceil(filteredData.length / itemsPerPage)}
-              </span>
-              <Button
-                color="secondary"
-                onClick={handleNext}
-                disabled={currentPage === Math.ceil(filteredData.length / itemsPerPage)}
-              >
-                Next
-              </Button>
-            </div>
-          </>
-        )}
-      </CardBody>
+                  </div>
+                  {activeColumn === column && (
+                    <Input
+                      type="text"
+                      placeholder={`Search ${column.replace(/_/g, " ")}...`}
+                      value={searchTerm}
+                      onChange={(e) => handleSearch(e.target.value, column)}
+                      style={{ marginTop: "5px" }}
+                    />
+                  )}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {paginatedData.map((record, index) => (
+              <tr key={record.profile_id}>
+                <td>
+                  <Input
+                    type="checkbox"
+                    checked={selectedRows.has(record.profile_id)}
+                    onChange={() => handleSelectRow(record.profile_id)}
+                  />
+                </td>
+                <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
+                <td>{record.profile_id}</td>
+                <td>
+                  {record.parent_name
+                    ? `${record.parent_name.first || ""} ${record.parent_name.last || ""}`
+                    : "N/A"}
+                </td>
+                <td>
+                  {record.child_name
+                    ? `${record.child_name.first || ""} ${record.child_name.last || ""}`
+                    : "N/A"}
+                </td>
+                <td>{record.child_grade || "N/A"}</td>
+                <td>{record.email || "N/A"}</td>
+                <td>{record.phone || "N/A"}</td>
+                <td>{record.RequestFinancialAssistance ? "Yes" : "No"}</td>
+                <td>{record.SchoolName || "N/A"}</td>
+                <td>{record.Group || "N/A"}</td>
+                <td>{record.Level || "N/A"}</td>
+                <td>{record.program || "N/A"}</td>
+                <td>{record.year || "N/A"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "10px",
+        }}
+      >
+        <Button
+          color="secondary"
+          onClick={handlePrevious}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </Button>
+        <span>
+          Page {currentPage} of {Math.ceil(filteredData.length / itemsPerPage)}
+        </span>
+        <Button
+          color="secondary"
+          onClick={handleNext}
+          disabled={currentPage === Math.ceil(filteredData.length / itemsPerPage)}
+        >
+          Next
+        </Button>
+      </div>
+    </>
+  )}
+</CardBody>
+
     </Card>
   );
 };
