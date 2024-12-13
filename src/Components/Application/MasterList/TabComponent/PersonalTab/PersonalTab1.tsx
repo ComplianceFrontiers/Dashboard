@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardHeader, Table, Button, Input } from "reactstrap";
-import { FaSearch } from "react-icons/fa"; // Import search icon
+import { FaSearch, FaTrashAlt } from "react-icons/fa"; // Import search and trash icons
 import axios from "axios";
 import * as XLSX from "xlsx";
-import ProfileModal from "./ProfileModal"; // Make sure this component exists
+import ProfileModal from "./ProfileModal"; // Ensure this component exists
 
 interface FormRecord {
   profile_id: string;
@@ -25,12 +25,12 @@ const PersonalTab = () => {
   const [formData, setFormData] = useState<FormRecord[]>([]);
   const [filteredData, setFilteredData] = useState<FormRecord[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeColumn, setActiveColumn] = useState<string | null>(null); // Track active search column
+  const [activeColumn, setActiveColumn] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const itemsPerPage = 10;
-  const [isModalOpen, setIsModalOpen] = useState(false);  // To control the modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProfileId, setSelectedProfileId] = useState<string>("");
 
   useEffect(() => {
@@ -39,10 +39,9 @@ const PersonalTab = () => {
         const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms");
         const data = response.data;
 
-        // Filter data for "Mount Pleasant Elementary School"
         const lombardyData = data.filter((record: FormRecord) => record.SchoolName === "Mount Pleasant Elementary School");
 
-        setFormData(lombardyData); // Set filtered data to state
+        setFormData(lombardyData);
         setFilteredData(lombardyData);
         setLoading(false);
       } catch (error) {
@@ -52,6 +51,31 @@ const PersonalTab = () => {
     };
     fetchData();
   }, []);
+
+  const deleteProfile = async (profileId: string) => {
+    if (window.confirm("Are you sure you want to delete this profile?")) {
+      try {
+        // Send a list containing a single profile ID
+        const response = await axios.delete(
+          `https://backend-chess-tau.vercel.app/delete_records_by_profile_ids`, 
+          { data: { profile_ids: [profileId] } }
+        );
+  
+        // Handle the response appropriately
+        if (response.data.deleted_profiles.includes(profileId)) {
+          setFormData((prev) => prev.filter((record) => record.profile_id !== profileId));
+          setFilteredData((prev) => prev.filter((record) => record.profile_id !== profileId));
+          alert("Profile deleted successfully.");
+        } else {
+          alert(`Profile ID ${profileId} not found.`);
+        }
+      } catch (error) {
+        console.error("Error deleting profile:", error);
+        alert("Failed to delete profile.");
+      }
+    }
+  };
+  
 
   const handleSearch = (term: string, column: string | null) => {
     setSearchTerm(term);
@@ -66,9 +90,8 @@ const PersonalTab = () => {
         : true
     );
     setFilteredData(filtered);
-    setCurrentPage(1); // Reset to the first page on search
+    setCurrentPage(1);
   };
-
   const exportToExcel = () => {
     const rowsToExport = filteredData.filter((record) =>
       selectedRows.has(record.profile_id)
@@ -140,7 +163,7 @@ const PersonalTab = () => {
           <Button
             color="primary"
             onClick={exportToExcel}
-            disabled={selectedRows.size === 0} // Disable button if no rows are selected
+            disabled={selectedRows.size === 0}
           >
             Export to Excel
           </Button>
@@ -205,7 +228,9 @@ const PersonalTab = () => {
                             style={{ marginTop: "5px" }}
                           />
                         )}
+                         <th>Actions</th>
                       </th>
+                      
                     ))}
                   </tr>
                 </thead>
@@ -220,6 +245,7 @@ const PersonalTab = () => {
                         />
                       </td>
                       <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
+                      {/* (Your existing table data here) */}
                       <td>
                         <a
                           href="#"
@@ -247,6 +273,13 @@ const PersonalTab = () => {
                       <td>{record.level || "N/A"}</td>
                       <td>{record.program || "N/A"}</td>
                       <td>{record.year || "N/A"}</td>
+                      <td>
+                        <FaTrashAlt
+                          style={{ color: "red", cursor: "pointer" }}
+                          onClick={() => deleteProfile(record.profile_id)}
+                          title="Delete"
+                        />
+                      </td>
                     </tr>
                   ))}
                 </tbody>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardHeader, Table, Button, Input } from "reactstrap";
-import { FaSearch } from "react-icons/fa"; // Import search icon
+import { FaSearch, FaTrashAlt } from "react-icons/fa"; // Import search and trash icons
 import axios from "axios";
 import * as XLSX from "xlsx";
 import ProfileModal from "./ProfileModal"; // Make sure this component exists
@@ -25,7 +25,7 @@ interface FormRecord {
 const PersonalTab = () => {
   const [formData, setFormData] = useState<FormRecord[]>([]);
   const [filteredData, setFilteredData] = useState<FormRecord[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");  
   const [activeColumn, setActiveColumn] = useState<string | null>(null); // Track active search column
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -54,6 +54,29 @@ const PersonalTab = () => {
     };
     fetchData();
   }, []);
+    const deleteProfile = async (profileId: string) => {
+      if (window.confirm("Are you sure you want to delete this profile?")) {
+        try {
+          // Send a list containing a single profile ID
+          const response = await axios.delete(
+            `https://backend-chess-tau.vercel.app/delete_records_by_profile_ids`, 
+            { data: { profile_ids: [profileId] } }
+          );
+    
+          // Handle the response appropriately
+          if (response.data.deleted_profiles.includes(profileId)) {
+            setFormData((prev) => prev.filter((record) => record.profile_id !== profileId));
+            setFilteredData((prev) => prev.filter((record) => record.profile_id !== profileId));
+            alert("Profile deleted successfully.");
+          } else {
+            alert(`Profile ID ${profileId} not found.`);
+          }
+        } catch (error) {
+          console.error("Error deleting profile:", error);
+          alert("Failed to delete profile.");
+        }
+      }
+    };
 
   const handleSearch = (term: string, column: string | null) => {
     setSearchTerm(term);
@@ -208,6 +231,8 @@ const PersonalTab = () => {
                       style={{ marginTop: "5px" }}
                     />
                   )}
+                                           <th>Actions</th>
+
                 </th>
               ))}
             </tr>
@@ -257,8 +282,14 @@ const PersonalTab = () => {
                 <td>{record.Group || "N/A"}</td>
                 <td>{record.Level || "N/A"}</td>
                 <td>{record.program || "N/A"}</td>
-                <td>{record.year || "N/A"}</td>
-              </tr>
+ <td>{record.year || "N/A"}</td>
+                      <td>
+                        <FaTrashAlt
+                          style={{ color: "red", cursor: "pointer" }}
+                          onClick={() => deleteProfile(record.profile_id)}
+                          title="Delete"
+                        />
+                      </td>              </tr>
             ))}
           </tbody>
         </Table>
