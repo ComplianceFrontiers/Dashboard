@@ -180,7 +180,7 @@ const PersonalTab = () => {
                {searchVisibility[column] && (
                  <Input
                    type="text"
-                   placeholder={`Search by ${column}`}
+                   placeholder={`${column}`}
                    onChange={(e) => handleSearchChange(column, e.target.value)}
                    style={{ width: "100%",height:"10%" ,padding:"0px 0px"}}
                  />

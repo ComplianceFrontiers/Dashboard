@@ -224,13 +224,14 @@ const PersonalTab = () => {
                       placeholder={`Search ${column.replace(/_/g, " ")}...`}
                       value={searchTerm}
                       onChange={(e) => handleSearch(e.target.value, column)}
-                      style={{ marginTop: "5px" }}
-                    />
+                      style={{ marginTop: "5px" ,padding : "0px 0px"}}
+                      />
                   )}
-                                           <th>Actions</th>
+                                         
 
                 </th>
               ))}
+                <th>Actions</th>
             </tr>
           </thead>
           <tbody>
