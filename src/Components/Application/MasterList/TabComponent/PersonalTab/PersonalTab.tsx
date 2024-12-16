@@ -169,7 +169,22 @@ const PersonalTab = () => {
                   </div>
                 </th>
               ))}
-              <th>Tabs</th>
+               <th>
+                Tabs
+                <div style={{ marginTop: "5px" }}>
+                  <select
+                    onChange={(e) => handleSearchChange("tabs", e.target.value)}
+                    style={{ width: "100%" }}
+                  >
+                    <option value="">All</option>
+                    <option value="Website">Website</option>
+                    <option value="App">App</option>
+                    <option value="Mpes">Mpes</option>
+                    <option value="Lombardy">Lombardy</option>
+                    <option value="JCC">JCC</option>
+                  </select>
+                </div>
+              </th>
               <th>Actions</th>
             </tr>
           </thead>
