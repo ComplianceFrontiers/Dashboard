@@ -44,20 +44,31 @@ const PersonalTab = () => {
     fetchData();
   }, []);
 
-  // Memoizing filtered data to prevent unnecessary recalculations
   const filteredRecords = useMemo(() => {
-    return formData.filter((record) =>
-      Object.entries(searchFilters).every(([key, filterValue]) => {
-        const recordValue = record[key];
-        return filterValue === "" || (recordValue && recordValue.toString().toLowerCase().includes(filterValue.toLowerCase()));
-      })
-    );
+    return formData.filter((record) => {
+      // Apply filters for each column based on searchFilters
+      return Object.entries(searchFilters).every(([key, value]) => {
+        // Handle "Tabs" column filter
+        if (key === 'tabs' && value) {
+          // Check if any of the tab values are true for the selected filter
+          return record[value as keyof FormRecord] === true;
+        }
+        // For other columns, use the original filter logic
+        const recordValue = record[key as keyof FormRecord];
+        return value === "" || (recordValue && recordValue.toString().toLowerCase().includes(value.toLowerCase()));
+      });
+    });
   }, [formData, searchFilters]);
-
+  
+  // Handle search changes for all columns
   const handleSearchChange = (column: string, value: string) => {
-    setSearchFilters((prev) => ({ ...prev, [column]: value }));
+    setSearchFilters((prev) => ({
+      ...prev,
+      [column]: value, // Update search filter for the specific column
+    }));
     setCurrentPage(1); // Reset to the first page when filtering
   };
+  
 
   const deleteProfile = async (profileId: string) => {
     if (window.confirm("Are you sure you want to delete this profile?")) {
@@ -179,9 +190,9 @@ const PersonalTab = () => {
                     <option value="">All</option>
                     <option value="Website">Website</option>
                     <option value="App">App</option>
-                    <option value="Mpes">Mpes</option>
-                    <option value="Lombardy">Lombardy</option>
-                    <option value="JCC">JCC</option>
+                    <option value="mpes">Mpes</option>
+                    <option value="lombardy">Lombardy</option>
+                    <option value="jcc">JCC</option>
                   </select>
                 </div>
               </th>
