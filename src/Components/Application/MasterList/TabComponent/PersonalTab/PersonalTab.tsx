@@ -182,7 +182,7 @@ const PersonalTab = () => {
                    type="text"
                    placeholder={`Search by ${column}`}
                    onChange={(e) => handleSearchChange(column, e.target.value)}
-                   style={{ width: "100%",height:"10%" }}
+                   style={{ width: "100%",height:"10%" ,padding:"0px 0px"}}
                  />
                )}
              </th>
