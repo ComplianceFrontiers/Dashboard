@@ -162,23 +162,31 @@ const PersonalTab = () => {
                 <Input type="checkbox" checked={selectAll} onChange={handleSelectAll} />
               </th>
               {["profile_id", "email", "phone", "year"].map((column) => (
-                <th key={column}>
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    {column.charAt(0).toUpperCase() + column.slice(1)}
-                    <FaSearch
-                      style={{ cursor: "pointer", marginRight: "10px" }}
-                      onClick={() => toggleSearchInput(column)}
-                    />
-                    {searchVisibility[column] && (
-                      <Input
-                        type="text"
-                        placeholder={`Search by ${column}`}
-                        onChange={(e) => handleSearchChange(column, e.target.value)}
-                        style={{ marginLeft: "10px" }}
-                      />
-                    )}
-                  </div>
-                </th>
+               <th key={column}>
+               <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                 {/* Column Name */}
+                 <span style={{ marginRight: "10px" }}>
+                   {column.charAt(0).toUpperCase() + column.slice(1)}
+                 </span>
+                 
+                 {/* Search Icon */}
+                 <FaSearch
+                   style={{ cursor: "pointer", marginRight: "10px" }}
+                   onClick={() => toggleSearchInput(column)}
+                 />
+               </div>
+             
+               {/* Conditionally render the search input below the header */}
+               {searchVisibility[column] && (
+                 <Input
+                   type="text"
+                   placeholder={`Search by ${column}`}
+                   onChange={(e) => handleSearchChange(column, e.target.value)}
+                   style={{ width: "100%",height:"10%" }}
+                 />
+               )}
+             </th>
+             
               ))}
                <th>
                 Tabs
