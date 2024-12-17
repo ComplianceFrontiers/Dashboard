@@ -19,9 +19,22 @@ const MasterList = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  
+  const titles: { [key: string]: string } = {
+    "1": "Master List",
+    "2": "Organization",
+    "3": "MPES After School",
+    "4": "Lombardy After School",
+    "5": "JCC Chess Champs",
+    "6": "Website",
+    "7": "Club Registration-Delaware",
+    "8": "Chess Champs App",
+  };
+
   return (
     <>
-      <Breadcrumbs mainTitle={activeTab} parent={Apps} />
+      <Breadcrumbs mainTitle={titles[activeTab] || activeTab} parent={Apps} />
+
       <Container fluid className="email-wrap bookmark-wrap">
         <Row>
           <Col xl="3" className="box-col-6" style={{ position: 'relative' }}>

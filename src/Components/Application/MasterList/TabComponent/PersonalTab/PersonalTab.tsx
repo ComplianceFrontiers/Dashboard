@@ -9,7 +9,6 @@ interface FormRecord {
   profile_id: string;
   email?: string;
   phone?: string;
-  year?: string;
   Website?: boolean;
   App?: boolean;
   mpes?: boolean;
@@ -40,35 +39,28 @@ const PersonalTab = () => {
         console.error("Error fetching data:", error);
       }
     };
-
     fetchData();
   }, []);
 
   const filteredRecords = useMemo(() => {
     return formData.filter((record) => {
-      // Apply filters for each column based on searchFilters
       return Object.entries(searchFilters).every(([key, value]) => {
-        // Handle "Tabs" column filter
         if (key === 'tabs' && value) {
-          // Check if any of the tab values are true for the selected filter
           return record[value as keyof FormRecord] === true;
         }
-        // For other columns, use the original filter logic
         const recordValue = record[key as keyof FormRecord];
         return value === "" || (recordValue && recordValue.toString().toLowerCase().includes(value.toLowerCase()));
       });
     });
   }, [formData, searchFilters]);
-  
-  // Handle search changes for all columns
+
   const handleSearchChange = (column: string, value: string) => {
     setSearchFilters((prev) => ({
       ...prev,
-      [column]: value, // Update search filter for the specific column
+      [column]: value,
     }));
-    setCurrentPage(1); // Reset to the first page when filtering
+    setCurrentPage(1);
   };
-  
 
   const deleteProfile = async (profileId: string) => {
     if (window.confirm("Are you sure you want to delete this profile?")) {
@@ -162,33 +154,27 @@ const PersonalTab = () => {
                 <Input type="checkbox" checked={selectAll} onChange={handleSelectAll} />
               </th>
               {["profile_id", "email", "phone"].map((column) => (
-               <th key={column}>
-               <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-                 {/* Column Name */}
-                 <span style={{ marginRight: "10px" }}>
-                   {column.charAt(0).toUpperCase() + column.slice(1)}
-                 </span>
-                 
-                 {/* Search Icon */}
-                 <FaSearch
-                   style={{ cursor: "pointer", marginRight: "10px" }}
-                   onClick={() => toggleSearchInput(column)}
-                 />
-               </div>
-             
-               {/* Conditionally render the search input below the header */}
-               {searchVisibility[column] && (
-                 <Input
-                   type="text"
-                   placeholder={`${column}`}
-                   onChange={(e) => handleSearchChange(column, e.target.value)}
-                   style={{ width: "100%",height:"10%" ,padding:"0px 0px"}}
-                 />
-               )}
-             </th>
-             
+                <th key={column}>
+                  <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                    <span style={{ marginRight: "10px" }}>
+                      {column.charAt(0).toUpperCase() + column.slice(1)}
+                    </span>
+                    <FaSearch
+                      style={{ cursor: "pointer", marginRight: "10px" }}
+                      onClick={() => toggleSearchInput(column)}
+                    />
+                  </div>
+                  {searchVisibility[column] && (
+                    <Input
+                      type="text"
+                      placeholder={`${column}`}
+                      onChange={(e) => handleSearchChange(column, e.target.value)}
+                      style={{ width: "100%", height: "10%", padding: "0px 0px" }}
+                    />
+                  )}
+                </th>
               ))}
-               <th>
+              <th>
                 Tabs
                 <div style={{ marginTop: "5px" }}>
                   <select
@@ -228,14 +214,12 @@ const PersonalTab = () => {
                 </td>
                 <td>{record.email || "N/A"}</td>
                 <td>{record.phone || "N/A"}</td>
-                <td>{record.year || "N/A"}</td>
                 <td>
                   {record.Website && <span className="badge bg-primary">Website</span>}
                   {record.App && <span className="badge bg-primary">App</span>}
                   {record.mpes && <span className="badge bg-primary">Mpes</span>}
                   {record.lombardy && <span className="badge bg-primary">Lombardy</span>}
                   {record.jcc && <span className="badge bg-primary">JCC</span>}
-
                 </td>
                 <td>
                   <FaTrashAlt
@@ -253,6 +237,7 @@ const PersonalTab = () => {
             Previous
           </Button>
           <span>
+
             Page {currentPage} of {Math.ceil(filteredRecords.length / itemsPerPage)}
           </span>
           <Button
