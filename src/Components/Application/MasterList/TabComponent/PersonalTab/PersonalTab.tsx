@@ -161,7 +161,7 @@ const PersonalTab = () => {
               <th>
                 <Input type="checkbox" checked={selectAll} onChange={handleSelectAll} />
               </th>
-              {["profile_id", "email", "phone", "year"].map((column) => (
+              {["profile_id", "email", "phone"].map((column) => (
                <th key={column}>
                <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
                  {/* Column Name */}

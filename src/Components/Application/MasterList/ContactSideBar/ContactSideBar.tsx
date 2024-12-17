@@ -19,7 +19,7 @@ const ContactSideBar:React.FC<ContactSidebarCallbackProp> = ({ callback }) => {
           <Card>
             <CardBody className="custom-scrollbar">
               <div className="email-app-sidebar left-bookmark">
-                <div className="d-flex flex-wrap">
+                {/* <div className="d-flex flex-wrap">
                   <div className="media-size-email">
                     <Image width={38} height={38} className="me-2 rounded-circle" src={`${ImagePath}/user/4.jpg`} alt="users"/>
                   </div>
@@ -27,7 +27,7 @@ const ContactSideBar:React.FC<ContactSidebarCallbackProp> = ({ callback }) => {
                     <h3 className='f-w-600 f-16'>{'MARK JENCO'}</h3>
                     <p>{'Markjecno@gmail.com'}</p>
                   </div>
-                </div>
+                </div> */}
                 <NavComponent callbackActive={callback} />
               </div>
             </CardBody>
