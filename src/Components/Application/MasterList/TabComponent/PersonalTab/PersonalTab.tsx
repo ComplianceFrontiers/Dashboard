@@ -136,7 +136,7 @@ const PersonalTab = () => {
     <Card>
       <CardHeader>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <h4>Master List</h4>
+          <h4></h4>
           <Button
             color="primary"
             onClick={handleExportToExcel}

@@ -158,7 +158,7 @@ const PersonalTab = () => {
       <CardHeader>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
 
-        <h4>JCC After School</h4>
+        <h4></h4>
         <Button
           color="primary"
           onClick={exportToExcel}
