@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardHeader, Table, Button, Input } from "reactstrap";
 import { FaSearch, FaTrashAlt } from "react-icons/fa"; // Import search and trash icons
@@ -158,7 +159,7 @@ const PersonalTab = () => {
       <CardHeader>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
 
-        <h4></h4>
+        <h4>JCC List</h4>
         <Button
           color="primary"
           onClick={exportToExcel}

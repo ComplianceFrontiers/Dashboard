@@ -106,9 +106,10 @@ export const MenuList: MenuItem[] = [
         type: "sub",
         active: false,
         children: [
-          { path: `/masterlist/mpes`, type: "link", title: "Master List" },
-          { path: `/users/useredit`, type: "link", title: "User Edit" },
-          { path: `/users/cards`, type: "link", title: "User Cards" },
+          { path: `/masterlist/master`, type: "link", title: "Master List" },
+          { path: `/masterlist/mpes`, type: "link", title: "MPES List" },
+          { path: `/masterlist/lombardy`, type: "link", title: "Lombardy List" },
+          { path: `/masterlist/jcc`, type: "link", title: "JCC List" },
         ],
       },
       // { path: `/app/MasterList`, title: "MasterList", icon: "Contacts", type: "link", id: 11, active: false },

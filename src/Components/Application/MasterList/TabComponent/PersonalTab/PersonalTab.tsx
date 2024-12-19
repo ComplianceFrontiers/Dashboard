@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect, useMemo } from "react";
 import { Card, CardBody, CardHeader, Table, Button, Input } from "reactstrap";
 import { FaSearch, FaTrashAlt } from "react-icons/fa";
@@ -97,16 +98,19 @@ const PersonalTab = () => {
 
   const handleSelectAll = () => {
     const updatedSelectedRows = new Set(selectedRows);
-    paginatedData.forEach((record) => {
-      if (selectAll) {
-        updatedSelectedRows.delete(record.profile_id);
-      } else {
-        updatedSelectedRows.add(record.profile_id);
-      }
-    });
+  
+    if (selectAll) {
+      // Deselect all items
+      filteredRecords.forEach((record) => updatedSelectedRows.delete(record.profile_id));
+    } else {
+      // Select all items
+      filteredRecords.forEach((record) => updatedSelectedRows.add(record.profile_id));
+    }
+  
     setSelectedRows(updatedSelectedRows);
     setSelectAll(!selectAll);
   };
+  
 
   const handleRowSelect = (id: string) => {
     setSelectedRows((prev) => {
@@ -136,7 +140,7 @@ const PersonalTab = () => {
     <Card>
       <CardHeader>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <h4></h4>
+        <h4>Master List</h4>
           <Button
             color="primary"
             onClick={handleExportToExcel}
@@ -197,11 +201,12 @@ const PersonalTab = () => {
             {paginatedData.map((record) => (
               <tr key={record.profile_id}>
                 <td>
-                  <Input
-                    type="checkbox"
-                    checked={selectedRows.has(record.profile_id)}
-                    onChange={() => handleRowSelect(record.profile_id)}
-                  />
+                <Input
+                  type="checkbox"
+                  checked={selectAll || selectedRows.size === filteredRecords.length}
+                  onChange={handleSelectAll}
+                />
+
                 </td>
                 <td
                   style={{ cursor: "pointer", color: "blue" }}
