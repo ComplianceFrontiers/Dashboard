@@ -97,19 +97,15 @@ const PersonalTab = () => {
   };
 
   const handleSelectAll = () => {
-    const updatedSelectedRows = new Set(selectedRows);
-  
     if (selectAll) {
-      // Deselect all items
-      filteredRecords.forEach((record) => updatedSelectedRows.delete(record.profile_id));
+      setSelectedRows(new Set());
     } else {
-      // Select all items
-      filteredRecords.forEach((record) => updatedSelectedRows.add(record.profile_id));
+      const allRowIds = filteredRecords.map((record) => record.profile_id);
+      setSelectedRows(new Set(allRowIds));
     }
-  
-    setSelectedRows(updatedSelectedRows);
     setSelectAll(!selectAll);
   };
+  
   
 
   const handleRowSelect = (id: string) => {
@@ -119,7 +115,7 @@ const PersonalTab = () => {
       return updated;
     });
   };
-
+  
   const toggleSearchInput = (column: string) => {
     setSearchVisibility((prev) => ({ ...prev, [column]: !prev[column] }));
   };
@@ -198,44 +194,44 @@ const PersonalTab = () => {
             </tr>
           </thead>
           <tbody>
-            {paginatedData.map((record) => (
-              <tr key={record.profile_id}>
-                <td>
-                <Input
-                  type="checkbox"
-                  checked={selectAll || selectedRows.size === filteredRecords.length}
-                  onChange={handleSelectAll}
-                />
+  {paginatedData.map((record) => (
+    <tr key={record.profile_id}>
+      <td>
+        <Input
+          type="checkbox"
+          checked={selectedRows.has(record.profile_id)}
+          onChange={() => handleRowSelect(record.profile_id)}
+        />
+      </td>
+      <td
+        style={{ cursor: "pointer", color: "blue" }}
+        onClick={() => {
+          setSelectedProfileId(record.profile_id);
+          setIsModalOpen(true);
+        }}
+      >
+        {record.profile_id}
+      </td>
+      <td>{record.email || "N/A"}</td>
+      <td>{record.phone || "N/A"}</td>
+      <td>
+        {record.Website && <span className="badge bg-primary">Website</span>}
+        {record.App && <span className="badge bg-primary">App</span>}
+        {record.mpes && <span className="badge bg-primary">Mpes</span>}
+        {record.lombardy && <span className="badge bg-primary">Lombardy</span>}
+        {record.jcc && <span className="badge bg-primary">JCC</span>}
+      </td>
+      <td>
+        <FaTrashAlt
+          style={{ color: "red", cursor: "pointer" }}
+          onClick={() => deleteProfile(record.profile_id)}
+          title="Delete"
+        />
+      </td>
+    </tr>
+  ))}
+</tbody>
 
-                </td>
-                <td
-                  style={{ cursor: "pointer", color: "blue" }}
-                  onClick={() => {
-                    setSelectedProfileId(record.profile_id);
-                    setIsModalOpen(true);
-                  }}
-                >
-                  {record.profile_id}
-                </td>
-                <td>{record.email || "N/A"}</td>
-                <td>{record.phone || "N/A"}</td>
-                <td>
-                  {record.Website && <span className="badge bg-primary">Website</span>}
-                  {record.App && <span className="badge bg-primary">App</span>}
-                  {record.mpes && <span className="badge bg-primary">Mpes</span>}
-                  {record.lombardy && <span className="badge bg-primary">Lombardy</span>}
-                  {record.jcc && <span className="badge bg-primary">JCC</span>}
-                </td>
-                <td>
-                  <FaTrashAlt
-                    style={{ color: "red", cursor: "pointer" }}
-                    onClick={() => deleteProfile(record.profile_id)}
-                    title="Delete"
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
         </Table>
         <div style={{ display: "flex", justifyContent: "space-between", marginTop: "10px" }}>
           <Button color="secondary" onClick={() => handlePagination("previous")} disabled={currentPage === 1}>
