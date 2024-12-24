@@ -21,6 +21,9 @@ interface ProfileData {
     registered_inschool_courses?: Array<{ course_title: string, status: string, completed: number }>; // New field
     year?: number; // New field
     lombardy?: boolean; // New field
+    onlinePurchase?:boolean;
+    online?:boolean;
+    stripe?:string;
   }
   
 
@@ -71,6 +74,9 @@ interface ProfileModalProps1 {
       <p><strong>Session ID:</strong> {profileData.session_id}</p>
       <p><strong>Year:</strong> {profileData.year}</p>
       <p><strong>Lombardy:</strong> {profileData.lombardy ? "Yes" : "No"}</p>
+      <p><strong>Online:</strong> {profileData.online ? "true" : "false"}</p>
+      <p><strong>Online Purchase:</strong> {profileData.onlinePurchase ? "true" : "false"}</p>
+      <p><strong>Purchased though:</strong> {profileData.stripe}</p>
       
       {/* Display the courses */}
       {profileData.registered_inschool_courses && profileData.registered_inschool_courses.length > 0 && (

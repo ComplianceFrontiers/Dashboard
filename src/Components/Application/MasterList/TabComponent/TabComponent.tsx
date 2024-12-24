@@ -9,6 +9,7 @@ import { ContactNavProps } from '@/Type/Application/MasterList/MasterList'
 import PersonalTab1 from './PersonalTab/PersonalTab1'
 import PersonalTab2 from './PersonalTab/PersonalTab2'
 import PersonalTab3 from './PersonalTab/PersonalTab3'
+import PersonalTab4 from './PersonalTab/PersonalTab4'
 
 const TabComponent: React.FunctionComponent<ContactNavProps> = ({ activeTab }): React.ReactElement => {
   const {users} = useAppSelector((state)=>state.contact)
@@ -33,7 +34,7 @@ const TabComponent: React.FunctionComponent<ContactNavProps> = ({ activeTab }): 
             <PersonalTab3 />
             </TabPane>
             <TabPane tabId="6">
-              <NoDataFoundClass title={Important} />
+            <PersonalTab4 />
             </TabPane>
             <TabPane tabId="7">
               <NoDataFoundClass title={Business} />

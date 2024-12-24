@@ -110,6 +110,7 @@ export const MenuList: MenuItem[] = [
           { path: `/masterlist/mpes`, type: "link", title: "MPES List" },
           { path: `/masterlist/lombardy`, type: "link", title: "Lombardy List" },
           { path: `/masterlist/jcc`, type: "link", title: "JCC List" },
+          { path: `/masterlist/online-users`, type: "link", title: "Online Users List" },
         ],
       },
       // { path: `/app/MasterList`, title: "MasterList", icon: "Contacts", type: "link", id: 11, active: false },

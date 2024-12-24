@@ -14,6 +14,7 @@ interface FormRecord {
   App?: boolean;
   mpes?: boolean;
   Lombardy?: boolean;
+  online?:boolean;
   [key: string]: string | boolean | undefined;
 }
 
@@ -187,6 +188,7 @@ const PersonalTab = () => {
                     <option value="mpes">Mpes</option>
                     <option value="lombardy">Lombardy</option>
                     <option value="jcc">JCC</option>
+                    <option value="online">Online</option>
                   </select>
                 </div>
               </th>
@@ -220,6 +222,8 @@ const PersonalTab = () => {
         {record.mpes && <span className="badge bg-primary">Mpes</span>}
         {record.lombardy && <span className="badge bg-primary">Lombardy</span>}
         {record.jcc && <span className="badge bg-primary">JCC</span>}
+        {record.online && <span className="badge bg-primary">Online</span>}
+
       </td>
       <td>
         <FaTrashAlt
