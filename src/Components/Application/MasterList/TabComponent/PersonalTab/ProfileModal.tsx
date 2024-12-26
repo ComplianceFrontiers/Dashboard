@@ -32,7 +32,7 @@ interface ProfileData {
     uscf_expiration_date?:string;
     New_Jersey_Chess_Tournament?:boolean;
     New_Jersey_Masterclass?:boolean;
-    Bear_Middletown_Chess_Tournamen?:boolean;
+    Bear_Middletown_Chess_Tournament?:boolean;
     
   }
   
@@ -102,7 +102,7 @@ interface ProfileModalProps1 {
     <strong>New Jersey Masterclass:</strong> {profileData.New_Jersey_Masterclass ? "Yes" : "No"}
   </p>
   <p>
-    <strong>Bear Middletown Chess Tournament:</strong> {profileData.Bear_Middletown_Chess_Tournamen ? "Yes" : "No"}
+    <strong>Bear/Middletown Chess Tournament:</strong> {profileData.Bear_Middletown_Chess_Tournament ? "Yes" : "No"}
   </p>
 </div>
 
