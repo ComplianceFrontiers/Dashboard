@@ -24,7 +24,16 @@ interface ProfileData {
     onlinePurchase?:boolean;
     online?:boolean;
     stripe?:string;
+    program?:string;
+    category?:string;
+    section?:string;
     USCF_Rating?:string;
+    uscf_id?:string;
+    uscf_expiration_date?:string;
+    New_Jersey_Chess_Tournament?:boolean;
+    New_Jersey_Masterclass?:boolean;
+    Bear_Middletown_Chess_Tournamen?:boolean;
+    
   }
   
 
@@ -70,6 +79,7 @@ interface ProfileModalProps1 {
       <p><strong>Request Financial Assistance:</strong> {profileData.requestFinancialAssistance ? "Yes" : "No"}</p>
       <p><strong>Group:</strong> {profileData.group}</p>
       <p><strong>Level:</strong> {profileData.level}</p>
+      <p><strong>Program:</strong> {profileData.program}</p>
       <p><strong>Payment Status:</strong> {profileData.payment_status}</p>
       <p><strong>Device Name:</strong> {profileData.device_name}</p>
       <p><strong>Session ID:</strong> {profileData.session_id}</p>
@@ -79,6 +89,23 @@ interface ProfileModalProps1 {
       <p><strong>Online Purchase:</strong> {profileData.onlinePurchase ? "true" : "false"}</p>
       <p><strong>Purchased though:</strong> {profileData.stripe}</p>
       <p><strong>USCF_Rating:</strong> {profileData.USCF_Rating}</p>
+      <div>
+  <p><strong>Category:</strong> {profileData.category || "N/A"}</p>
+  <p><strong>Section:</strong> {profileData.section || "N/A"}</p>
+  <p><strong>USCF Rating:</strong> {profileData.USCF_Rating || "N/A"}</p>
+  <p><strong>USCF ID:</strong> {profileData.uscf_id || "N/A"}</p>
+  <p><strong>USCF Expiration Date:</strong> {profileData.uscf_expiration_date || "N/A"}</p>
+  <p>
+    <strong>New Jersey Chess Tournament:</strong> {profileData.New_Jersey_Chess_Tournament ? "Yes" : "No"}
+  </p>
+  <p>
+    <strong>New Jersey Masterclass:</strong> {profileData.New_Jersey_Masterclass ? "Yes" : "No"}
+  </p>
+  <p>
+    <strong>Bear Middletown Chess Tournament:</strong> {profileData.Bear_Middletown_Chess_Tournamen ? "Yes" : "No"}
+  </p>
+</div>
+
       
       {/* Display the courses */}
       {profileData.registered_inschool_courses && profileData.registered_inschool_courses.length > 0 && (
