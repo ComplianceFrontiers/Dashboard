@@ -271,13 +271,12 @@ const PersonalTab = () => {
                       <td>{record.uscf_expiration_date || "N/A"}</td>
                       <td>{record.byes || "N/A"}</td>
                       <td>
-                        <Button color="info" size="sm" onClick={() => handleProfileClick(record.profile_id)}>
-                          View
-                        </Button>
-                        <Button color="danger" size="sm" onClick={() => deleteProfile(record.profile_id)}>
-                          <FaTrashAlt />
-                        </Button>
-                      </td>
+        <FaTrashAlt
+          style={{ color: "red", cursor: "pointer" }}
+          onClick={() => deleteProfile(record.profile_id)}
+          title="Delete"
+        />
+      </td>
                     </tr>
                   ))}
                 </tbody>
