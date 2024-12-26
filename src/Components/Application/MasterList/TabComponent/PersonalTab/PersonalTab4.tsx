@@ -13,6 +13,8 @@ interface FormRecord {
   online?: boolean;
   onlinePurchase?: boolean;
   phone?: string;
+  program?:string;
+  USCF_Rating?:string;
   [key: string]: any;
 }
 
@@ -91,6 +93,8 @@ const PersonalTab = () => {
         Phone: record.phone,
         Online: record.online ? "Yes" : "No",
         "Online Purchase": record.onlinePurchase ? "Yes" : "No",
+        program:record.program,
+        USCF_Rating:record.USCF_Rating
       }))
     );
     const wb = XLSX.utils.book_new();
@@ -168,7 +172,7 @@ const PersonalTab = () => {
                     />
                   </th>
                   <th>Sl.</th>
-                  {["profile_id", "parent_name", "email", "onlinePurchase", "online", "phone"].map(
+                  {["profile_id", "parent_name", "email", "onlinePurchase", "online", "phone","program"].map(
                     (column) => (
                       <th key={column}>
                         <div style={{ display: "flex", alignItems: "center" }}>
@@ -231,6 +235,7 @@ const PersonalTab = () => {
                     <td>{record.onlinePurchase ? "Yes" : "No"}</td>
                     <td>{record.online ? "Yes" : "No"}</td>
                     <td>{record.phone || "N/A"}</td>
+                    <td>{record.program || "N/A"}</td>
                     <td>
                                         <FaTrashAlt
                                           style={{ color: "red", cursor: "pointer" }}

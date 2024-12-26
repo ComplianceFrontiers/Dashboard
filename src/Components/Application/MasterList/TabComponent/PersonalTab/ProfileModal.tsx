@@ -24,6 +24,7 @@ interface ProfileData {
     onlinePurchase?:boolean;
     online?:boolean;
     stripe?:string;
+    USCF_Rating?:string;
   }
   
 
@@ -77,6 +78,7 @@ interface ProfileModalProps1 {
       <p><strong>Online:</strong> {profileData.online ? "true" : "false"}</p>
       <p><strong>Online Purchase:</strong> {profileData.onlinePurchase ? "true" : "false"}</p>
       <p><strong>Purchased though:</strong> {profileData.stripe}</p>
+      <p><strong>USCF_Rating:</strong> {profileData.USCF_Rating}</p>
       
       {/* Display the courses */}
       {profileData.registered_inschool_courses && profileData.registered_inschool_courses.length > 0 && (

@@ -20,6 +20,7 @@ interface FormRecord {
   group?: string;
   level?: string;
   program?: string;
+  USCF_Rating?:string;
   [key: string]: any;
 }
 
@@ -113,6 +114,7 @@ const PersonalTab = () => {
         level: record.level || "N/A",
         Program: record.program || "N/A",
         Year: record.year || "N/A",
+        USCF_Rating:record.USCF_Rating||"N/A"
       }))
     );
     const wb = XLSX.utils.book_new();
