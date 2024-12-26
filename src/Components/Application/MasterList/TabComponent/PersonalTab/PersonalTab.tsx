@@ -14,9 +14,14 @@ interface FormRecord {
   App?: boolean;
   mpes?: boolean;
   Lombardy?: boolean;
-  online?:boolean;
+  online?: boolean;
+  Bear_Middletown_Chess_Tournament?: boolean;
+  NewJerseyChessTournament?: boolean;
+  NewJerseyMasterclass?: boolean;
+  WilmingtonChessCoaching?: boolean;
   [key: string]: string | boolean | undefined;
 }
+
 
 const PersonalTab = () => {
   const [formData, setFormData] = useState<FormRecord[]>([]);
@@ -176,22 +181,27 @@ const PersonalTab = () => {
                 </th>
               ))}
               <th>
-                Tabs
-                <div style={{ marginTop: "5px" }}>
-                  <select
-                    onChange={(e) => handleSearchChange("tabs", e.target.value)}
-                    style={{ width: "100%" }}
-                  >
-                    <option value="">All</option>
-                    <option value="Website">Website</option>
-                    <option value="App">App</option>
-                    <option value="mpes">Mpes</option>
-                    <option value="lombardy">Lombardy</option>
-                    <option value="jcc">JCC</option>
-                    <option value="online">Online</option>
-                  </select>
-                </div>
-              </th>
+  Tabs
+  <div style={{ marginTop: "5px" }}>
+    <select
+      onChange={(e) => handleSearchChange("tabs", e.target.value)}
+      style={{ width: "100%" }}
+    >
+      <option value="">All</option>
+      <option value="Website">Website</option>
+      <option value="App">App</option>
+      <option value="mpes">Mpes</option>
+      <option value="lombardy">Lombardy</option>
+      <option value="jcc">JCC</option>
+      <option value="online">Online</option>
+      <option value="BearMiddletownChessTournament">Bear/Middletown Chess Tournament</option>
+      <option value="NewJerseyChessTournament">New Jersey Chess Tournament</option>
+      <option value="NewJerseyMasterclass">New Jersey Masterclass</option>
+      <option value="WilmingtonChessCoaching">Wilmington Chess Coaching</option>
+    </select>
+  </div>
+</th>
+
               <th>Actions</th>
             </tr>
           </thead>
@@ -217,14 +227,18 @@ const PersonalTab = () => {
       <td>{record.email || "N/A"}</td>
       <td>{record.phone || "N/A"}</td>
       <td>
-        {record.Website && <span className="badge bg-primary">Website</span>}
-        {record.App && <span className="badge bg-primary">App</span>}
-        {record.mpes && <span className="badge bg-primary">Mpes</span>}
-        {record.lombardy && <span className="badge bg-primary">Lombardy</span>}
-        {record.jcc && <span className="badge bg-primary">JCC</span>}
-        {record.online && <span className="badge bg-primary">Online</span>}
+  {record.Website && <span className="badge bg-primary">Website</span>}
+  {record.App && <span className="badge bg-primary">App</span>}
+  {record.mpes && <span className="badge bg-primary">Mpes</span>}
+  {record.lombardy && <span className="badge bg-primary">Lombardy</span>}
+  {record.jcc && <span className="badge bg-primary">JCC</span>}
+  {record.online && <span className="badge bg-primary">Online</span>}
+  {record.BearMiddletownChessTournament && <span className="badge bg-primary">Bear/Middletown Chess Tournament</span>}
+  {record.NewJerseyChessTournament && <span className="badge bg-primary">New Jersey Chess Tournament</span>}
+  {record.NewJerseyMasterclass && <span className="badge bg-primary">New Jersey Masterclass</span>}
+  {record.WilmingtonChessCoaching && <span className="badge bg-primary">Wilmington Chess Coaching</span>}
+</td>
 
-      </td>
       <td>
         <FaTrashAlt
           style={{ color: "red", cursor: "pointer" }}
