@@ -244,7 +244,20 @@ const PersonalTab = () => {
                         />
                       </td>
                       <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
-                      <td>{record.profile_id || "N/A"}</td>
+                      <td> <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              handleProfileClick(record.profile_id);
+            }}
+            style={{
+              color: "blue", // Make the profile ID blue
+              textDecoration: "underline", // Add underline to indicate clickability
+              cursor: "pointer", // Change cursor to pointer on hover
+            }}
+          >
+            {record.profile_id}
+          </a></td>
                       <td>{record.parent_name ? `${record.parent_name.first || ""} ${record.parent_name.last || ""}` : "N/A"}</td>
                       <td>{record.child_name ? `${record.child_name.first || ""} ${record.child_name.last || ""}` : "N/A"}</td>
                       <td>{record.child_grade || "N/A"}</td>
