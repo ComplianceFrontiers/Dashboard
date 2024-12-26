@@ -40,12 +40,14 @@ const PersonalTab = () => {
       try {
         const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms");
         const data = response.data;
-
-        // Filter data for "Lombardy Elementary School"
-        const lombardyData = data.filter((record: FormRecord) => record.SchoolName === "JCC_Chess_champs");
-
-        setFormData(lombardyData); // Set filtered data to state
-        setFilteredData(lombardyData);
+  
+        // Filter data where WilmingtonChessCoaching is true
+        const coachingData = data.filter(
+          (record: FormRecord) => record.WilmingtonChessCoaching === true
+        );
+  
+        setFormData(coachingData); // Set filtered data to state
+        setFilteredData(coachingData);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -54,6 +56,7 @@ const PersonalTab = () => {
     };
     fetchData();
   }, []);
+  
    const deleteProfile = async (profileId: string) => {
       if (window.confirm("Are you sure you want to delete this profile?")) {
         try {
@@ -161,7 +164,7 @@ const PersonalTab = () => {
       <CardHeader>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
 
-        <h4>JCC List</h4>
+        <h4>Wilmington Chess Coaching</h4>
         <Button
           color="primary"
           onClick={exportToExcel}
@@ -177,123 +180,112 @@ const PersonalTab = () => {
   ) : (
     <>
       <div style={{ overflowX: "auto" }}>
-        <Table bordered>
-          <thead>
-            <tr>
-              <th>
-                <Input
-                  type="checkbox"
-                  onChange={(e) =>
-                    setSelectedRows(
-                      e.target.checked
-                        ? new Set(filteredData.map((record) => record.profile_id))
-                        : new Set()
-                    )
-                  }
-                  checked={
-                    selectedRows.size > 0 &&
-                    selectedRows.size === filteredData.length
-                  }
-                />
-              </th>
-              <th>Sl.</th>
-              {[
-                "profile_id",
-                "parent_name",
-                "child_name",
-                "child_grade",
-                "email",
-                "phone",
-                "RequestFinancialAssistance",
-                "SchoolName",
-                "Group",
-                "Level",
-                "program",
-                "year",
-              ].map((column) => (
-                <th key={column}>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    {column.replace(/_/g, " ")}{" "}
-                    <FaSearch
-                      style={{ marginLeft: "8px", cursor: "pointer" }}
-                      onClick={() =>
-                        setActiveColumn(column === activeColumn ? null : column)
-                      }
-                    />
-                  </div>
-                  {activeColumn === column && (
-                    <Input
-                      type="text"
-                      placeholder={`Search ${column.replace(/_/g, " ")}...`}
-                      value={searchTerm}
-                      onChange={(e) => handleSearch(e.target.value, column)}
-                      style={{ marginTop: "5px" ,padding : "0px 0px"}}
-                      />
-                  )}
-                                         
+      <Table bordered>
+  <thead>
+    <tr>
+      <th>
+        <Input
+          type="checkbox"
+          onChange={(e) =>
+            setSelectedRows(
+              e.target.checked
+                ? new Set(filteredData.map((record) => record.profile_id))
+                : new Set()
+            )
+          }
+          checked={
+            selectedRows.size > 0 &&
+            selectedRows.size === filteredData.length
+          }
+        />
+      </th>
+      <th>Sl.</th>
+      {[
+        "profile_id",
+        "parent_name",
+        "child_name",
+        "child_grade",
+        "email",
+        "phone",
+        "USCF_Rating",
+      ].map((column) => (
+        <th key={column}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            {column.replace(/_/g, " ")}{" "}
+            <FaSearch
+              style={{ marginLeft: "8px", cursor: "pointer" }}
+              onClick={() =>
+                setActiveColumn(column === activeColumn ? null : column)
+              }
+            />
+          </div>
+          {activeColumn === column && (
+            <Input
+              type="text"
+              placeholder={`Search ${column.replace(/_/g, " ")}...`}
+              value={searchTerm}
+              onChange={(e) => handleSearch(e.target.value, column)}
+              style={{ marginTop: "5px", padding: "0px 0px" }}
+            />
+          )}
+        </th>
+      ))}
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {paginatedData.map((record, index) => (
+      <tr key={record.profile_id}>
+        <td>
+          <Input
+            type="checkbox"
+            checked={selectedRows.has(record.profile_id)}
+            onChange={() => handleSelectRow(record.profile_id)}
+          />
+        </td>
+        <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
+        <td>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              handleProfileClick(record.profile_id);
+            }}
+            style={{
+              color: "blue", // Make the profile ID blue
+              textDecoration: "underline", // Add underline to indicate clickability
+              cursor: "pointer", // Change cursor to pointer on hover
+            }}
+          >
+            {record.profile_id}
+          </a>
+        </td>
+        <td>
+          {record.parent_name
+            ? `${record.parent_name.first || ""} ${record.parent_name.last || ""}`
+            : "N/A"}
+        </td>
+        <td>
+          {record.child_name
+            ? `${record.child_name.first || ""} ${record.child_name.last || ""}`
+            : "N/A"}
+        </td>
+        <td>{record.child_grade || "N/A"}</td>
+        <td>{record.email || "N/A"}</td>
+        <td>{record.phone || "N/A"}</td>
+        <td>{record.USCF_Rating || "N/A"}</td>
+        <td>
+          <FaTrashAlt
+            style={{ color: "red", cursor: "pointer" }}
+            onClick={() => deleteProfile(record.profile_id)}
+            title="Delete"
+          />
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</Table>
 
-                </th>
-              ))}
-                <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {paginatedData.map((record, index) => (
-              <tr key={record.profile_id}>
-                <td>
-                  <Input
-                    type="checkbox"
-                    checked={selectedRows.has(record.profile_id)}
-                    onChange={() => handleSelectRow(record.profile_id)}
-                  />
-                </td>
-                <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
-                <td>
-                        <a
-                          href="#"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handleProfileClick(record.profile_id);
-                          }}
-                          style={{
-                            color: 'blue',  // Make the profile ID blue
-                            textDecoration: 'underline', // Add underline to indicate clickability
-                            cursor: 'pointer', // Change cursor to pointer on hover
-                          }}
-                        >
-                          {record.profile_id}
-                        </a>
-                      </td>
-                <td>
-                  {record.parent_name
-                    ? `${record.parent_name.first || ""} ${record.parent_name.last || ""}`
-                    : "N/A"}
-                </td>
-                <td>
-                  {record.child_name
-                    ? `${record.child_name.first || ""} ${record.child_name.last || ""}`
-                    : "N/A"}
-                </td>
-                <td>{record.child_grade || "N/A"}</td>
-                <td>{record.email || "N/A"}</td>
-                <td>{record.phone || "N/A"}</td>
-                <td>{record.RequestFinancialAssistance ? "Yes" : "No"}</td>
-                <td>{record.SchoolName || "N/A"}</td>
-                <td>{record.Group || "N/A"}</td>
-                <td>{record.Level || "N/A"}</td>
-                <td>{record.program || "N/A"}</td>
-                <td>{record.year || "N/A"}</td>
-                <td>
-                                        <FaTrashAlt
-                                          style={{ color: "red", cursor: "pointer" }}
-                                          onClick={() => deleteProfile(record.profile_id)}
-                                          title="Delete"
-                                        />
-                                      </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
       </div>
       <div
         style={{
