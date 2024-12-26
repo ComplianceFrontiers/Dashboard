@@ -33,6 +33,7 @@ interface ProfileData {
     New_Jersey_Chess_Tournament?:boolean;
     New_Jersey_Masterclass?:boolean;
     Bear_Middletown_Chess_Tournament?:boolean;
+    WilmingtonChessCoaching?:boolean;
     
   }
   
@@ -97,6 +98,9 @@ interface ProfileModalProps1 {
   <p><strong>USCF Expiration Date:</strong> {profileData.uscf_expiration_date || "N/A"}</p>
   <p>
     <strong>New Jersey Chess Tournament:</strong> {profileData.New_Jersey_Chess_Tournament ? "Yes" : "No"}
+  </p>
+  <p>
+    <strong>Wilmington Chess Coaching:</strong> {profileData.WilmingtonChessCoaching ? "Yes" : "No"}
   </p>
   <p>
     <strong>New Jersey Masterclass:</strong> {profileData.New_Jersey_Masterclass ? "Yes" : "No"}
