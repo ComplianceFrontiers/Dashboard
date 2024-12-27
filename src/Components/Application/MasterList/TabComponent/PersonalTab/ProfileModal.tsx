@@ -35,6 +35,7 @@ interface ProfileData {
     Bear_Middletown_Chess_Tournament?:boolean;
     WilmingtonChessCoaching?:boolean;
     chessclub?:boolean;
+    Bear_Chess_Coaching?:boolean;
     
   }
   
@@ -108,6 +109,9 @@ interface ProfileModalProps1 {
   </p>
   <p>
     <strong>Bear/Middletown Chess Tournament:</strong> {profileData.Bear_Middletown_Chess_Tournament ? "Yes" : "No"}
+  </p>
+  <p>
+    <strong>Bear Chess Coaching:</strong> {profileData.Bear_Chess_Coaching ? "Yes" : "No"}
   </p>
   <p>
     <strong>chess club Tournament:</strong> {profileData.chessclub ? "Yes" : "No"}
