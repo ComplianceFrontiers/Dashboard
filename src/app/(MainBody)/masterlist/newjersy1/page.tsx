@@ -46,7 +46,6 @@ const PersonalTab = () => {
         const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms");
         const data = response.data;
 
-        // Filter data where Bear_Middletown_Chess_Tournament is "true"
         const masterclassData = data.filter(
           (record: FormRecord) => record.New_Jersey_Masterclass === true
         );

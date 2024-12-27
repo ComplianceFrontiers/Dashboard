@@ -46,9 +46,8 @@ const PersonalTab = () => {
         const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms");
         const data = response.data;
 
-        // Filter data where Bear_Middletown_Chess_Tournament is "true"
         const coachingData = data.filter(
-          (record: FormRecord) => record.Bear_Middletown_Chess_Tournament === "true"
+          (record: FormRecord) => record.Bear_Middletown_Chess_Tournament === true
         );
         setFormData(coachingData); // Set filtered data to state
         setFilteredData(coachingData);
