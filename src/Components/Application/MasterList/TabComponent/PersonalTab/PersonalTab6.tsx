@@ -35,7 +35,7 @@ const PersonalTab = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms");
-        const data = response.data.filter((record: FormRecord) => record.chessclub === true);
+        const data = response.data.filter((record: FormRecord) => record.Bear_Chess_Coaching === true);
         setFormData(data);
         setFilteredData(data);
         setLoading(false);
@@ -143,7 +143,7 @@ const PersonalTab = () => {
     <Card>
       <CardHeader>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <h4>Chess Club Tournament List</h4>
+          <h4>Bear Chess Coaching List</h4>
           <Button color="primary" onClick={exportToExcel} disabled={selectedRows.size === 0}>
             Export to Excel
           </Button>
