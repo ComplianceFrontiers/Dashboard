@@ -12,7 +12,7 @@ library.add(faFacebook, faYoutube, faTwitter, faInstagram, faLinkedin, faCoffee,
 
 
 interface SendEmailProps {
-  selectedRecords: {email: string }[];
+  selectedRecords: { name: string; email: string; }[];
   onBack: () => void;
 }
 
