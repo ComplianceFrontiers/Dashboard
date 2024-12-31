@@ -173,9 +173,13 @@ const GetSubscribers: React.FC = () => {
         !error && !showEmailModal && <p>No subscribers found.</p>
       )}
 
-      {showEmailModal && (
-        <SendEmail selectedRecords={selectedSubscribersData} onBack={handleCloseEmailModal} />
-      )}
+{showEmailModal && (
+  <SendEmail
+    selectedEmails={selectedSubscribersData.map((record) => record.email)} // Extract only emails
+    onClose={handleCloseEmailModal} // Rename to match expected prop
+  />
+)}
+
     </div>
   );
 };
