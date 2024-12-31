@@ -5,6 +5,7 @@ import { FaSearch, FaTrashAlt } from "react-icons/fa";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import ProfileModal from "./ProfileModal";
+import SendEmail from "@/app/SendEmail";
 
 interface FormRecord {
   profile_id: string;
@@ -36,6 +37,7 @@ const PersonalTab = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProfileId, setSelectedProfileId] = useState<string>("");
   const [searchVisibility, setSearchVisibility] = useState<Record<string, boolean>>({});
+  const [showSendEmail, setShowSendEmail] = useState(false);
 
   const itemsPerPage = 10;
 
@@ -146,16 +148,37 @@ const PersonalTab = () => {
       <CardHeader>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
         <h4>Master List</h4>
+        {!showSendEmail && ( <div >
+        <Button
+  style={{ marginRight: "20px", cursor: "pointer" }}
+  color="primary"
+  onClick={() =>   setShowSendEmail(true)} // Show the SendEmail component conditionally
+  disabled={selectedRows.size === 0}
+>
+  Send Email
+</Button>
+
           <Button
+           style={{marginRight:"20px",cursor:"pointer"}}
             color="primary"
             onClick={handleExportToExcel}
             disabled={selectedRows.size === 0}
           >
             Export to Excel
           </Button>
+          </div>)}
+          {showSendEmail && (
+  <SendEmail
+    selectedEmails={formData
+      .filter((record) => selectedRows.has(record.profile_id))
+      .map((record) => record.email || "")}
+    onClose={() => setShowSendEmail(false)}
+  />
+)}
+
         </div>
-      </CardHeader>
-      <CardBody>
+          </CardHeader>
+          {!showSendEmail && (    <CardBody>
         <Table bordered>
           <thead>
             <tr>
@@ -277,7 +300,7 @@ const PersonalTab = () => {
             Next
           </Button>
         </div>
-      </CardBody>
+      </CardBody>)}
       <ProfileModal isOpen={isModalOpen} toggle={() => setIsModalOpen(!isModalOpen)} profileId={selectedProfileId} />
     </Card>
   );
