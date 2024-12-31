@@ -314,7 +314,7 @@ Interested in getting a sneak peek at our program? Come check out the Showcase f
   <button onClick={handleSendEmail} disabled={loading} className="button">
     {loading ? 'Sending...' : 'Send Email'}
   </button>
-  {/* <button onClick={onBack} className="backButton">Back</button> */}
+  <button  className="backButton" onClick={onClose} >Back</button>
 </div>
 
       </div>
