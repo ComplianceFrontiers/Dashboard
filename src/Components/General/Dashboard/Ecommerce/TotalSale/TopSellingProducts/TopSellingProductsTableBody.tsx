@@ -12,7 +12,6 @@ const TopSellingProductsTableBody = () => {
         const response = await fetch("https://backend-chess-tau.vercel.app/get_forms");
         const data = await response.json();
 
-        // Initialize counts for each field
         const fieldsToCount = [
           "mpes",
           "lombardy",
@@ -41,7 +40,6 @@ const TopSellingProductsTableBody = () => {
     fetchData();
   }, []);
 
-  // Define URLs for each field
   const fieldUrls: Record<string, string> = {
     mpes: "/masterlist/mpes",
     lombardy: "/masterlist/lombardy",
@@ -55,27 +53,47 @@ const TopSellingProductsTableBody = () => {
     Bear_Chess_Coaching: "/masterlist/Bear_Chess_Coaching",
   };
 
-  // Assign different colors for each field
   const buttonColors: Record<string, string> = {
-    mpes: "#1F618D", // Dark Blue
-    lombardy: "#AF7AC5", // Purple
-    jcc: "#58D68D", // Light Green
-    online: "#FF5733", // Orange
-    WilmingtonChessCoaching: "#33FF57", // Green
-    Bear_Middletown_Chess_Tournament: "#5733FF", // Blue
-    New_Jersey_Masterclass: "#FFC300", // Yellow
-    New_Jersey_Chess_Tournament: "#33C4FF", // Light Blue
-    chessclub: "#FF33C4", // Pink
-    Bear_Chess_Coaching: "#C70039", // Red
+    mpes: "#1F618D",
+    lombardy: "#AF7AC5",
+    jcc: "#58D68D",
+    online: "#FF5733",
+    WilmingtonChessCoaching: "#33FF57",
+    Bear_Middletown_Chess_Tournament: "#5733FF",
+    New_Jersey_Masterclass: "#FFC300",
+    New_Jersey_Chess_Tournament: "#33C4FF",
+    chessclub: "#FF33C4",
+    Bear_Chess_Coaching: "#C70039",
   };
 
   const handleRedirect = (field: string) => {
     const url = fieldUrls[field] || "/";
-    router.push(url); // Redirect to the respective URL
+    router.push(url);
   };
+
+  const handleTotalRedirect = () => {
+    router.push("/masterlist/master");
+  };
+
+  const totalCount = Object.values(fieldCounts).reduce((acc, count) => acc + count, 0);
 
   return (
     <>
+      {/* Total Count Display */}
+      <tr>
+        <td colSpan={3}>
+          <Button
+            color="primary"
+            className="w-100"
+            onClick={handleTotalRedirect}
+            style={{ fontWeight: "bold", fontSize: "1.2rem" }}
+          >
+            Total Count: {totalCount}
+          </Button>
+        </td>
+      </tr>
+
+      {/* Table Rows */}
       {Object.entries(fieldCounts).map(([field, count], index) => (
         <tr key={index}>
           <td>
