@@ -47,6 +47,7 @@ export const topSellingProductsTableData = [
     amount: "$30.00",
     payment: "Done",
     color: "primary",
+    count:"count",
   },
   {
     image: "flower.png",
@@ -58,6 +59,7 @@ export const topSellingProductsTableData = [
     amount: "$20.00",
     payment: "Pending",
     color: "tertiary",
+    count:"count",
   },
   {
     image: "bench.png",
@@ -69,6 +71,7 @@ export const topSellingProductsTableData = [
     amount: "$12.00",
     payment: "Done",
     color: "primary",
+    count:"count",
   },
   {
     image: "shoes.png",
@@ -80,6 +83,7 @@ export const topSellingProductsTableData = [
     amount: "$62.00",
     payment: "Pending",
     color: "tertiary",
+    count:"count",
   },
 ];
 

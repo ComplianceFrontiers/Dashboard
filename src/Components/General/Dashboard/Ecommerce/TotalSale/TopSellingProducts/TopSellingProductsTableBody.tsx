@@ -1,39 +1,80 @@
+import React, { useEffect, useState } from "react";
 import { Button, Input } from "reactstrap";
-import { Href, ImagePath } from "@/Constant";
-import { topSellingProductsTableData } from "@/Data/General/Dashboard/Ecommerce/Ecommerce";
-import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const TopSellingProductsTableBody = () => {
+  const [fieldCounts, setFieldCounts] = useState<Record<string, number>>({});
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://backend-chess-tau.vercel.app/get_forms");
+        const data = await response.json();
+
+        // Initialize counts for each field
+        const fieldsToCount = [
+          "online",
+          "WilmingtonChessCoaching",
+          "Bear_Middletown_Chess_Tournament",
+          "New_Jersey_Masterclass",
+          "New_Jersey_Chess_Tournament",
+          "chessclub",
+          "Bear_Chess_Coaching",
+        ];
+
+        const counts: Record<string, number> = {};
+
+        fieldsToCount.forEach((field) => {
+          counts[field] = data.filter((user: any) => user[field] === true).length;
+        });
+
+        setFieldCounts(counts);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Define URLs for each field
+  const fieldUrls: Record<string, string> = {
+    online: "/masterlist/online-users",
+    WilmingtonChessCoaching: "/masterlist/wilmington",
+    Bear_Middletown_Chess_Tournament: "/masterlist/middletown",
+    New_Jersey_Masterclass: "/masterlist/newjersy1",
+    New_Jersey_Chess_Tournament: "/masterlist/newjersy",
+    chessclub: "/masterlist/chess-club-tournament",
+    Bear_Chess_Coaching: "/masterlist/Bear_Chess_Coaching",
+  };
+
+  const handleRedirect = (field: string) => {
+    const url = fieldUrls[field] || "/";
+    router.push(url); // Redirect to the respective URL
+  };
+
   return (
     <>
-      {topSellingProductsTableData.map((item, i) => (
-        <tr key={i}>
+      {Object.entries(fieldCounts).map(([field, count], index) => (
+        <tr key={index}>
           <td>
             <Input type="checkbox" />
           </td>
           <td>
             <div className="d-flex align-items-center gap-2">
-              <div className="flex-shrink-0">
-                <Image width={30} height={30} className="img-30 b-r-10" src={`${ImagePath}/dashboard2/order/${item.image}`} alt="watch" />
-              </div>
               <div className="flex-grow-1">
-                <Link href={Href}>
-                  <h6 className="f-w-500">{item.productName}</h6>
-                  <span className="font-light f-w-400 f-13">{item.date}</span>
-                </Link>
+                <h6 className="f-w-500">{field}</h6>
               </div>
             </div>
           </td>
-          <td>{item.id}</td>
           <td>
-            <span className="font-light">{item.email}</span>
-          </td>
-          <td>{item.stock}</td>
-          <td>{item.amount}</td>
-          <td>
-            <Button color={`light-${item.color}`} className="edge-btn f-13 w-100">
-              {item.payment}
+            <Button
+              color="light-primary"
+              className="edge-btn f-13 w-100"
+              onClick={() => handleRedirect(field)}
+            >
+              {count}
             </Button>
           </td>
         </tr>

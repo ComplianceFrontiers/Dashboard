@@ -15,12 +15,9 @@ const TopSellingProducts = () => {
                   <th>
                     <Input type="checkbox" />
                   </th>
-                  <th>Product Name</th>
-                  <th>Order Id</th>
-                  <th>Email</th>
-                  <th>Stock</th>
-                  <th>Amount </th>
-                  <th>Payment</th>
+                  <th>Product List</th>
+                 
+                  <th>Count</th>
                 </tr>
               </thead>
               <tbody>
