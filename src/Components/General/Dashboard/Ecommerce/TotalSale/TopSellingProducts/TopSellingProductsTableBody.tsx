@@ -49,6 +49,17 @@ const TopSellingProductsTableBody = () => {
     Bear_Chess_Coaching: "/masterlist/Bear_Chess_Coaching",
   };
 
+  // Assign different colors for each field
+  const buttonColors: Record<string, string> = {
+    online: "#FF5733", // Orange
+    WilmingtonChessCoaching: "#33FF57", // Green
+    Bear_Middletown_Chess_Tournament: "#5733FF", // Blue
+    New_Jersey_Masterclass: "#FFC300", // Yellow
+    New_Jersey_Chess_Tournament: "#33C4FF", // Light Blue
+    chessclub: "#FF33C4", // Pink
+    Bear_Chess_Coaching: "#C70039", // Red
+  };
+
   const handleRedirect = (field: string) => {
     const url = fieldUrls[field] || "/";
     router.push(url); // Redirect to the respective URL
@@ -70,7 +81,11 @@ const TopSellingProductsTableBody = () => {
           </td>
           <td>
             <Button
-              color="light-primary"
+              style={{
+                backgroundColor: buttonColors[field] || "#FFFFFF",
+                color: "#FFFFFF",
+                border: "none",
+              }}
               className="edge-btn f-13 w-100"
               onClick={() => handleRedirect(field)}
             >
