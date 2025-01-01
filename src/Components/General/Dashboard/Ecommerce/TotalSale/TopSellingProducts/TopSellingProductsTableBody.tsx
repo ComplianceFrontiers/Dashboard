@@ -14,6 +14,9 @@ const TopSellingProductsTableBody = () => {
 
         // Initialize counts for each field
         const fieldsToCount = [
+          "mpes",
+          "lombardy",
+          "jcc",
           "online",
           "WilmingtonChessCoaching",
           "Bear_Middletown_Chess_Tournament",
@@ -40,6 +43,9 @@ const TopSellingProductsTableBody = () => {
 
   // Define URLs for each field
   const fieldUrls: Record<string, string> = {
+    mpes: "/masterlist/mpes",
+    lombardy: "/masterlist/lombardy",
+    jcc: "/masterlist/jcc",
     online: "/masterlist/online-users",
     WilmingtonChessCoaching: "/masterlist/wilmington",
     Bear_Middletown_Chess_Tournament: "/masterlist/middletown",
@@ -51,6 +57,9 @@ const TopSellingProductsTableBody = () => {
 
   // Assign different colors for each field
   const buttonColors: Record<string, string> = {
+    mpes: "#1F618D", // Dark Blue
+    lombardy: "#AF7AC5", // Purple
+    jcc: "#58D68D", // Light Green
     online: "#FF5733", // Orange
     WilmingtonChessCoaching: "#33FF57", // Green
     Bear_Middletown_Chess_Tournament: "#5733FF", // Blue
