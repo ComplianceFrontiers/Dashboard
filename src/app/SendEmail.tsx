@@ -343,7 +343,7 @@ const handleRemove = (email: string) => {
         {emails.map((email, index) => (
           <div key={index} style={{ marginBottom: '5px' }}>
             {email}
-            <button
+            {/* <button
               onClick={() => handleRemove(email)}
               style={{
                 marginLeft: '10px',
@@ -357,7 +357,7 @@ const handleRemove = (email: string) => {
               }}
             >
               Remove
-            </button>
+            </button> */}
           </div>
         ))}
       </div>
