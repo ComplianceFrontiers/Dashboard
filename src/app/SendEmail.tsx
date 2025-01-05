@@ -198,8 +198,7 @@ const handleRemove = (email: string) => {
     <div className="containerSendEmail">
       <div className="formSection"> 
         <label className="label">
-          Subject: 
-          <div>{selectedEmails}</div>
+          Subject:  
           <input
             type="text"
             value={subject}
