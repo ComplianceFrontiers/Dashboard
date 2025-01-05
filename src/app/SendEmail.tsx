@@ -42,19 +42,19 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
       <p style="font-size: 14px; line-height: 1.6; margin-top: 10px; margin-bottom: 20px; text-align: left; max-width: 800px; margin-right: auto;">
         This exciting chess event offers opportunities for both competitive and casual players, ensuring a fun and enriching experience for all!
       </p>
-        <h2 style="text-align: left; font-size: 16px; color: #f53db8; margin-bottom: 10px; margin-left: 20px;"><strong>PLAY CATEGORIES:</strong></h2>
+        <h2 style="text-align: left; font-size: 16px; color: #f53db8; margin-bottom: 10px; margin-left: 10px;"><strong>PLAY CATEGORIES:</strong></h2>
  
-<ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 20px; margin-right: auto; list-style-type: disc; padding-left: 20px;">
+<ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 10px; margin-right: auto; list-style-type: disc; padding-left: 20px;">
   <li style="margin-bottom: 10px;">
     <strong>Rated Section:</strong>
-    <ul style="list-style-type: disc; margin-left: 20px;">
+    <ul style="list-style-type: disc; margin-left: 10px;">
       <li><strong>Open (Rated Only):</strong> Compete for the <em>Delaware Chess Club Champion</em> title.</li>
       <li><strong>K-12 Championship (Rated):</strong> Compete for the <em>Delaware Jr. Club Champion</em> title.</li>
     </ul>
   </li>
   <li>
     <strong>Casual Section:</strong>
-    <ul style="list-style-type: disc; margin-left: 20px;">
+    <ul style="list-style-type: disc; margin-left: 10px;">
       <li><strong>K-5 Championship (Casual Only):</strong> Compete for the <em>Scholastic Jr. Club Champion</em> title.</li>
       <li><strong>K-12 Championship (Casual):</strong> Compete for the <em>Scholastic Club Champion</em> title.</li>
     </ul>
@@ -68,11 +68,11 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
 <strong>
       <h3 style="color: #f53db8; text-align: left; font-size: 14px; margin-top: 20px; margin-bottom: 20px;"><strong>TOURNAMENT FORMAT:</strong></h3>
 
-     <ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 20px;">
+     <ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 10px;">
   <li>4 Rounds | G/25 Time Control (Game in 25 minutes).</li>
   <li>
     Awards:
-    <ul style="margin-left: 20px;">
+    <ul style="margin-left: 10px;">
       <li>🏆 Winner: Trophy</li>
       <li>🥈 2nd Place: Medal</li>
       <li>🥉 3rd Place: Medal</li>
@@ -83,17 +83,17 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
 
       </strong>
       <h3 style="color: #000; text-align: left; font-size: 14px; margin-top: 20px; margin-bottom: 20px;color: #f53db8;"><strong>TROPHY TITLES:</strong></h3>
-      <ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 20px; margin-right: auto; list-style-type: disc; padding-left: 20px;">
+      <ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 10px; margin-right: auto; list-style-type: disc; padding-left: 20px;">
   <li style="margin-bottom: 10px;">
     <strong>Rated Section:</strong>
-    <ul style="list-style-type: disc; margin-left: 20px;">
+    <ul style="list-style-type: disc; margin-left: 10px;">
       <li><strong>Delaware Chess Club Champion:</strong> (Open). </li>
       <li><strong>Delaware Jr. Club Champion:</strong> (K-12). </li>
     </ul>
   </li>
   <li>
     <strong>Casual Section:</strong>
-   <ul style="list-style-type: disc; margin-left: 20px;">
+   <ul style="list-style-type: disc; margin-left: 10px;">
       <li><strong>Scholastic Club Champion:</strong> (k-12). </li>
       <li><strong>Scholastic Jr. Club Champion:</strong> (K-5). </li>
     </ul>
