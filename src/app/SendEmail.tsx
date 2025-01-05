@@ -209,6 +209,40 @@ Interested in getting a sneak peek at our program? Come check out the Showcase f
 
   </div>
 `;
+
+// <p style="display: flex; justify-content: center; align-items: center; gap: 10px; margin: 0;">
+// <a href="https://www.facebook.com" target="_blank">
+//     <img src="https://res.cloudinary.com/dtgje24ez/image/upload/v1734435408/radiw6odgmhlnh82bxcz.png" alt="Facebook" style="width: 20px; height: 20px;" />
+// </a>
+// <a href="https://www.youtube.com" target="_blank">
+//     <img src="https://res.cloudinary.com/dtgje24ez/image/upload/v1734435408/weqk53gu7f0km5fq1mo2.png" alt="YouTube" style="width: 20px; height: 20px;" />
+// </a>
+// <a href="https://www.instagram.com" target="_blank">
+//     <img src="https://res.cloudinary.com/dtgje24ez/image/upload/v1734435408/mssyh3o9t8pigtiumszb.png" alt="Instagram" style="width: 20px; height: 20px;" />
+// </a>
+// <a href="https://www.chesschamps.us/" target="_blank">
+//     <img src="https://res.cloudinary.com/dtgje24ez/image/upload/v1734435408/gsdc2rxtvnjw7nqs4m4r.png" alt="Chess Champs" style="width: 20px; height: 20px;" />
+// </a>
+// <a href="#" target="_blank">
+//     <img src="https://res.cloudinary.com/dtgje24ez/image/upload/v1734435408/qnazc8aquouxkwensstj.png" alt="LinkedIn" style="width: 20px; height: 20px;" />
+// </a>
+// </p>
+
+
+
+
+const [emails, setEmails] = useState<string[]>(selectedEmails);
+
+const removeEmail = (emailToRemove: string) => {
+    setEmails(emails.filter(email => email !== emailToRemove));
+};
+
+const handleRemove = (email: string) => {
+  console.log("Removing email:", email);
+  removeEmail(email);
+};
+
+
   const handleSendEmail = async () => {
     if (!subject) {
       setErrorMessage('Subject, message, and API link are required.');
@@ -292,6 +326,43 @@ Interested in getting a sneak peek at our program? Come check out the Showcase f
             className="input"
           />
         </label>
+        <div
+      style={{
+        fontFamily: 'Arial, sans-serif',
+        fontSize: '12px',
+        color: '#333',
+        padding: '10px',
+        border: '1px solid #ccc',
+        borderRadius: '5px',
+        backgroundColor: '#f9f9f9',
+        margin: '10px 0',
+        width: '300px',
+      }}
+    >
+      Selected Emails:
+      <div style={{ fontWeight: 'bold' }}>
+        {emails.map((email, index) => (
+          <div key={index} style={{ marginBottom: '5px' }}>
+            {email}
+            {/* <button
+              onClick={() => handleRemove(email)}
+              style={{
+                marginLeft: '10px',
+                fontSize: '10px',
+                cursor: 'pointer',
+                backgroundColor: '#f44336',
+                color: 'white',
+                border: 'none',
+                borderRadius: '3px',
+                padding: '2px 5px',
+              }}
+            >
+              Remove
+            </button> */}
+          </div>
+        ))}
+      </div>
+    </div>
         <div className="buttonContainer">
   <button onClick={handleSendEmail} disabled={loading} className="button">
     {loading ? 'Sending...' : 'Send Email'}
