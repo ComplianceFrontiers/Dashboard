@@ -61,7 +61,7 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
   </li>
 </ul>
  <div style="text-align: center; margin-top: 30px;">
-        <a href="https://chesschampsus.vercel.app/register" style="display: inline-block; padding: 12px 25px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 16px;">
+        <a href="https://www.chesschamps.us/DCC-Tournament/" style="display: inline-block; padding: 12px 25px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 16px;">
           REGISTER HERE
         </a>
       </div>
@@ -100,12 +100,12 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
   </li>
 </ul>
  <div style="text-align: center; margin-top: 30px;">
-        <a href="https://chesschampsus.vercel.app/register" style="display: inline-block; padding: 12px 25px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 16px;">
+        <a href="https://www.chesschamps.us/DCC-Tournament/" style="display: inline-block; padding: 12px 25px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 16px;">
           REGISTER NOW
         </a>
       </div>
             <p style="font-size: 14px; color: #666; text-align: center; margin-top: 20px;">Spots are limited, so secure yours today and join us for an unforgettable chess experience!</p>
-<p><strong>For more information,</strong> contact [connect@chesschamps.us].</p>
+<p><strong>For more information,</strong> contact connect@chesschamps.us.</p>
       
       <div style="color: white; padding: 0px; margin-top: 30px;">   
           <div style="background-color: #343a40; color: #fff; padding: 20px; border-radius: 5px 5px 0 0;">
