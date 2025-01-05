@@ -110,12 +110,12 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
       <div style="color: white; padding: 0px; margin-top: 30px;">   
           <div style="background-color: #343a40; color: #fff; padding: 20px; border-radius: 5px 5px 0 0;">
               <h1 style="margin-bottom: 5px;color:white; font-size: 14px;">About the Chess Champs</h1>
-              <p style="margin-bottom: 0px; font-size:12px;">Chess Champs is dedicated to nurturing young minds through the timeless game of chess. We provide engaging programs, tournaments, and training sessions for players of all ages and skill levels. Our mission is to inspire critical thinking, strategic planning, and a love for learning in a supportive and fun environment.</p>
-              <p style="margin-bottom: 0px; font-size:12px;">From beginner-friendly lessons to competitive tournaments, Chess Champs offers something for everyone, helping players build confidence, sharpen problem-solving skills, and foster a lifelong passion for chess.</p>
+              <p style="margin-bottom: 0px;text-align: justify; font-size:12px;">Chess Champs is dedicated to nurturing young minds through the timeless game of chess. We provide engaging programs, tournaments, and training sessions for players of all ages and skill levels. Our mission is to inspire critical thinking, strategic planning, and a love for learning in a supportive and fun environment.</p>
+              <p style="margin-bottom: 0px;text-align: justify; font-size:12px;">From beginner-friendly lessons to competitive tournaments, Chess Champs offers something for everyone, helping players build confidence, sharpen problem-solving skills, and foster a lifelong passion for chess.</p>
           </div>
           <div>
-              <div style="background-color: #007BFF; padding: 10px; border-radius: 5px; text-align: center;">
-                  <p  style="margin-bottom: 5px;color:white; font-size: 14px;"><strong>CHESS CHAMPS</strong></p>
+              <div style="background-color: #007BFF; padding: 1px; border-radius: 5px; text-align: center;">
+                  <p  style="margin-bottom: 1px;color:white; font-size: 14px;"><strong>CHESS CHAMPS</strong></p>
                   <p style="margin: 0; font-size: 10px;">
                       <a href="https://www.google.com/maps?q=510+Duncan+Rd,+Wilmington,+DE+19809" target="_blank" style="text-decoration: underline; font-size: 12px; color: #ffff00;">510 Duncan Rd</a> | 
                       <a href="tel:+13022764141" style="text-decoration: underline; font-size: 12px; color: #ffff00;">Wilmington, DE 19809</a> | 
@@ -131,7 +131,7 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
           You are receiving this email because you signed up to receive updates and communications from 
           <a href="https://chesschamps.us" style="color: #f53db8; text-decoration: none;">Chess Champs</a>. 
           If you wish to stop receiving these emails, you can 
-          <a href="https://chesschampsus.vercel.app/unsubscribe" style="color: #f53db8; text-decoration: none;">unsubscribe here</a>.
+          <a  style="color: #f53db8; text-decoration: none;">reply to this email</a>.
       </p>
   </div>
   `;
