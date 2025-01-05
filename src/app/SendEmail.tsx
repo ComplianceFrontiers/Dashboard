@@ -66,7 +66,7 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
         </a>
       </div>
 <strong>
-      <h3 style="color: #000; text-align: left; font-size: 14px; margin-top: 20px; margin-bottom: 20px;"><strong>TOURNAMENT FORMAT:</strong></h3>
+      <h3 style="color: #f53db8; text-align: left; font-size: 14px; margin-top: 20px; margin-bottom: 20px;"><strong>TOURNAMENT FORMAT:</strong></h3>
 
      <ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 20px;">
   <li>4 Rounds | G/25 Time Control (Game in 25 minutes).</li>
@@ -82,7 +82,7 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
 </ul>
 
       </strong>
-      <h3 style="color: #000; text-align: left; font-size: 14px; margin-top: 20px; margin-bottom: 20px;"><strong>TROPHY TITLES:</strong></h3>
+      <h3 style="color: #000; text-align: left; font-size: 14px; margin-top: 20px; margin-bottom: 20px;color: #f53db8;"><strong>TROPHY TITLES:</strong></h3>
       <ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 20px; margin-right: auto; list-style-type: disc; padding-left: 20px;">
   <li style="margin-bottom: 10px;">
     <strong>Rated Section:</strong>
@@ -104,7 +104,7 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
           REGISTER NOW
         </a>
       </div>
-            <p style="font-size: 14px; color: #666; text-align: center; margin-top: 5px;">Spots are limited, so secure yours today and join us for an unforgettable chess experience!</p>
+            <p style="font-size: 14px; color: #666; text-align: center; margin-top: 20px;">Spots are limited, so secure yours today and join us for an unforgettable chess experience!</p>
 <p><strong>For more information,</strong> contact [connect@chesschamps.us].</p>
       
       <div style="color: white; padding: 0px; margin-top: 30px;">   
@@ -115,7 +115,7 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
           </div>
           <div>
               <div style="background-color: #007BFF; padding: 20px; border-radius: 5px; text-align: center;">
-                  <p style="margin: 0;">CHESS CHAMPS</p>
+                  <p  style="margin-bottom: 5px;color:white; font-size: 14px;">CHESS CHAMPS</p>
                   <p style="margin: 0; font-size: 10px;">
                       <a href="https://www.google.com/maps?q=510+Duncan+Rd,+Wilmington,+DE+19809" target="_blank" style="text-decoration: underline; font-size: 12px; color: #ffff00;">510 Duncan Rd</a> | 
                       <a href="tel:+13022764141" style="text-decoration: underline; font-size: 12px; color: #ffff00;">Wilmington, DE 19809</a> | 
