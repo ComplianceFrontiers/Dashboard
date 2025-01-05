@@ -69,7 +69,7 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
       <h3 style="color: #f53db8; text-align: left; font-size: 14px; margin-top: 20px; margin-bottom: 20px;"><strong>TOURNAMENT FORMAT:</strong></h3>
 
      <ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 5px;">
-  <li>4 Rounds | G/25 Time Control (Game in 25 minutes).</li>
+  <li>4 Rounds | G/25 Time Control (Each player gets 25 minutes).</li>
   <li>
     Awards:
     <ul style="margin-left: 5px;">
