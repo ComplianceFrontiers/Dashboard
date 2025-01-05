@@ -30,7 +30,7 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
   const emailBody = `
   <div style="font-family: Arial, sans-serif; color: #333; padding: 20px; text-align: center; display: block;">
       <div style="text-align: center;">
-        <img src="https://res.cloudinary.com/dtgje24ez/image/upload/v1736074851/pkqpnwtoric5y02q5tsj.jpg" alt="Chess Champs Banner" style="max-width: 100%; height: auto;">
+        <img src="https://res.cloudinary.com/dtgje24ez/image/upload/v1736077481/fy1vltjvffddx9dj7nnr.jpg" alt="Chess Champs Banner" style="max-width: 100%; height: auto;">
       </div>
       <h1 style="color: #000; text-align: left; font-size: 14px; font-weight: bold; margin-bottom: 20px; margin-top: 20px;">
         Now Enrolling for the 2025 Delaware Chess Club Championship!
@@ -114,8 +114,8 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
               <p style="margin-bottom: 0px; font-size:12px;">From beginner-friendly lessons to competitive tournaments, Chess Champs offers something for everyone, helping players build confidence, sharpen problem-solving skills, and foster a lifelong passion for chess.</p>
           </div>
           <div>
-              <div style="background-color: #007BFF; padding: 20px; border-radius: 5px; text-align: center;">
-                  <p  style="margin-bottom: 5px;color:white; font-size: 14px;">CHESS CHAMPS</p>
+              <div style="background-color: #007BFF; padding: 10px; border-radius: 5px; text-align: center;">
+                  <p  style="margin-bottom: 5px;color:white; font-size: 14px;"><strong>CHESS CHAMPS</strong></p>
                   <p style="margin: 0; font-size: 10px;">
                       <a href="https://www.google.com/maps?q=510+Duncan+Rd,+Wilmington,+DE+19809" target="_blank" style="text-decoration: underline; font-size: 12px; color: #ffff00;">510 Duncan Rd</a> | 
                       <a href="tel:+13022764141" style="text-decoration: underline; font-size: 12px; color: #ffff00;">Wilmington, DE 19809</a> | 
