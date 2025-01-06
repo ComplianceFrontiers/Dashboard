@@ -94,7 +94,7 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
   <li>
     <strong>Casual Section:</strong>
    <ul style="list-style-type: disc; margin-left: 5px;">
-      <li><strong>Scholastic Club Champion:</strong> (k-12). </li>
+      <li><strong>Scholastic Club Champion:</strong> (K-12). </li>
       <li><strong>Scholastic Jr. Club Champion:</strong> (K-5). </li>
     </ul>
   </li>
@@ -110,8 +110,8 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
       <div style="color: white; padding: 0px; margin-top: 30px;">   
           <div style="background-color: #343a40; color: #fff; padding: 20px; border-radius: 5px 5px 0 0;">
               <h1 style="margin-bottom: 5px;color:white; font-size: 14px;">About the Chess Champs</h1>
-              <p style="margin-bottom: 0px;text-align: justify; font-size:12px;">Chess Champs is dedicated to nurturing young minds through the timeless game of chess. We provide engaging programs, tournaments, and training sessions for players of all ages and skill levels. Our mission is to inspire critical thinking, strategic planning, and a love for learning in a supportive and fun environment.</p>
-              <p style="margin-bottom: 0px;text-align: justify; font-size:12px;">From beginner-friendly lessons to competitive tournaments, Chess Champs offers something for everyone, helping players build confidence, sharpen problem-solving skills, and foster a lifelong passion for chess.</p>
+              <p style="margin-bottom: 0px; font-size:12px;">Chess Champs is dedicated to nurturing young minds through the timeless game of chess. We provide engaging programs, tournaments, and training sessions for players of all ages and skill levels. Our mission is to inspire critical thinking, strategic planning, and a love for learning in a supportive and fun environment.</p>
+              <p style="margin-bottom: 0px; font-size:12px;">From beginner-friendly lessons to competitive tournaments, Chess Champs offers something for everyone, helping players build confidence, sharpen problem-solving skills, and foster a lifelong passion for chess.</p>
           </div>
           <div>
               <div style="background-color: #007BFF; padding: 1px; border-radius: 5px; text-align: center;">
@@ -130,8 +130,7 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
       <p style="font-size: 14px; color: #666; text-align: center; margin-top: 0px;">
           You are receiving this email because you signed up to receive updates and communications from 
           <a href="https://chesschamps.us" style="color: #f53db8; text-decoration: none;">Chess Champs</a>. 
-          If you wish to stop receiving these emails, you can 
-          <a  style="color: #f53db8; text-decoration: none;">reply to this email</a>.
+          If you wish to stop receiving these emails, you can contact connect@chesschamps.us.
       </p>
   </div>
   `;
