@@ -13,6 +13,7 @@ const TopSellingProductsTableBody = () => {
         const data = await response.json();
 
         const fieldsToCount = [
+          "Website",
           "mpes",
           "lombardy",
           "jcc",
@@ -41,6 +42,7 @@ const TopSellingProductsTableBody = () => {
   }, []);
 
   const fieldUrls: Record<string, string> = {
+    Website: "/masterlist/website",
     mpes: "/masterlist/mpes",
     lombardy: "/masterlist/lombardy",
     jcc: "/masterlist/jcc",
@@ -54,6 +56,7 @@ const TopSellingProductsTableBody = () => {
   };
 
   const buttonColors: Record<string, string> = {
+    Website: "#6A5ACD",
     mpes: "#1F618D",
     lombardy: "#AF7AC5",
     jcc: "#58D68D",
