@@ -9,7 +9,7 @@ const NewOrders = () => {
     <>
       {totalSalesData.map((item, i) => (
         <Col md="4" key={i}>
-          <Card className="progress-items">
+          {/* <Card className="progress-items">
             <CardHeader className="pb-0">
               <div className="d-flex justify-content-between">
                 <div>
@@ -37,7 +37,7 @@ const NewOrders = () => {
                 </div>
               </div>
             </CardBody>
-          </Card>
+          </Card> */}
         </Col>
       ))}
     </>
