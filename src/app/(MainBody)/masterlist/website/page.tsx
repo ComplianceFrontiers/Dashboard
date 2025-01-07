@@ -25,6 +25,8 @@ interface FormRecord {
   USCF_ID?: string;
   USCF_Expiration_Date?: string;
   byes?: string;
+  location?:string;
+
   [key: string]: any;
 }
 

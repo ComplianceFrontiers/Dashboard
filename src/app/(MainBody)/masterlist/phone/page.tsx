@@ -10,6 +10,7 @@ import ProfileModal from "../../../../Components/Application/MasterList/TabCompo
 interface FormRecord {
   profile_id: string;
   phone?: string;
+  location?:string;
   year?: string;
   parent_name?: { first: string; last: string };
   child_name?: { first: string; last: string };
@@ -22,6 +23,7 @@ interface FormRecord {
   program?: string;
   USCF_Rating?:string;
   [key: string]: any;
+
 }
 
 const PersonalTab = () => {
@@ -43,8 +45,7 @@ const PersonalTab = () => {
         const data = response.data;
 
         // Filter data for "Lombardy Elementary School"
-        const lombardyData = data.filter((record: FormRecord) => record.SchoolName === "JCC_Chess_champs");
-
+        const lombardyData = data.filter((record: FormRecord) => record.phone);
         setFormData(lombardyData); // Set filtered data to state
         setFilteredData(lombardyData);
         setLoading(false);
@@ -159,9 +160,8 @@ const PersonalTab = () => {
   };
   return (
     <Card>
-      <CardHeader>
+    <CardHeader>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-
         <h4>Phone List</h4>
         <Button
           color="primary"
@@ -170,168 +170,127 @@ const PersonalTab = () => {
         >
           Export to Excel
         </Button>
-        </div>
-      </CardHeader>
-      <CardBody>
-  {loading ? (
-    <p>Loading data...</p>
-  ) : (
-    <>
-      <div style={{ overflowX: "auto" }}>
-        <Table bordered>
-          <thead>
-            <tr>
-              <th>
-                <Input
-                  type="checkbox"
-                  onChange={(e) =>
-                    setSelectedRows(
-                      e.target.checked
-                        ? new Set(filteredData.map((record) => record.profile_id))
-                        : new Set()
-                    )
-                  }
-                  checked={
-                    selectedRows.size > 0 &&
-                    selectedRows.size === filteredData.length
-                  }
-                />
-              </th>
-              <th>Sl.</th>
-              {[
-                "profile_id",
-                "parent_name",
-                "child_name",
-                "child_grade",
-                "email",
-                "phone",
-                "RequestFinancialAssistance",
-                "SchoolName",
-                "Group",
-                "Level",
-                "program",
-                "year",
-              ].map((column) => (
-                <th key={column}>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    {column.replace(/_/g, " ")}{" "}
-                    <FaSearch
-                      style={{ marginLeft: "8px", cursor: "pointer" }}
-                      onClick={() =>
-                        setActiveColumn(column === activeColumn ? null : column)
-                      }
-                    />
-                  </div>
-                  {activeColumn === column && (
+      </div>
+    </CardHeader>
+    <CardBody>
+      {loading ? (
+        <p>Loading data...</p>
+      ) : (
+        <>
+          <div style={{ overflowX: "auto" }}>
+            <Table bordered>
+              <thead>
+                <tr>
+                  <th>
                     <Input
-                      type="text"
-                      placeholder={`Search ${column.replace(/_/g, " ")}...`}
-                      value={searchTerm}
-                      onChange={(e) => handleSearch(e.target.value, column)}
-                      style={{ marginTop: "5px" ,padding : "0px 0px"}}
+                      type="checkbox"
+                      onChange={(e) =>
+                        setSelectedRows(
+                          e.target.checked
+                            ? new Set(filteredData.map((record) => record.profile_id))
+                            : new Set()
+                        )
+                      }
+                      checked={selectedRows.size > 0 && selectedRows.size === filteredData.length}
+                    />
+                  </th>
+                  <th>Sl.</th>
+                  <th>Profile ID</th>
+                  <th>Parent's Name</th>
+                  <th>Child's Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Location</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {paginatedData.map((record, index) => (
+                  <tr key={record.profile_id}>
+                    <td>
+                      <Input
+                        type="checkbox"
+                        checked={selectedRows.has(record.profile_id)}
+                        onChange={() => handleSelectRow(record.profile_id)}
                       />
-                  )}
-                                         
-
-                </th>
-              ))}
-                <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {paginatedData.map((record, index) => (
-              <tr key={record.profile_id}>
-                <td>
-                  <Input
-                    type="checkbox"
-                    checked={selectedRows.has(record.profile_id)}
-                    onChange={() => handleSelectRow(record.profile_id)}
-                  />
-                </td>
-                <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
-                <td>
-                        <a
-                          href="#"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handleProfileClick(record.profile_id);
-                          }}
-                          style={{
-                            color: 'blue',  // Make the profile ID blue
-                            textDecoration: 'underline', // Add underline to indicate clickability
-                            cursor: 'pointer', // Change cursor to pointer on hover
-                          }}
-                        >
-                          {record.profile_id}
-                        </a>
-                      </td>
-                <td>
-                  {record.parent_name
-                    ? `${record.parent_name.first || ""} ${record.parent_name.last || ""}`
-                    : "N/A"}
-                </td>
-                <td>
-                  {record.child_name
-                    ? `${record.child_name.first || ""} ${record.child_name.last || ""}`
-                    : "N/A"}
-                </td>
-                <td>{record.child_grade || "N/A"}</td>
-                <td>{record.email || "N/A"}</td>
-                <td>{record.phone || "N/A"}</td>
-                <td>{record.RequestFinancialAssistance ? "Yes" : "No"}</td>
-                <td>{record.SchoolName || "N/A"}</td>
-                <td>{record.Group || "N/A"}</td>
-                <td>{record.Level || "N/A"}</td>
-                <td>{record.program || "N/A"}</td>
-                <td>{record.year || "N/A"}</td>
-                <td>
-                                        <FaTrashAlt
-                                          style={{ color: "red", cursor: "pointer" }}
-                                          onClick={() => deleteProfile(record.profile_id)}
-                                          title="Delete"
-                                        />
-                                      </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginTop: "10px",
-        }}
-      >
-        <Button
-          color="secondary"
-          onClick={handlePrevious}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </Button>
-        <span>
-          Page {currentPage} of {Math.ceil(filteredData.length / itemsPerPage)}
-        </span>
-        <Button
-          color="secondary"
-          onClick={handleNext}
-          disabled={currentPage === Math.ceil(filteredData.length / itemsPerPage)}
-        >
-          Next
-        </Button>
-      </div>
-    </>
-  )}
-</CardBody>
-<ProfileModal
-        isOpen={isModalOpen}
-        toggle={toggleModal}
-        profileId={selectedProfileId}
-      />
-
-
-    </Card>
+                    </td>
+                    <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
+                    <td>
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleProfileClick(record.profile_id);
+                        }}
+                        style={{
+                          color: 'blue',
+                          textDecoration: 'underline',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        {record.profile_id}
+                      </a>
+                    </td>
+                    <td>
+                      {record.parent_name
+                        ? `${record.parent_name.first || ""} ${record.parent_name.last || ""}`
+                        : "N/A"}
+                    </td>
+                    <td>
+                      {record.child_name
+                        ? `${record.child_name.first || ""} ${record.child_name.last || ""}`
+                        : "N/A"}
+                    </td>
+                    <td>{record.email || "N/A"}</td>
+                    <td>{record.phone || "N/A"}</td>
+                    <td>{record.location || "N/A"}</td>
+                    <td>
+                      <FaTrashAlt
+                        style={{ color: "red", cursor: "pointer" }}
+                        onClick={() => deleteProfile(record.profile_id)}
+                        title="Delete"
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginTop: "10px",
+            }}
+          >
+            <Button
+              color="secondary"
+              onClick={handlePrevious}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </Button>
+            <span>
+              Page {currentPage} of {Math.ceil(filteredData.length / itemsPerPage)}
+            </span>
+            <Button
+              color="secondary"
+              onClick={handleNext}
+              disabled={currentPage === Math.ceil(filteredData.length / itemsPerPage)}
+            >
+              Next
+            </Button>
+          </div>
+        </>
+      )}
+    </CardBody>
+    <ProfileModal
+      isOpen={isModalOpen}
+      toggle={toggleModal}
+      profileId={selectedProfileId}
+    />
+  </Card>
+  
   );
 };
 

@@ -20,6 +20,8 @@ interface FormRecord {
   level?: string;
   program?: string;
   USCF_Rating?:string;
+  location?:string;
+
   [key: string]: any;
 }
 

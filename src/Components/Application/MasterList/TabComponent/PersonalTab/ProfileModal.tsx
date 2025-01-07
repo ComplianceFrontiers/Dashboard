@@ -27,6 +27,7 @@ interface ProfileData {
     program?:string;
     category?:string;
     section?:string;
+    location?:string;
     USCF_Rating?:string;
     uscf_id?:string;
     uscf_expiration_date?:string;
@@ -115,6 +116,9 @@ interface ProfileModalProps1 {
   </p>
   <p>
     <strong>chess club Tournament:</strong> {profileData.chessclub ? "Yes" : "No"}
+  </p>
+  <p>
+    <strong>Location:</strong> {profileData.location}
   </p>
 </div>
 

@@ -15,6 +15,7 @@ interface FormRecord {
   phone?: string;
   program?:string;
   USCF_Rating?:string;
+  location?:string;
   chessclub?:boolean;
   [key: string]: any;
 }

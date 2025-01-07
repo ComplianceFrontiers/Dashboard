@@ -21,6 +21,8 @@ interface FormRecord {
   program?: string;
   USCF_Rating?:string;
   [key: string]: any;
+  location?:string;
+
 }
 
 const PersonalTab = () => {
