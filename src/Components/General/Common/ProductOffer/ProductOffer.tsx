@@ -6,12 +6,12 @@ import CardCommonHeader from "@/CommonComponent/CommonCardHeader/CardCommonHeade
 const ProductOffer = () => {
   return (
     <Col sm="6" xl="3">
-      <Card className="product-offer">
+      {/* <Card className="product-offer">
         <CardCommonHeader title={ProductOfferHeading} firstItem={Weekly} secondItem={Monthly} thirdItem={Yearly} />
         <CardBody>
           <ProductOfferBody />
         </CardBody>
-      </Card>
+      </Card> */}
     </Col>
   );
 };

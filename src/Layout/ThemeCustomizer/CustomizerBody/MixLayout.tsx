@@ -10,6 +10,7 @@ const MixLayout = () => {
     dispatch(setMixLayoutType(item));
   };
   return (
+    
     <div className="mb-3 p-2 rounded-3 default-border b-t-primary">
       <div className="color-header mb-2">
         <h4>{ThemeColorMode}:</h4>

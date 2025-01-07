@@ -8,7 +8,7 @@ import Image from "next/image";
 const SaleProgress = () => {
   return (
     <Col md="6" xl="3">
-      <Card className="sale-progress">
+      {/* <Card className="sale-progress">
         <CardCommonHeader headClass="pb-0" title={SaleProgressHeading} />
         <CardBody>
           <ul>
@@ -30,7 +30,7 @@ const SaleProgress = () => {
             ))}
           </ul>
         </CardBody>
-      </Card>
+      </Card> */}
     </Col>
   );
 };

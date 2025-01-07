@@ -1,39 +1,39 @@
 import { deliveryChartData, orderChartData, totalSaleChartData } from "../DashboardChartData";
 
 export const totalSalesData = [
-  {
-    title: "Total Sale",
-    badgeColor: "danger",
-    svgIcon: "arrow-up-right",
-    percentage: "3.4%",
-    amount: "12,463",
-    btnColor: "primary",
-    icon: "Product-discount",
-    details: "20% since Last Month",
-    chart: totalSaleChartData,
-  },
-  {
-    title: "New Orders",
-    badgeColor: "success",
-    svgIcon: "arrow-down-right",
-    percentage: "4.5%",
-    amount: "51,325",
-    btnColor: "secondary",
-    icon: "order-product",
-    details: "14% since Last Month",
-    chart: orderChartData,
-  },
-  {
-    title: "Order Delivery",
-    badgeColor: "danger",
-    svgIcon: "arrow-up-right",
-    percentage: "2.3%",
-    amount: "32,587",
-    btnColor: "tertiary",
-    icon: "delivery-van",
-    details: "10% since Last Month",
-    chart: deliveryChartData,
-  },
+  // {
+  //   title: "Total Sale",
+  //   badgeColor: "danger",
+  //   svgIcon: "arrow-up-right",
+  //   percentage: "3.4%",
+  //   amount: "12,463",
+  //   btnColor: "primary",
+  //   icon: "Product-discount",
+  //   details: "20% since Last Month",
+  //   chart: totalSaleChartData,
+  // },
+  // {
+  //   title: "New Orders",
+  //   badgeColor: "success",
+  //   svgIcon: "arrow-down-right",
+  //   percentage: "4.5%",
+  //   amount: "51,325",
+  //   btnColor: "secondary",
+  //   icon: "order-product",
+  //   details: "14% since Last Month",
+  //   chart: orderChartData,
+  // },
+  // {
+  //   title: "Order Delivery",
+  //   badgeColor: "danger",
+  //   svgIcon: "arrow-up-right",
+  //   percentage: "2.3%",
+  //   amount: "32,587",
+  //   btnColor: "tertiary",
+  //   icon: "delivery-van",
+  //   details: "10% since Last Month",
+  //   chart: deliveryChartData,
+  // },
 ];
 
 export const topSellingProductsTableData = [
@@ -234,20 +234,20 @@ export const bestSellersTableBodyData = [
 ];
 
 export const addProductData = [
-  {
-    title: "Add Product",
-    icon: "shopping-bag",
-    color: "primary",
-    subTitle: "Create a new Product",
-    svgIcon: "plus",
-  },
-  {
-    title: "Add Discount",
-    icon: "Product-discount",
-    color: "secondary",
-    subTitle: "Apply a new Discount",
-    svgIcon: "plus",
-  },
+  // {
+  //   title: "Add Product",
+  //   icon: "shopping-bag",
+  //   color: "primary",
+  //   subTitle: "Create a new Product",
+  //   svgIcon: "plus",
+  // },
+  // {
+  //   title: "Add Discount",
+  //   icon: "Product-discount",
+  //   color: "secondary",
+  //   subTitle: "Apply a new Discount",
+  //   svgIcon: "plus",
+  // },
 ];
 
 export const salesByProductTableBody = [

@@ -7,7 +7,7 @@ import SvgIcon from "@/CommonComponent/SVG/SvgIcon";
 const AddProduct = () => {
   return (
     <Col md="6" xl="4">
-      <Card>
+      {/* <Card>
         <CardBody className="discount-product">
           <Row>
             {addProductData.map((data, i) => (
@@ -28,7 +28,7 @@ const AddProduct = () => {
           </Row>
         </CardBody>
       </Card>
-      <YourOrder />
+      <YourOrder /> */}
     </Col>
   );
 };

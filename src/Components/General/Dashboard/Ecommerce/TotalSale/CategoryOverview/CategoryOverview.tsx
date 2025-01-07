@@ -8,7 +8,7 @@ import { categoryOverviewChart } from "@/Data/General/Dashboard/DashboardChartDa
 const CategoryOverview = () => {
   return (
     <Col md="6" xl="5">
-      <Card>
+      {/* <Card>
         <CardCommonHeader title={CategoryOverviewHeading} firstItem={Weekly} secondItem={Monthly} thirdItem={Yearly} />
         <CardBody className="category">
           <Row>
@@ -22,7 +22,7 @@ const CategoryOverview = () => {
             </Col>
           </Row>
         </CardBody>
-      </Card>
+      </Card> */}
     </Col>
   );
 };

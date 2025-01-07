@@ -6,7 +6,7 @@ import CardCommonHeader from "@/CommonComponent/CommonCardHeader/CardCommonHeade
 const SalesByProduct = () => {
   return (
     <Col md="6" xl="4">
-      <Card>
+      {/* <Card>
         <CardCommonHeader headClass="pb-0" title={SalesByProductHeading} firstItem={Weekly} secondItem={Monthly} thirdItem={Yearly} />
         <CardBody className="sale-product pt-0">
           <Row>
@@ -26,7 +26,7 @@ const SalesByProduct = () => {
           </Row>
           <SalesByProductTable />
         </CardBody>
-      </Card>
+      </Card> */}
     </Col>
   );
 };

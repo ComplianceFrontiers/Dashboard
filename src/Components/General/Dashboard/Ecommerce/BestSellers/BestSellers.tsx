@@ -6,7 +6,7 @@ import CardCommonHeader from "@/CommonComponent/CommonCardHeader/CardCommonHeade
 const BestSellers = () => {
   return (
     <Col md="12" xl="4">
-      <Card>
+      {/* <Card>
         <CardCommonHeader headClass="pb-0" title={BestSellersHeading} firstItem={Weekly} secondItem={Monthly} thirdItem={Yearly} />
         <CardBody className="pt-0 seller-table">
             <Table responsive>
@@ -24,7 +24,7 @@ const BestSellers = () => {
               </tbody>
             </Table>
         </CardBody>
-      </Card>
+      </Card> */}
     </Col>
   );
 };

@@ -8,7 +8,7 @@ import Image from "next/image";
 const ManageOrder = () => {
   return (
     <Col md="6" xl="3">
-      <Card>
+      {/* <Card>
         <CardCommonHeader headClass="pb-0" title={ManageOrderHeading} firstItem={Weekly} secondItem={Monthly} thirdItem={Yearly} />
         <CardBody className="manage-order">
           <Table>
@@ -39,7 +39,7 @@ const ManageOrder = () => {
             </tbody>
           </Table>
         </CardBody>
-      </Card>
+      </Card> */}
     </Col>
   );
 };

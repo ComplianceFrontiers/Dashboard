@@ -7,7 +7,7 @@ import { orderOverviewChartData, salesSummaryChartData } from "@/Data/General/Da
 const SalesSummary = () => {
   return (
     <Col sm="6">
-      <Card className="sales-summary">
+      {/* <Card className="sales-summary">
         <CardCommonHeader title={SalesSummaryHeading} firstItem={Weekly} secondItem={Monthly} thirdItem={Yearly} />
         <CardBody>
           <div className="current-sale-container order-container">
@@ -19,7 +19,7 @@ const SalesSummary = () => {
             </div>
           </div>
         </CardBody>
-      </Card>
+      </Card> */}
     </Col>
   );
 };

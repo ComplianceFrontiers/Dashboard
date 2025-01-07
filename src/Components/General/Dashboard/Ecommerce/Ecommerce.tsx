@@ -13,7 +13,7 @@ import ProductOffer from "../../Common/ProductOffer/ProductOffer";
 const ContainerEcommerce = () => {
   return (
     <>
-      <Breadcrumbs mainTitle={EcommerceDashboard} parent={Dashboard} />
+      {/* <Breadcrumbs mainTitle={EcommerceDashboard} parent={Dashboard} /> */}
       <Container fluid className="ecommerce-dashboard">
         <Row>
           <TotalSale />

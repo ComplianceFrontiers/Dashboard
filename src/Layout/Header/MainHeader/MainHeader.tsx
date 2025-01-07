@@ -17,14 +17,14 @@ const MainHeader = () => {
       <SearchInput />
       <div className="nav-right">
         <ul className="header-right">
-          <DarkMode />
+          {/* <DarkMode /> */}
           <ResponsiveSearch />
-          <ZoomInOut />
-          <Language />
-          <NotificationHeader />
-          <BookMark />
-          <CartHeader />
-          <MessagesHeader />
+          {/* <ZoomInOut /> */}
+          {/* <Language /> */}
+          {/* egetd */}
+          {/* <BookMark /> */}
+          {/* <CartHeader /> */}
+          {/* <MessagesHeader /> */}
           <UserProfile />
         </ul>
       </div>

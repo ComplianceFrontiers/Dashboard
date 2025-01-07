@@ -5,7 +5,7 @@ import CardCommonHeader from "@/CommonComponent/CommonCardHeader/CardCommonHeade
 
 const TopSellingProducts = () => {
   return (
-    <Col md="6" xl="7">
+    <Col md="6" xl="10">
       <Card>
         <CardCommonHeader headClass="pb-0" title={TopSellingProductsHeading} firstItem={Weekly} secondItem={Monthly} thirdItem={Yearly} />
         <CardBody className="selling-table checkbox-checked">
