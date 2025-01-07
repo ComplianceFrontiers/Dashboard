@@ -111,6 +111,7 @@ export const MenuList: MenuItem[] = [
           { path: `/masterlist/mpes`, type: "link", title: "MPES List" },
           { path: `/masterlist/lombardy`, type: "link", title: "Lombardy List" },
           { path: `/masterlist/jcc`, type: "link", title: "JCC List" },
+          { path: `/masterlist/phone`, type: "link", title: "Phone List" },
           { path: `/masterlist/online-users`, type: "link", title: "Online Users List" },
           { path: `/masterlist/website`, type: "link", title: "Website List" },
           { path: `/masterlist/chess-club-tournament`, type: "link", title: "Chess Club List" },
