@@ -30,7 +30,7 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
   const emailBody = `
   <div style="font-family: Arial, sans-serif; color: #333; padding: 20px; text-align: center; display: block;">
       <div style="text-align: center;">
-        <img src="https://res.cloudinary.com/dtgje24ez/image/upload/v1736077481/fy1vltjvffddx9dj7nnr.jpg" alt="Chess Champs Banner" style="max-width: 100%; height: auto;">
+        <img src="https://res.cloudinary.com/dtgje24ez/image/upload/v1736227689/mu6bu8mcibkqrhzpekem.jpg" alt="Chess Champs Banner" style="max-width: 100%; height: auto;">
       </div>
       <h1 style="color: #000; text-align: left; font-size: 14px; font-weight: bold; margin-bottom: 20px; margin-top: 20px;">
         Now Enrolling for the 2025 Delaware Chess Club Championship!
