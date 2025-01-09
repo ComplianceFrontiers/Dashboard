@@ -28,7 +28,7 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
   const [apiLink, setApiLink] = useState('');
 
   const emailBody = `
-  <div style="font-family: Arial, sans-serif; color: #333; padding: 20px; text-align: center; display: block;">
+  <div style="font-family: Arial, sans-serif; color: #333; padding: 20px; text-align: center; display: block; margin: 0 auto; max-width: 500px;">
       <div style="text-align: center;">
         <img src="https://res.cloudinary.com/dtgje24ez/image/upload/v1736227689/mu6bu8mcibkqrhzpekem.jpg" alt="Chess Champs Banner" style="max-width: 100%; height: auto;">
       </div>
