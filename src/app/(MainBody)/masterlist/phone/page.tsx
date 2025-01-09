@@ -179,31 +179,89 @@ const PersonalTab = () => {
         <>
           <div style={{ overflowX: "auto" }}>
             <Table bordered>
-              <thead>
-                <tr>
-                  <th>
-                    <Input
-                      type="checkbox"
-                      onChange={(e) =>
-                        setSelectedRows(
-                          e.target.checked
-                            ? new Set(filteredData.map((record) => record.profile_id))
-                            : new Set()
-                        )
-                      }
-                      checked={selectedRows.size > 0 && selectedRows.size === filteredData.length}
-                    />
-                  </th>
-                  <th>Sl.</th>
-                  <th>Profile ID</th>
-                  <th>Parent's Name</th>
-                  <th>Child's Name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Location</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
+            <thead>
+  <tr>
+    <th>
+      <Input
+        type="checkbox"
+        onChange={(e) =>
+          setSelectedRows(
+            e.target.checked
+              ? new Set(filteredData.map((record) => record.profile_id))
+              : new Set()
+          )
+        }
+        checked={selectedRows.size > 0 && selectedRows.size === filteredData.length}
+      />
+    </th>
+    <th>Sl.</th>
+    <th>Profile ID</th>
+    <th>Parent's Name</th>
+    <th>Child's Name</th>
+    <th>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <span>Email</span>
+        <FaSearch
+          style={{ marginLeft: "8px", cursor: "pointer" }}
+          onClick={() =>
+            setActiveColumn(activeColumn === "email" ? null : "email")
+          }
+        />
+      </div>
+      {activeColumn === "email" && (
+        <Input
+          type="text"
+          placeholder="Filter by Email"
+          value={searchTerm}
+          onChange={(e) => handleSearch(e.target.value, "email")}
+          style={{ marginTop: "5px" }}
+        />
+      )}
+    </th>
+    <th>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <span>Phone</span>
+        <FaSearch
+          style={{ marginLeft: "8px", cursor: "pointer" }}
+          onClick={() =>
+            setActiveColumn(activeColumn === "phone" ? null : "phone")
+          }
+        />
+      </div>
+      {activeColumn === "phone" && (
+        <Input
+          type="text"
+          placeholder="Filter by Phone"
+          value={searchTerm}
+          onChange={(e) => handleSearch(e.target.value, "phone")}
+          style={{ marginTop: "5px" }}
+        />
+      )}
+    </th>
+    <th>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <span>Location</span>
+        <FaSearch
+          style={{ marginLeft: "8px", cursor: "pointer" }}
+          onClick={() =>
+            setActiveColumn(activeColumn === "location" ? null : "location")
+          }
+        />
+      </div>
+      {activeColumn === "location" && (
+        <Input
+          type="text"
+          placeholder="Filter by Location"
+          value={searchTerm}
+          onChange={(e) => handleSearch(e.target.value, "location")}
+          style={{ marginTop: "5px" }}
+        />
+      )}
+    </th>
+    <th>Actions</th>
+  </tr>
+</thead>
+
               <tbody>
                 {paginatedData.map((record, index) => (
                   <tr key={record.profile_id}>

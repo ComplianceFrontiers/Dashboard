@@ -83,18 +83,7 @@ const TopSellingProductsTableBody = () => {
   return (
     <>
       {/* Total Count Display */}
-      <tr>
-        <td colSpan={3}>
-          <Button
-            color="primary"
-            className="w-100"
-            onClick={handleTotalRedirect}
-            style={{ fontWeight: "bold", fontSize: "1.2rem" }}
-          >
-            Total Count: {totalCount}
-          </Button>
-        </td>
-      </tr>
+    
 
       {/* Table Rows */}
       {Object.entries(fieldCounts).map(([field, count], index) => (
@@ -123,7 +112,20 @@ const TopSellingProductsTableBody = () => {
             </Button>
           </td>
         </tr>
+        
       ))}
+        <tr>
+        <td colSpan={3}>
+          <Button
+            color="primary"
+            className="w-100"
+            onClick={handleTotalRedirect}
+            style={{ fontWeight: "bold", fontSize: "1.2rem" }}
+          >
+            Total Count: {totalCount}
+          </Button>
+        </td>
+      </tr>
     </>
   );
 };

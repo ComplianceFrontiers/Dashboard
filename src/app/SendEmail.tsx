@@ -60,11 +60,16 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
     </ul>
   </li>
 </ul>
- <div style="display: flex; justify-content: center; align-items: center; margin-top: 30px;">
-  <a href="https://www.chesschamps.us/DCC-Tournament/" style="display: inline-block; padding: 12px 25px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 16px;">
-    REGISTER HERE
-  </a>
-</div>
+  <table align="center" style="margin: 30px auto;">
+    <tr>
+      <td style="text-align: center;">
+        <a href="https://www.chesschamps.us/DCC-Tournament/" style="display: inline-block; padding: 12px 25px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 16px;">
+          REGISTER HERE
+        </a>
+      </td>
+    </tr>
+  </table>
+
 
 <strong>
       <h3 style="color: #f53db8; text-align: left; font-size: 14px; margin-top: 20px; margin-bottom: 20px;"><strong>TOURNAMENT FORMAT:</strong></h3>
@@ -100,12 +105,15 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
     </ul>
   </li>
 </ul>
- <div style="display: flex; justify-content: center; align-items: center; margin-top: 30px;">
-  <a href="https://www.chesschamps.us/DCC-Tournament/" style="display: inline-block; padding: 12px 25px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 16px;">
-    REGISTER HERE
-  </a>
-</div>
-
+ <table align="center" style="margin: 30px auto;">
+    <tr>
+      <td style="text-align: center;">
+        <a href="https://www.chesschamps.us/DCC-Tournament/" style="display: inline-block; padding: 12px 25px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 16px;">
+          REGISTER HERE
+        </a>
+      </td>
+    </tr>
+  </table>
             <p style="font-size: 14px; color: #666; text-align: center; margin-top: 20px;">Spots are limited, so secure yours today and join us for an unforgettable chess experience!</p>
 <p><strong>For more information,</strong> contact connect@chesschamps.us.</p>
       
