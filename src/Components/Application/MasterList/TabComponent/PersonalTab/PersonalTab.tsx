@@ -12,6 +12,7 @@ interface FormRecord {
   email?: string;
   phone?: string;
   Website?: boolean;
+  WhatsApp?: boolean;
   App?: boolean;
   mpes?: boolean;
   Lombardy?: boolean;
@@ -220,6 +221,7 @@ const PersonalTab = () => {
       <option value="lombardy">Lombardy</option>
       <option value="jcc">JCC</option>
       <option value="online">Online</option>
+      <option value="WhatsApp">WhatsApp</option>
       <option value="Bear_Middletown_Chess_Tournament">Bear/Middletown Chess Tournament</option>
       <option value="New_Jersey_Chess_Tournament">New Jersey Chess Tournament</option>
       <option value="New_Jersey_Masterclass">New Jersey Masterclass</option>
@@ -263,6 +265,7 @@ const PersonalTab = () => {
   {record.lombardy && <span className="badge bg-primary">Lombardy</span>}
   {record.jcc && <span className="badge bg-primary">JCC</span>}
   {record.online && <span className="badge bg-primary">Online</span>}
+  {record.WhatsApp && <span className="badge bg-primary">WhatsApp</span>}
   {record.Bear_Middletown_Chess_Tournament && <span className="badge bg-primary">Bear/Middletown Chess Tournament</span>}
   {record.New_Jersey_Chess_Tournament && <span className="badge bg-primary">New Jersey Chess Tournament</span>}
   {record.New_Jersey_Masterclass && <span className="badge bg-primary">New Jersey Masterclass</span>}

@@ -37,6 +37,7 @@ interface ProfileData {
     WilmingtonChessCoaching?:boolean;
     chessclub?:boolean;
     Bear_Chess_Coaching?:boolean;
+    WhatsApp?: boolean;
     
   }
   
@@ -119,6 +120,9 @@ interface ProfileModalProps1 {
   </p>
   <p>
     <strong>Location:</strong> {profileData.location}
+  </p>
+  <p>
+    <strong>WhatsApp:</strong> {profileData.WhatsApp ? "Yes" : "No"}
   </p>
 </div>
 
