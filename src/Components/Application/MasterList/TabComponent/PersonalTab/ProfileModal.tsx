@@ -38,6 +38,7 @@ interface ProfileData {
     chessclub?:boolean;
     Bear_Chess_Coaching?:boolean;
     WhatsApp?: boolean;
+    jcc_kp?:boolean;
     
   }
   
@@ -123,6 +124,9 @@ interface ProfileModalProps1 {
   </p>
   <p>
     <strong>WhatsApp:</strong> {profileData.WhatsApp ? "Yes" : "No"}
+  </p>
+  <p>
+    <strong>JCC KP:</strong> {profileData.jcc_kp ? "Yes" : "No"}
   </p>
 </div>
 
