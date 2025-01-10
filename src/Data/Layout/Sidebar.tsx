@@ -112,6 +112,7 @@ export const MenuList: MenuItem[] = [
           { path: `/masterlist/lombardy`, type: "link", title: "Lombardy List" },
           { path: `/masterlist/jcc`, type: "link", title: "JCC List" },
           { path: `/masterlist/phone`, type: "link", title: "Phone List" },
+          { path: `/masterlist/whatsapp`, type: "link", title: "WhatsApp List" },
           { path: `/masterlist/website`, type: "link", title: "Website List" },
           { path: `/masterlist/chess-club-tournament`, type: "link", title: "Chess Club List" },
           { path: `/masterlist/middletown`, type: "link", title: "Bear/Middletown C.T" },
