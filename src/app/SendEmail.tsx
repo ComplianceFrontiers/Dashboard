@@ -28,92 +28,98 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
   const [apiLink, setApiLink] = useState('');
 
   const emailBody = `
-  <div style="font-family: Arial, sans-serif; color: #333; padding: 20px; text-align: center; display: block;">
+  <div style="font-family: Arial, sans-serif; color: #333; padding: 20px; text-align: center; display: block; margin: 0 auto; max-width: 800px;">
       <div style="text-align: center;">
         <img src="https://res.cloudinary.com/dtgje24ez/image/upload/v1736227689/mu6bu8mcibkqrhzpekem.jpg" alt="Chess Champs Banner" style="max-width: 100%; height: auto;">
       </div>
-      <h1 style="color: #000; text-align: left; font-size: 14px; font-weight: bold; margin-bottom: 20px; margin-top: 20px;">
-        Now Enrolling for the 2025 Delaware Chess Club Championship!
-      </h1>
-      <p style="font-size: 14px; line-height: 1.6; margin-top: 20px; margin-bottom: 10px; text-align: left; max-width: 800px; margin-right: auto;">
-        <strong> Tournament Date: </strong> Saturday, January 11, 2025, from 1:30 PM to 4:30 PM.<br>
-        <strong> Location: </strong> Kathleen H. Wilbur Elementary School, 4050 Wrangle Hill Rd, Bear, DE 19701.
-      </p>
-      <p style="font-size: 14px; line-height: 1.6; margin-top: 10px; margin-bottom: 20px; text-align: left; max-width: 800px; margin-right: auto;">
-        This exciting chess event offers opportunities for both competitive and casual players, ensuring a fun and enriching experience for all!
-      </p>
-        <h2 style="text-align: left; font-size: 16px; color: #f53db8; margin-bottom: 10px; margin-left: 5px;"><strong>PLAY CATEGORIES:</strong></h2>
+     <div style="border: 2px solid #ccc; padding: 20px; border-radius: 8px; max-width: 850px; margin: 0 auto;margin-top: 10px;margin-bottom: 20px;">
+  <h1 style="color: #000; text-align: left; font-size: 16px; font-weight: bold; margin-bottom: 10px; margin-top: px;"> 
+    Now Enrolling for the 2025 Delaware Chess Club Championship!
+  </h1>
+  <p style="font-size: 14px; line-height: 1.6; margin-top: 20px; margin-bottom: 10px; text-align: left; max-width: 800px; margin-right: auto;">
+    <strong> Tournament Date: </strong> Saturday, January 11, 2025, from 1:30 PM to 4:30 PM.<br>
+    <strong> Location: </strong> Kathleen H. Wilbur Elementary School, 4050 Wrangle Hill Rd, Bear, DE 19701.
+  </p>
+  <p style="font-size: 14px; line-height: 1.6; margin-top: 10px; margin-bottom: 20px; text-align: left; max-width: 800px; margin-right: auto;">
+    This exciting chess event offers opportunities for both competitive and casual players, ensuring a fun and enriching experience for all!
+  </p>
+  <h2 style="text-align: left; font-size: 16px; color: #f53db8; margin-bottom: 10px; margin-left: 5px;"><strong>PLAY CATEGORIES:</strong></h2>
+  <ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 5px; margin-right: auto; list-style-type: disc; padding-left: 20px;">
+    <li style="margin-bottom: 10px;">
+      <strong>Rated Section:</strong>
+      <ul style="list-style-type: disc; margin-left: 5px;">
+        <li><strong>Open (Rated Only):</strong> Compete for the <em>Delaware Chess Club Champion</em> title.</li>
+        <li><strong>K-12 Championship (Rated):</strong> Compete for the <em>Delaware Jr. Club Champion</em> title.</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Casual Section:</strong>
+      <ul style="list-style-type: disc; margin-left: 5px;">
+        <li><strong>K-5 Championship (Casual Only):</strong> Compete for the <em>Scholastic Jr. Club Champion</em> title.</li>
+        <li><strong>K-12 Championship (Casual):</strong> Compete for the <em>Scholastic Club Champion</em> title.</li>
+      </ul>
+    </li>
+  </ul>
+  <table align="center" style="margin: 10px auto;">
+    <tr>
+      <td style="text-align: center;">
+        <a href="https://www.chesschamps.us/DCC-Tournament/" style="display: inline-block; padding: 12px 20px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 14px;">
+          REGISTER HERE
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+<div style="border: 2px solid #ccc; padding: 15px; border-radius: 8px; max-width: 850px; margin: 0 auto;">
+  <h3 style="color: #f53db8; text-align: left; font-size: 14px; margin-top: 1px; margin-bottom: 2px;">
+    <strong>TOURNAMENT FORMAT:</strong>
+  </h3>
+  <ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 5px;">
+    <li>4 Rounds | G/25 Time Control (Each player gets 25 minutes).</li>
+    <li>
+      Awards:
+      <ul style="margin-left: 5px;">
+        <li>🏆 Winner: Trophy</li>
+        <li>🥈 2nd Place: Medal</li>
+        <li>🥉 3rd Place: Medal</li>
+      </ul>
+    </li>
+    <li>Registration Fee: $25 (Online registration only; no onsite registration available).</li>
+  </ul>
+
+  <h3 style="color: #f53db8; text-align: left; font-size: 14px; margin-top: 2px; margin-bottom: 2px;">
+    <strong>TROPHY TITLES:</strong>
+  </h3>
+  <ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 5px; margin-right: auto; list-style-type: disc; padding-left: 20px;">
+    <li style="margin-bottom: 5px;">
+      <strong>Rated Section:</strong>
+      <ul style="list-style-type: disc; margin-left: 5px;">
+        <li><strong>Delaware Chess Club Champion:</strong> (Open).</li>
+        <li><strong>Delaware Jr. Club Champion:</strong> (K-12).</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Casual Section:</strong>
+      <ul style="list-style-type: disc; margin-left: 5px;">
+        <li><strong>Scholastic Club Champion:</strong> (K-12).</li>
+        <li><strong>Scholastic Jr. Club Champion:</strong> (K-5).</li>
+      </ul>
+    </li>
+  </ul>
+  <table align="center" style="margin: 10px auto;">
+    <tr>
+      <td style="text-align: center;">
+        <a href="https://www.chesschamps.us/DCC-Tournament/" style="display: inline-block; padding: 12px 20px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 14px;">
+          REGISTER HERE
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
+
  
-<ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 5px; margin-right: auto; list-style-type: disc; padding-left: 20px;">
-  <li style="margin-bottom: 10px;">
-    <strong>Rated Section:</strong>
-    <ul style="list-style-type: disc; margin-left: 5px;">
-      <li><strong>Open (Rated Only):</strong> Compete for the <em>Delaware Chess Club Champion</em> title.</li>
-      <li><strong>K-12 Championship (Rated):</strong> Compete for the <em>Delaware Jr. Club Champion</em> title.</li>
-    </ul>
-  </li>
-  <li>
-    <strong>Casual Section:</strong>
-    <ul style="list-style-type: disc; margin-left: 5px;">
-      <li><strong>K-5 Championship (Casual Only):</strong> Compete for the <em>Scholastic Jr. Club Champion</em> title.</li>
-      <li><strong>K-12 Championship (Casual):</strong> Compete for the <em>Scholastic Club Champion</em> title.</li>
-    </ul>
-  </li>
-</ul>
-  <table align="center" style="margin: 30px auto;">
-    <tr>
-      <td style="text-align: center;">
-        <a href="https://www.chesschamps.us/DCC-Tournament/" style="display: inline-block; padding: 12px 25px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 16px;">
-          REGISTER HERE
-        </a>
-      </td>
-    </tr>
-  </table>
-
-
-<strong>
-      <h3 style="color: #f53db8; text-align: left; font-size: 14px; margin-top: 20px; margin-bottom: 20px;"><strong>TOURNAMENT FORMAT:</strong></h3>
-
-     <ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 5px;">
-  <li>4 Rounds | G/25 Time Control (Each player gets 25 minutes).</li>
-  <li>
-    Awards:
-    <ul style="margin-left: 5px;">
-      <li>🏆 Winner: Trophy</li>
-      <li>🥈 2nd Place: Medal</li>
-      <li>🥉 3rd Place: Medal</li>
-    </ul>
-  </li>
-  <li>Registration Fee: $25 (Online registration only; no onsite registration available).</li>
-</ul>
-
-      </strong>
-      <h3 style="color: #000; text-align: left; font-size: 14px; margin-top: 20px; margin-bottom: 20px;color: #f53db8;"><strong>TROPHY TITLES:</strong></h3>
-      <ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 5px; margin-right: auto; list-style-type: disc; padding-left: 20px;">
-  <li style="margin-bottom: 10px;">
-    <strong>Rated Section:</strong>
-    <ul style="list-style-type: disc; margin-left: 5px;">
-      <li><strong>Delaware Chess Club Champion:</strong> (Open). </li>
-      <li><strong>Delaware Jr. Club Champion:</strong> (K-12). </li>
-    </ul>
-  </li>
-  <li>
-    <strong>Casual Section:</strong>
-   <ul style="list-style-type: disc; margin-left: 5px;">
-      <li><strong>Scholastic Club Champion:</strong> (K-12). </li>
-      <li><strong>Scholastic Jr. Club Champion:</strong> (K-5). </li>
-    </ul>
-  </li>
-</ul>
- <table align="center" style="margin: 30px auto;">
-    <tr>
-      <td style="text-align: center;">
-        <a href="https://www.chesschamps.us/DCC-Tournament/" style="display: inline-block; padding: 12px 25px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 16px;">
-          REGISTER HERE
-        </a>
-      </td>
-    </tr>
-  </table>
             <p style="font-size: 14px; color: #666; text-align: center; margin-top: 20px;">Spots are limited, so secure yours today and join us for an unforgettable chess experience!</p>
 <p><strong>For more information,</strong> contact connect@chesschamps.us.</p>
       
