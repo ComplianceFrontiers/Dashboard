@@ -174,7 +174,7 @@ const PersonalTab = () => {
     <Card>
       <CardHeader>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <h4>New Jersey Chess Tournament</h4>
+          <h4>Website</h4>
           <Button
             color="primary"
             onClick={exportToExcel}
