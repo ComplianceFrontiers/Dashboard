@@ -127,8 +127,7 @@ Bear_Middletown_Chess_Coaching?:boolean;
     <strong>Bear/Middletown Chess Tournament:</strong> {profileData.Bear_Middletown_Chess_Tournament ? "Yes" : "No"}
   </p>
   <p>
-    <strong>
-Bear Middletown Chess Coaching:</strong> {profileData.
+    <strong>Bear Chess Coaching:</strong> {profileData.
 Bear_Middletown_Chess_Coaching ? "Yes" : "No"}
   </p>
   <p>

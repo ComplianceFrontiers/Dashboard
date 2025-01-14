@@ -231,8 +231,7 @@ const PersonalTab = () => {
       <option value="WilmingtonChessCoaching">Wilmington Chess Coaching</option>
       <option value="chessclub">Chess Club Tournament</option>
       <option value="
-Bear_Middletown_Chess_Coaching">
-Bear Middletown Chess Coaching</option>
+Bear_Middletown_Chess_Coaching">Bear Chess Coaching</option>
 
 
     </select>
@@ -279,8 +278,7 @@ Bear Middletown Chess Coaching</option>
   {record.WilmingtonChessCoaching && <span className="badge bg-primary">Wilmington Chess Coaching</span>}
   {record.chessclub && <span className="badge bg-primary"> Chess Club Tournament</span>}
   {record.
-Bear_Middletown_Chess_Coaching && <span className="badge bg-primary"> 
-Bear Middletown Chess Coaching</span>}
+Bear_Middletown_Chess_Coaching && <span className="badge bg-primary"> Bear Chess Coaching</span>}
 
 </td>
 
