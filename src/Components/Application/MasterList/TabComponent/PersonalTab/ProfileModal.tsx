@@ -36,6 +36,7 @@ interface ProfileData {
     Bear_Middletown_Chess_Tournament?:boolean;
     WilmingtonChessCoaching?:boolean;
     chessclub?:boolean;
+    chess_club?:boolean;
     Bear_Chess_Coaching?:boolean;
     WhatsApp?: boolean;
     jcc_kp?:boolean;
@@ -43,22 +44,35 @@ interface ProfileData {
   }
   
 
-interface ProfileModalProps1 {
-  isOpen: boolean;
-  toggle: () => void;
-  profileId: string;
-}
-
-  const ProfileModal: React.FC<ProfileModalProps1> = ({ isOpen, toggle, profileId }) => {
+  interface ProfileModalProps1 {
+    isOpen: boolean;
+    toggle: () => void;
+    profileId?: string;
+    profileData?: ProfileData;
+  }
+  
+  const ProfileModal: React.FC<ProfileModalProps1> = ({
+    isOpen,
+    toggle,
+    profileId,
+    profileData: directProfileData,
+  }) => {
     const [profileData, setProfileData] = useState<ProfileData | null>(null);
   
     useEffect(() => {
-      if (profileId) {
+      if (directProfileData) {
+        // If profileData is passed directly, set it
+        setProfileData(directProfileData);
+      } else if (profileId) {
+        // Otherwise, fetch profile data using the profileId
         const fetchProfileData = async () => {
           try {
-            const response = await axios.get("https://backend-chess-tau.vercel.app/get_record_by_profile_id", {
-              params: { profile_id: profileId }
-            });
+            const response = await axios.get(
+              "https://backend-chess-tau.vercel.app/get_record_by_profile_id",
+              {
+                params: { profile_id: profileId },
+              }
+            );
             setProfileData(response.data);
           } catch (error) {
             console.error("Error fetching profile data:", error);
@@ -67,8 +81,7 @@ interface ProfileModalProps1 {
   
         fetchProfileData();
       }
-    }, [profileId]);
-  
+    }, [profileId, directProfileData]);
     return (
       <Modal isOpen={isOpen} toggle={toggle}>
         <ModalHeader toggle={toggle}>Profile Details</ModalHeader>
@@ -118,6 +131,9 @@ interface ProfileModalProps1 {
   </p>
   <p>
     <strong>chess club Tournament:</strong> {profileData.chessclub ? "Yes" : "No"}
+  </p>
+  <p>
+    <strong>chess club:</strong> {profileData.chess_club ? "true" : "N/A"}
   </p>
   <p>
     <strong>Location:</strong> {profileData.location}

@@ -1,3 +1,5 @@
+// chess club
+
 "use client";
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardHeader, Table, Button, Input } from "reactstrap";
@@ -27,9 +29,11 @@ const PersonalTab = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
-  const itemsPerPage = 10;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedProfileId, setSelectedProfileId] = useState<string>("");
+  const [selectedProfileId, setSelectedProfileId] = useState<string | null>(null);
+  const [profileData, setProfileData] = useState<any>(null);
+
+  const itemsPerPage = 10;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,14 +44,31 @@ const PersonalTab = () => {
         const data = response.data;
         setFormData(data);
         setFilteredData(data);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
         setLoading(false);
       }
     };
     fetchData();
   }, []);
+
+  const fetchProfileData = async (profileId: string) => {
+    try {
+      const response = await axios.get(`https://backend-chess-tau.vercel.app/form_chess_club_by_profile_id`, {
+        params: { profile_id: profileId },
+      });
+      setProfileData(response.data);
+    } catch (error) {
+      console.error("Failed to fetch profile data:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedProfileId) {
+      fetchProfileData(selectedProfileId);
+    }
+  }, [selectedProfileId]);
 
   const deleteProfile = async (profileId: string) => {
     if (window.confirm("Are you sure you want to delete this profile?")) {
@@ -175,29 +196,29 @@ const PersonalTab = () => {
                     />
                   </th>
                   <th>Sl.</th>
-                  {["profile_id", "parent_name", "child_name", "email", "phone","date","time"].map(
+                  {["profile_id", "parent_name", "child_name", "email", "phone", "date", "time"].map(
                     (column) => (
-                    <th key={column}>
-                      <div style={{ display: "flex", alignItems: "center" }}>
+                      <th key={column}>
+                        <div style={{ display: "flex", alignItems: "center" }}>
                           {column.replace(/_/g, " ")}{" "}
-                        <FaSearch
-                          style={{ marginLeft: "8px", cursor: "pointer" }}
-                          onClick={() =>
-                            setActiveColumn(column === activeColumn ? null : column)
-                          }
-                        />
-                      </div>
-                      {activeColumn === column && (
-                        <Input
-                          type="text"
-                          placeholder={`Search ${column.replace(/_/g, " ")}...`}
-                          value={searchTerm}
-                          onChange={(e) => handleSearch(e.target.value, column)}
+                          <FaSearch
+                            style={{ marginLeft: "8px", cursor: "pointer" }}
+                            onClick={() =>
+                              setActiveColumn(column === activeColumn ? null : column)
+                            }
+                          />
+                        </div>
+                        {activeColumn === column && (
+                          <Input
+                            type="text"
+                            placeholder={`Search ${column.replace(/_/g, " ")}...`}
+                            value={searchTerm}
+                            onChange={(e) => handleSearch(e.target.value, column)}
                             style={{ marginTop: "5px", padding: "0px 0px" }}
-                        />
-                      )}
-                    </th>
-                  )
+                          />
+                        )}
+                      </th>
+                    )
                   )}
                   <th>Actions</th>
                 </tr>
@@ -244,43 +265,44 @@ const PersonalTab = () => {
                     <td>{record.date || "N/A"}</td>
                     <td>{record.time || "N/A"}</td>
                     <td>
-                      <FaTrashAlt
+                    <FaTrashAlt
                         style={{ color: "red", cursor: "pointer" }}
                         onClick={() => deleteProfile(record.profile_id)}
-                        title="Delete"
                       />
                     </td>
                   </tr>
                 ))}
               </tbody>
             </Table>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Button
+                color="secondary"
+                onClick={handlePrevious}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </Button>
+              <Button
+                color="secondary"
+                onClick={handleNext}
+                disabled={currentPage * itemsPerPage >= filteredData.length}
+              >
+                Next
+              </Button>
+            </div>
           </div>
         )}
-        <div style={{ display: "flex", justifyContent: "space-between", marginTop: "10px" }}>
-          <Button color="secondary" onClick={handlePrevious} disabled={currentPage === 1}>
-            Previous
-          </Button>
-          <span>
-            Page {currentPage} of {Math.ceil(filteredData.length / itemsPerPage)}
-          </span>
-          <Button
-            color="secondary"
-            onClick={handleNext}
-            disabled={currentPage === Math.ceil(filteredData.length / itemsPerPage)}
-          >
-            Next
-          </Button>
-        </div>
       </CardBody>
-<ProfileModal
-        isOpen={isModalOpen}
-        toggle={toggleModal}
-        profileId={selectedProfileId}
-      />
-
-
+      {isModalOpen && profileData && (
+        <ProfileModal
+          isOpen={isModalOpen}
+          profileData={profileData}
+          toggle={toggleModal}
+        />
+      )}
     </Card>
   );
 };
 
 export default PersonalTab;
+
