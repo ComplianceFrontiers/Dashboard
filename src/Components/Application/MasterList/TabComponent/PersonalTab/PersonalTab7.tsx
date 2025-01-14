@@ -12,12 +12,15 @@ interface FormRecord {
   child_name?: { first: string; last: string };
   email?: string;
   phone?: string;
-  child_grade?: string;
-  chessclub?: boolean;
+  Bear_Middletown_Chess_Tournament?: boolean;
   year?: string;
   date?: string;
   time?: string;
-  program?: string;
+  category?: string;
+  section?: string;
+  uscf_id?: string;
+  uscf_expiration_date?: string;
+  byes?: string;
   USCF_Rating?: string;
   [key: string]: any;
 }
@@ -114,13 +117,16 @@ const PersonalTab = () => {
       rowsToExport.map((record) => ({
         "Profile ID": record.profile_id,
         "Parent's Name": `${record.parent_name?.first || ""} ${record.parent_name?.last || ""}`,
-        "Child's Name": `${record.child_name?.first || ""} ${record.child_name?.last || ""}`,
-         Child_grade: record.child_grade,
-        Program: record.program || "N/A",
-        USCF_Rating: record.USCF_Rating || "N/A",
+        "Child's Name": `${record.child_name?.first || ""} ${record.child_name?.last || ""}`, 
+        category: record.category || "N/A",
+        section:record.section || "N/A",
+        uscf_id: record.uscf_id || "N/A",
+        uscf_expiration_date:record.uscf_expiration_date || "N/A",
+        byes: record.byes || "N/A",
         Year: record.year || "N/A",
         Email: record.email || "N/A",
         Phone: record.phone || "N/A",
+        USCF_Rating: record.USCF_Rating || "N/A",
         Date: record.date || "N/A",
         Time: record.time || "N/A",
       }))
@@ -214,7 +220,7 @@ const PersonalTab = () => {
                     />
                   </th>
                   <th>Sl.</th>
-                  {["profile_id", "parent_name", "child_name", "email", "phone","Child's_grade","program","USCF_Rating", "date", "time"].map(
+                  {["profile_id", "parent_name", "child_name", "email", "phone","USCF_Rating","category","section","uscf_id","uscf_expiration_date","byes", "date", "time"].map(
                     (column) => (
                       <th key={column}>
                         <div style={{ display: "flex", alignItems: "center" }}>
@@ -279,11 +285,13 @@ const PersonalTab = () => {
                         : "N/A"}
                     </td>
                     <td>{record.email || "N/A"}</td>
-                    <td>{record.phone || "N/A"}</td>
-                    <td>{record.child_grade || "N/A"}</td>
-                    <td>{record.program || "N/A"}</td>
+                    <td>{record.phone || "N/A"}</td> 
                     <td>{record.USCF_Rating || "N/A"}</td>
-
+                    <td>{record.category || "N/A"}</td>
+                    <td>{record.section || "N/A"}</td>
+                    <td>{record.uscf_id || "N/A"}</td>
+                    <td>{record.uscf_expiration_date || "N/A"}</td>
+                    <td>{record.byes || "N/A"}</td>
                     <td>{record.date || "N/A"}</td>
                     <td>{record.time || "N/A"}</td>
                     <td>
