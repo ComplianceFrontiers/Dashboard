@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardHeader, Table, Button, Input } from "reactstrap";
-import { FaSearch, FaTrashAlt } from "react-icons/fa";
+import { FaExternalLinkAlt, FaSearch, FaTrashAlt } from "react-icons/fa";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import ProfileModal from "./ProfileModal";
@@ -144,7 +144,18 @@ const PersonalTab = () => {
     <Card>
       <CardHeader>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <h4>Bear Middletown Chess Tournament List</h4>
+         
+           <h4>
+           Bear Middletown Chess Tournament List{" "}
+                      <a
+                        href="https://chesschampsus.vercel.app/Bear-and-middletown"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        // style={buttonStyles}
+                      >
+                        <FaExternalLinkAlt />
+                      </a>
+                    </h4>
           <Button color="primary" onClick={exportToExcel} disabled={selectedRows.size === 0}>
             Export to Excel
           </Button>
