@@ -7,6 +7,7 @@ import { FaSearch, FaTrashAlt } from "react-icons/fa";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import ProfileModal from "./ProfileModal";
+import { FaExternalLinkAlt } from "react-icons/fa"; // Add this import
 
 interface FormRecord {
   profile_id: string;
@@ -166,7 +167,21 @@ const PersonalTab = () => {
     <Card>
       <CardHeader>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <h4>Chess Club List</h4>
+        <h4>
+      Chess Club List{" "}
+      <a
+        href="https://chess-champs-tournaments.vercel.app/"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          color: "blue",
+          marginLeft: "10px",
+          textDecoration: "none",
+        }}
+      >
+        <FaExternalLinkAlt />
+      </a>
+    </h4>
           <Button color="primary" onClick={exportToExcel} disabled={selectedRows.size === 0}>
             Export to Excel
           </Button>
