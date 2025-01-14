@@ -9,14 +9,13 @@ import ProfileModal from "./ProfileModal";
 interface FormRecord {
   profile_id: string;
   parent_name?: { first: string; last: string };
+  child_name?: { first: string; last: string };
   email?: string;
-  online?: boolean;
-  onlinePurchase?: boolean;
   phone?: string;
-  program?:string;
-  USCF_Rating?:string;
-  location?:string;
-  chessclub?:boolean;
+  chessclub?: boolean;
+  year?: string;
+  date?: string;
+  time?: string;
   [key: string]: any;
 }
 
@@ -29,14 +28,16 @@ const PersonalTab = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const itemsPerPage = 10;
-  const [isModalOpen, setIsModalOpen] = useState(false);  // To control the modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProfileId, setSelectedProfileId] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms");
-        const data = response.data.filter((record: FormRecord) => record.chessclub === true);
+        const response = await axios.get(
+          "https://backend-chess-tau.vercel.app/get_forms_form_chess_club"
+        );
+        const data = response.data;
         setFormData(data);
         setFilteredData(data);
         setLoading(false);
@@ -47,29 +48,28 @@ const PersonalTab = () => {
     };
     fetchData();
   }, []);
-   const deleteProfile = async (profileId: string) => {
-      if (window.confirm("Are you sure you want to delete this profile?")) {
-        try {
-          // Send a list containing a single profile ID
-          const response = await axios.delete(
-            `https://backend-chess-tau.vercel.app/delete_records_by_profile_ids`, 
-            { data: { profile_ids: [profileId] } }
-          );
-    
-          // Handle the response appropriately
-          if (response.data.deleted_profiles.includes(profileId)) {
-            setFormData((prev) => prev.filter((record) => record.profile_id !== profileId));
-            setFilteredData((prev) => prev.filter((record) => record.profile_id !== profileId));
-            alert("Profile deleted successfully.");
-          } else {
-            alert(`Profile ID ${profileId} not found.`);
-          }
-        } catch (error) {
-          console.error("Error deleting profile:", error);
-          alert("Failed to delete profile.");
+
+  const deleteProfile = async (profileId: string) => {
+    if (window.confirm("Are you sure you want to delete this profile?")) {
+      try {
+        const response = await axios.delete(
+          `https://backend-chess-tau.vercel.app/form_chess_club_bp_delete_records_by_profile_ids`,
+          { data: { profile_ids: [profileId] } }
+        );
+
+        if (response.data.deleted_profiles.includes(profileId)) {
+          setFormData((prev) => prev.filter((record) => record.profile_id !== profileId));
+          setFilteredData((prev) => prev.filter((record) => record.profile_id !== profileId));
+          alert("Profile deleted successfully.");
+        } else {
+          alert(`Profile ID ${profileId} not found.`);
         }
+      } catch (error) {
+        console.error("Error deleting profile:", error);
+        alert("Failed to delete profile.");
       }
-    };
+    }
+  };
 
   const handleSearch = (term: string, column: string | null) => {
     setSearchTerm(term);
@@ -91,12 +91,11 @@ const PersonalTab = () => {
       rowsToExport.map((record) => ({
         "Profile ID": record.profile_id,
         "Parent's Name": `${record.parent_name?.first || ""} ${record.parent_name?.last || ""}`,
-        Email: record.email,
-        Phone: record.phone,
-        Online: record.online ? "Yes" : "No",
-        "Online Purchase": record.onlinePurchase ? "Yes" : "No",
-        program:record.program,
-        USCF_Rating:record.USCF_Rating
+        "Child's Name": `${record.child_name?.first || ""} ${record.child_name?.last || ""}`,
+        Email: record.email || "N/A",
+        Phone: record.phone || "N/A",
+        Date: record.date || "N/A",
+        Time: record.time || "N/A",
       }))
     );
     const wb = XLSX.utils.book_new();
@@ -132,14 +131,16 @@ const PersonalTab = () => {
       return newSelectedRows;
     });
   };
+
   const handleProfileClick = (profileId: string) => {
-    setSelectedProfileId(profileId);  // Set the selected profile id
-    setIsModalOpen(true);  // Open the modal
+    setSelectedProfileId(profileId);
+    setIsModalOpen(true);
   };
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+
   return (
     <Card>
       <CardHeader>
@@ -174,29 +175,29 @@ const PersonalTab = () => {
                     />
                   </th>
                   <th>Sl.</th>
-                  {["profile_id", "parent_name", "email", "onlinePurchase", "online", "phone","program"].map(
+                  {["profile_id", "parent_name", "child_name", "email", "phone","date","time"].map(
                     (column) => (
-                      <th key={column}>
-                        <div style={{ display: "flex", alignItems: "center" }}>
+                    <th key={column}>
+                      <div style={{ display: "flex", alignItems: "center" }}>
                           {column.replace(/_/g, " ")}{" "}
-                          <FaSearch
-                            style={{ marginLeft: "8px", cursor: "pointer" }}
-                            onClick={() =>
-                              setActiveColumn(column === activeColumn ? null : column)
-                            }
-                          />
-                        </div>
-                        {activeColumn === column && (
-                          <Input
-                            type="text"
-                            placeholder={`Search ${column.replace(/_/g, " ")}...`}
-                            value={searchTerm}
-                            onChange={(e) => handleSearch(e.target.value, column)}
+                        <FaSearch
+                          style={{ marginLeft: "8px", cursor: "pointer" }}
+                          onClick={() =>
+                            setActiveColumn(column === activeColumn ? null : column)
+                          }
+                        />
+                      </div>
+                      {activeColumn === column && (
+                        <Input
+                          type="text"
+                          placeholder={`Search ${column.replace(/_/g, " ")}...`}
+                          value={searchTerm}
+                          onChange={(e) => handleSearch(e.target.value, column)}
                             style={{ marginTop: "5px", padding: "0px 0px" }}
-                          />
-                        )}
-                      </th>
-                    )
+                        />
+                      )}
+                    </th>
+                  )
                   )}
                   <th>Actions</th>
                 </tr>
@@ -213,38 +214,42 @@ const PersonalTab = () => {
                     </td>
                     <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
                     <td>
-                        <a
-                          href="#"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handleProfileClick(record.profile_id);
-                          }}
-                          style={{
-                            color: 'blue',  // Make the profile ID blue
-                            textDecoration: 'underline', // Add underline to indicate clickability
-                            cursor: 'pointer', // Change cursor to pointer on hover
-                          }}
-                        >
-                          {record.profile_id}
-                        </a>
-                      </td>
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleProfileClick(record.profile_id);
+                        }}
+                        style={{
+                          color: "blue",
+                          textDecoration: "underline",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {record.profile_id}
+                      </a>
+                    </td>
                     <td>
                       {record.parent_name
                         ? `${record.parent_name.first || ""} ${record.parent_name.last || ""}`
                         : "N/A"}
                     </td>
-                    <td>{record.email || "N/A"}</td>
-                    <td>{record.onlinePurchase ? "Yes" : "No"}</td>
-                    <td>{record.online ? "Yes" : "No"}</td>
-                    <td>{record.phone || "N/A"}</td>
-                    <td>{record.program || "N/A"}</td>
                     <td>
-                                        <FaTrashAlt
-                                          style={{ color: "red", cursor: "pointer" }}
-                                          onClick={() => deleteProfile(record.profile_id)}
-                                          title="Delete"
-                                        />
-                                      </td>
+                      {record.child_name
+                        ? `${record.child_name.first || ""} ${record.child_name.last || ""}`
+                        : "N/A"}
+                    </td>
+                    <td>{record.email || "N/A"}</td>
+                    <td>{record.phone || "N/A"}</td>
+                    <td>{record.date || "N/A"}</td>
+                    <td>{record.time || "N/A"}</td>
+                    <td>
+                      <FaTrashAlt
+                        style={{ color: "red", cursor: "pointer" }}
+                        onClick={() => deleteProfile(record.profile_id)}
+                        title="Delete"
+                      />
+                    </td>
                   </tr>
                 ))}
               </tbody>
