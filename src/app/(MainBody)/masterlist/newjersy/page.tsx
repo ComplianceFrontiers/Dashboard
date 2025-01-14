@@ -1,31 +1,27 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardHeader, Table, Button, Input } from "reactstrap";
-import { FaSearch, FaTrashAlt } from "react-icons/fa"; // Import search and trash icons
+import { FaExternalLinkAlt, FaSearch, FaTrashAlt } from "react-icons/fa"; 
 import axios from "axios";
 import * as XLSX from "xlsx";
 import ProfileModal from "../../../../Components/Application/MasterList/TabComponent/PersonalTab/ProfileModal";
 
 interface FormRecord {
   profile_id: string;
-  phone?: string;
-  year?: string;
   parent_name?: { first: string; last: string };
   child_name?: { first: string; last: string };
-  child_grade?: string;
   email?: string;
-  RequestFinancialAssistance?: boolean;
-  SchoolName?: string;
-  group?: string;
-  level?: string;
-  program?: string;
-  USCF_Rating?: string;
+  phone?: string;
+  New_Jersey_Chess_Tournament?: boolean;
+  year?: string;
+  date?: string;
+  time?: string;
   category?: string;
   section?: string;
-  USCF_ID?: string;
-  USCF_Expiration_Date?: string;
+  uscf_id?: string;
+  uscf_expiration_date?: string;
   byes?: string;
-  location?:string;
+  USCF_Rating?: string;
   [key: string]: any;
 }
 
@@ -33,40 +29,57 @@ const PersonalTab = () => {
   const [formData, setFormData] = useState<FormRecord[]>([]);
   const [filteredData, setFilteredData] = useState<FormRecord[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeColumn, setActiveColumn] = useState<string | null>(null); // Track active search column
+  const [activeColumn, setActiveColumn] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProfileId, setSelectedProfileId] = useState<string | null>(null);
+  const [profileData, setProfileData] = useState<any>(null);
+
   const itemsPerPage = 10;
-  const [isModalOpen, setIsModalOpen] = useState(false); // To control the modal visibility
-  const [selectedProfileId, setSelectedProfileId] = useState<string>("");
+
+  const buttonStyles = { color: "blue", marginLeft: "10px", textDecoration: "none" };
+  const profileLinkStyles = { color: "blue", textDecoration: "underline", cursor: "pointer" };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms");
+        const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms_form_New_Jersey_Chess_Tournament");
         const data = response.data;
-
-         const njTournamentData = data.filter(
-          (record: FormRecord) => record.New_Jersey_Chess_Tournament === true
-        );
-  
-        setFormData(njTournamentData); // Set filtered data to state
-        setFilteredData(njTournamentData);
-        setLoading(false);
+        setFormData(data);
+        setFilteredData(data);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
         setLoading(false);
       }
     };
     fetchData();
   }, []);
 
+  const fetchProfileData = async (profileId: string) => {
+    try {
+      const response = await axios.get(`https://backend-chess-tau.vercel.app/form_New_Jersey_Chess_Tournament_by_profile_id`, {
+        params: { profile_id: profileId },
+      });
+      setProfileData(response.data);
+    } catch (error) {
+      console.error("Failed to fetch profile data:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedProfileId) {
+      fetchProfileData(selectedProfileId);
+    }
+  }, [selectedProfileId]);
+
   const deleteProfile = async (profileId: string) => {
     if (window.confirm("Are you sure you want to delete this profile?")) {
       try {
         const response = await axios.delete(
-          `https://backend-chess-tau.vercel.app/delete_records_by_profile_ids`,
+          `https://backend-chess-tau.vercel.app/form_New_Jersey_Chess_Tournament_bp_delete_records_by_profile_ids`, 
           { data: { profile_ids: [profileId] } }
         );
 
@@ -89,11 +102,7 @@ const PersonalTab = () => {
     const lowercasedTerm = term.toLowerCase();
     const filtered = formData.filter((record) =>
       column
-        ? record[column]?.toString().toLowerCase().includes(lowercasedTerm) ||
-          (column === "child_name" &&
-            `${record.child_name?.first || ""} ${record.child_name?.last || ""}`
-              .toLowerCase()
-              .includes(lowercasedTerm))
+        ? record[column]?.toString().toLowerCase().includes(lowercasedTerm)
         : true
     );
     setFilteredData(filtered);
@@ -106,24 +115,20 @@ const PersonalTab = () => {
     );
     const ws = XLSX.utils.json_to_sheet(
       rowsToExport.map((record) => ({
-        "Sl.": record.profile_id,
+        "Profile ID": record.profile_id,
         "Parent's Name": `${record.parent_name?.first || ""} ${record.parent_name?.last || ""}`,
-        "Child's Name": `${record.child_name?.first || ""} ${record.child_name?.last || ""}`,
-        Grade: record.child_grade,
-        Email: record.email,
-        Phone: record.phone,
-        RequestFinancialAssistance: record.RequestFinancialAssistance ? "Yes" : "No",
-        "School Name": record.SchoolName,
-        group: record.group || "N/A",
-        level: record.level || "N/A",
-        Program: record.program || "N/A",
+        "Child's Name": `${record.child_name?.first || ""} ${record.child_name?.last || ""}`, 
+        category: record.category || "N/A",
+        section:record.section || "N/A",
+        uscf_id: record.uscf_id || "N/A",
+        uscf_expiration_date:record.uscf_expiration_date || "N/A",
+        byes: record.byes || "N/A",
         Year: record.year || "N/A",
+        Email: record.email || "N/A",
+        Phone: record.phone || "N/A",
         USCF_Rating: record.USCF_Rating || "N/A",
-        Category: record.category || "N/A",
-        Section: record.section || "N/A",
-        USCF_ID: record.USCF_ID || "N/A",
-        USCF_Expiration_Date: record.USCF_Expiration_Date || "N/A",
-        Byes: record.byes || "N/A",
+        Date: record.date || "N/A",
+        Time: record.time || "N/A",
       }))
     );
     const wb = XLSX.utils.book_new();
@@ -161,8 +166,8 @@ const PersonalTab = () => {
   };
 
   const handleProfileClick = (profileId: string) => {
-    setSelectedProfileId(profileId); // Set the selected profile id
-    setIsModalOpen(true); // Open the modal
+    setSelectedProfileId(profileId);
+    setIsModalOpen(true);
   };
 
   const toggleModal = () => {
@@ -173,11 +178,21 @@ const PersonalTab = () => {
     <Card>
       <CardHeader>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <h4>New Jersey Chess Tournament</h4>
+          <h4>
+          New Jersey Chess Tournament List{" "}
+            <a
+                        href="https://www.chesschamps.us/NJCC-Tournament/"
+              target="_blank"
+              rel="noopener noreferrer"
+                        style={buttonStyles}
+            >
+              <FaExternalLinkAlt />
+            </a>
+          </h4>
           <Button
             color="primary"
             onClick={exportToExcel}
-            disabled={selectedRows.size === 0} // Disable button if no rows are selected
+            disabled={selectedRows.size === 0}
           >
             Export to Excel
           </Button>
@@ -187,115 +202,138 @@ const PersonalTab = () => {
         {loading ? (
           <p>Loading data...</p>
         ) : (
-          <>
-            <div style={{ overflowX: "auto" }}>
-              <Table bordered>
-                <thead>
-                  <tr>
-                    <th>
-                      <Input
-                        type="checkbox"
-                        onChange={(e) =>
-                          setSelectedRows(
-                            e.target.checked
-                              ? new Set(filteredData.map((record) => record.profile_id))
-                              : new Set()
-                          )
-                        }
-                        checked={
-                          selectedRows.size > 0 &&
-                          selectedRows.size === filteredData.length
-                        }
-                      />
-                    </th>
-                    <th>Sl.</th>
-                    {[...["profile_id", "parent_name", "child_name", "child_grade", "email", "phone", "USCF_Rating", "category", "section", "USCF_ID", "USCF_Expiration_Date", "byes"]].map((column) => (
+          <div style={{ overflowX: "auto" }}>
+            <Table bordered>
+              <thead>
+                <tr>
+                  <th>
+                    <Input
+                      type="checkbox"
+                      onChange={(e) =>
+                        setSelectedRows(
+                          e.target.checked
+                            ? new Set(filteredData.map((record) => record.profile_id))
+                            : new Set()
+                        )
+                      }
+                      checked={selectedRows.size > 0 && selectedRows.size === filteredData.length}
+                    />
+                  </th>
+                  <th>Sl.</th>
+                  {["profile_id", "parent_name", "child_name", "email", "phone","USCF_Rating","category","section","uscf_id","uscf_expiration_date","byes", "date", "time"].map(
+                    (column) => (
                       <th key={column}>
                         <div style={{ display: "flex", alignItems: "center" }}>
                           {column.replace(/_/g, " ")}{" "}
                           <FaSearch
                             style={{ marginLeft: "8px", cursor: "pointer" }}
-                            onClick={() => {
-                              setActiveColumn(column === activeColumn ? null : column);
-                            }}
+                            onClick={() =>
+                              setActiveColumn(column === activeColumn ? null : column)
+                            }
                           />
                         </div>
                         {activeColumn === column && (
                           <Input
                             type="text"
-                            placeholder={`Search ${column.replace(/_/g, " ")}`}
+                            placeholder={`Search ${column.replace(/_/g, " ")}...`}
                             value={searchTerm}
                             onChange={(e) => handleSearch(e.target.value, column)}
+                            style={{ marginTop: "5px", padding: "0px 0px" }}
                           />
                         )}
                       </th>
-                    ))}
-                    <th>Actions</th>
+                    )
+                  )}
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {paginatedData.map((record, index) => (
+                  <tr key={record.profile_id}>
+                    <td>
+                      <Input
+                        type="checkbox"
+                        checked={selectedRows.has(record.profile_id)}
+                        onChange={() => handleSelectRow(record.profile_id)}
+                      />
+                    </td>
+                    <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
+                    <td>
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleProfileClick(record.profile_id);
+                        }}
+                          style={{
+                            color: 'blue',  // Make the profile ID blue
+                            textDecoration: 'underline', // Add underline to indicate clickability
+                            cursor: 'pointer', // Change cursor to pointer on hover
+                          }}
+                      >
+                        {record.profile_id}
+                      </a>
+                    </td>
+                    <td>
+                      {record.parent_name
+                        ? `${record.parent_name.first || ""} ${record.parent_name.last || ""}`
+                        : "N/A"}
+                    </td>
+                    <td>
+                      {record.child_name
+                        ? `${record.child_name.first || ""} ${record.child_name.last || ""}`
+                        : "N/A"}
+                    </td>
+                    <td>{record.email || "N/A"}</td>
+                    <td>{record.phone || "N/A"}</td> 
+                    <td>{record.USCF_Rating || "N/A"}</td>
+                    <td>{record.category || "N/A"}</td>
+                    <td>{record.section || "N/A"}</td>
+                    <td>{record.uscf_id || "N/A"}</td>
+                    <td>{record.uscf_expiration_date || "N/A"}</td>
+                    <td>{record.byes || "N/A"}</td>
+                    <td>{record.date || "N/A"}</td>
+                    <td>{record.time || "N/A"}</td>
+                    <td>
+                      <FaTrashAlt
+                        style={{ color: "red", cursor: "pointer" }}
+                        onClick={() => deleteProfile(record.profile_id)}
+                        title="Delete"
+                      />
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {paginatedData.map((record, index) => (
-                    <tr key={record.profile_id}>
-                      <td>
-                        <Input
-                          type="checkbox"
-                          checked={selectedRows.has(record.profile_id)}
-                          onChange={() => handleSelectRow(record.profile_id)}
-                        />
-                      </td>
-                      <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
-                      <td> <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              handleProfileClick(record.profile_id);
-            }}
-            style={{
-              color: "blue", // Make the profile ID blue
-              textDecoration: "underline", // Add underline to indicate clickability
-              cursor: "pointer", // Change cursor to pointer on hover
-            }}
-          >
-            {record.profile_id}
-          </a></td>
-                      <td>{record.parent_name ? `${record.parent_name.first || ""} ${record.parent_name.last || ""}` : "N/A"}</td>
-                      <td>{record.child_name ? `${record.child_name.first || ""} ${record.child_name.last || ""}` : "N/A"}</td>
-                      <td>{record.child_grade || "N/A"}</td>
-                      <td>{record.email || "N/A"}</td>
-                      <td>{record.phone || "N/A"}</td>
-                      <td>{record.uscf_rating || "N/A"}</td>
-                      <td>{record.category || "N/A"}</td>
-                      <td>{record.section || "N/A"}</td>
-                      <td>{record.uscf_id || "N/A"}</td>
-                      <td>{record.uscf_expiration_date || "N/A"}</td>
-                      <td>{record.byes || "N/A"}</td>
-                      <td>
-        <FaTrashAlt
-          style={{ color: "red", cursor: "pointer" }}
-          onClick={() => deleteProfile(record.profile_id)}
-          title="Delete"
-        />
-      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </div>
+                ))}
+              </tbody>
+            </Table>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Button color="primary" onClick={handlePrevious} disabled={currentPage === 1}>
+              <Button
+                color="secondary"
+                onClick={handlePrevious}
+                disabled={currentPage === 1}
+              >
                 Previous
               </Button>
               <span>
                 Page {currentPage} of {Math.ceil(filteredData.length / itemsPerPage)}
               </span>
-              <Button color="primary" onClick={handleNext} disabled={currentPage === Math.ceil(filteredData.length / itemsPerPage)}>
+              <Button
+                color="secondary"
+                onClick={handleNext}
+                disabled={currentPage * itemsPerPage >= filteredData.length}
+              >
                 Next
               </Button>
             </div>
-          </>
+          </div>
         )}
       </CardBody>
-      <ProfileModal isOpen={isModalOpen} toggle={toggleModal} profileId={selectedProfileId} />
+      {isModalOpen && profileData && (
+        <ProfileModal
+          isOpen={isModalOpen}
+          profileData={profileData}
+          toggle={toggleModal}
+        />
+      )}
     </Card>
   );
 };
