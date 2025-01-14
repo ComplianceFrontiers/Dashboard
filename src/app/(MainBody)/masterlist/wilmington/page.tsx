@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardHeader, Table, Button, Input } from "reactstrap";
-import { FaSearch, FaTrashAlt } from "react-icons/fa"; // Import search and trash icons
+import { FaExternalLinkAlt, FaSearch, FaTrashAlt } from "react-icons/fa"; // Import search and trash icons
 import axios from "axios";
 import * as XLSX from "xlsx";
 import ProfileModal from "../../../../Components/Application/MasterList/TabComponent/PersonalTab/ProfileModal";
@@ -14,14 +14,11 @@ interface FormRecord {
   child_name?: { first: string; last: string };
   child_grade?: string;
   email?: string;
-  RequestFinancialAssistance?: boolean;
-  SchoolName?: string;
   group?: string;
   level?: string;
   program?: string;
   USCF_Rating?:string;
   [key: string]: any;
-  location?:string;
 
 }
 
@@ -40,14 +37,9 @@ const PersonalTab = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms");
-        const data = response.data;
-  
-        // Filter data where WilmingtonChessCoaching is true
-        const coachingData = data.filter(
-          (record: FormRecord) => record.WilmingtonChessCoaching === true
-        );
-  
+        const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms_form_Wilmington_Chess_Coaching");
+        const coachingData = response.data;
+   
         setFormData(coachingData); // Set filtered data to state
         setFilteredData(coachingData);
         setLoading(false);
@@ -64,7 +56,7 @@ const PersonalTab = () => {
         try {
           // Send a list containing a single profile ID
           const response = await axios.delete(
-            `https://backend-chess-tau.vercel.app/delete_records_by_profile_ids`, 
+            `https://backend-chess-tau.vercel.app/form_Wilmington_Chess_Coaching_bp_delete_records_by_profile_ids`, 
             { data: { profile_ids: [profileId] } }
           );
     
@@ -165,8 +157,22 @@ const PersonalTab = () => {
     <Card>
       <CardHeader>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-
-        <h4>Wilmington Chess Coaching</h4>
+ <h4>
+ Wilmington Chess Coaching{" "}
+      <a
+        href="https://chesschampsus.vercel.app/Wilmington"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          color: "blue",
+          marginLeft: "10px",
+          textDecoration: "none",
+        }}
+      >
+        <FaExternalLinkAlt />
+      </a>
+    </h4>
+     
         <Button
           color="primary"
           onClick={exportToExcel}
