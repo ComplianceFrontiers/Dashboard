@@ -23,7 +23,8 @@ interface FormRecord {
   New_Jersey_Masterclass?: boolean;
   WilmingtonChessCoaching?: boolean;
   chessclub?:boolean;
-  Bear_Chess_Coaching?:boolean;
+  
+Bear_Middletown_Chess_Coaching?:boolean;
 
   [key: string]: string | boolean | undefined;
 }
@@ -229,7 +230,9 @@ const PersonalTab = () => {
       <option value="New_Jersey_Masterclass">New Jersey Masterclass</option>
       <option value="WilmingtonChessCoaching">Wilmington Chess Coaching</option>
       <option value="chessclub">Chess Club Tournament</option>
-      <option value="Bear_Chess_Coaching">Bear Chess Coaching</option>
+      <option value="
+Bear_Middletown_Chess_Coaching">
+Bear Middletown Chess Coaching</option>
 
 
     </select>
@@ -275,7 +278,9 @@ const PersonalTab = () => {
   {record.New_Jersey_Masterclass && <span className="badge bg-primary">New Jersey Masterclass</span>}
   {record.WilmingtonChessCoaching && <span className="badge bg-primary">Wilmington Chess Coaching</span>}
   {record.chessclub && <span className="badge bg-primary"> Chess Club Tournament</span>}
-  {record.Bear_Chess_Coaching && <span className="badge bg-primary"> Bear Chess Coaching</span>}
+  {record.
+Bear_Middletown_Chess_Coaching && <span className="badge bg-primary"> 
+Bear Middletown Chess Coaching</span>}
 
 </td>
 
