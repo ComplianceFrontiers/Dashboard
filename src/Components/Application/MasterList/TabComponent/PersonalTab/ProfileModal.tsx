@@ -107,7 +107,6 @@ interface ProfileData {
       <p><strong>Online:</strong> {profileData.online ? "true" : "false"}</p>
       <p><strong>Online Purchase:</strong> {profileData.onlinePurchase ? "true" : "false"}</p>
       <p><strong>Purchased though:</strong> {profileData.stripe}</p>
-      <p><strong>USCF_Rating:</strong> {profileData.USCF_Rating}</p>
       <div>
   <p><strong>Category:</strong> {profileData.category || "N/A"}</p>
   <p><strong>Section:</strong> {profileData.section || "N/A"}</p>

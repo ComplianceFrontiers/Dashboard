@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardHeader, Table, Button, Input } from "reactstrap";
-import { FaExternalLinkAlt, FaSearch, FaTrashAlt } from "react-icons/fa";
+import { FaExternalLinkAlt, FaSearch, FaTrashAlt } from "react-icons/fa"; 
 import axios from "axios";
 import * as XLSX from "xlsx";
 import ProfileModal from "./ProfileModal";
@@ -9,14 +9,16 @@ import ProfileModal from "./ProfileModal";
 interface FormRecord {
   profile_id: string;
   parent_name?: { first: string; last: string };
+  child_name?: { first: string; last: string };
   email?: string;
-  online?: boolean;
-  onlinePurchase?: boolean;
   phone?: string;
-  program?:string;
-  USCF_Rating?:string;
-  location?:string;
-  chessclub?:boolean;
+  child_grade?: string;
+  chessclub?: boolean;
+  year?: string;
+  date?: string;
+  time?: string;
+  program?: string;
+  USCF_Rating?: string;
   [key: string]: any;
 }
 
@@ -28,48 +30,69 @@ const PersonalTab = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProfileId, setSelectedProfileId] = useState<string | null>(null);
+  const [profileData, setProfileData] = useState<any>(null);
+
   const itemsPerPage = 10;
-  const [isModalOpen, setIsModalOpen] = useState(false);  // To control the modal visibility
-  const [selectedProfileId, setSelectedProfileId] = useState<string>("");
+
+  const buttonStyles = { color: "blue", marginLeft: "10px", textDecoration: "none" };
+  const profileLinkStyles = { color: "blue", textDecoration: "underline", cursor: "pointer" };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms");
-        const data = response.data.filter((record: FormRecord) => record.Bear_Middletown_Chess_Tournament === true);
+        const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms_form_Bear_Middletown_Chess_Tournament");
+        const data = response.data;
         setFormData(data);
         setFilteredData(data);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
         setLoading(false);
       }
     };
     fetchData();
   }, []);
-   const deleteProfile = async (profileId: string) => {
-      if (window.confirm("Are you sure you want to delete this profile?")) {
-        try {
-          // Send a list containing a single profile ID
-          const response = await axios.delete(
-            `https://backend-chess-tau.vercel.app/delete_records_by_profile_ids`, 
-            { data: { profile_ids: [profileId] } }
-          );
-    
-          // Handle the response appropriately
-          if (response.data.deleted_profiles.includes(profileId)) {
-            setFormData((prev) => prev.filter((record) => record.profile_id !== profileId));
-            setFilteredData((prev) => prev.filter((record) => record.profile_id !== profileId));
-            alert("Profile deleted successfully.");
-          } else {
-            alert(`Profile ID ${profileId} not found.`);
-          }
-        } catch (error) {
-          console.error("Error deleting profile:", error);
-          alert("Failed to delete profile.");
+
+  const fetchProfileData = async (profileId: string) => {
+    try {
+      const response = await axios.get(`https://backend-chess-tau.vercel.app/form_Bear_Middletown_Chess_Tournament_by_profile_id`, {
+        params: { profile_id: profileId },
+      });
+      setProfileData(response.data);
+    } catch (error) {
+      console.error("Failed to fetch profile data:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedProfileId) {
+      fetchProfileData(selectedProfileId);
+    }
+  }, [selectedProfileId]);
+
+  const deleteProfile = async (profileId: string) => {
+    if (window.confirm("Are you sure you want to delete this profile?")) {
+      try {
+        const response = await axios.delete(
+          `https://backend-chess-tau.vercel.app/form_Bear_Middletown_Chess_Tournament_bp_delete_records_by_profile_ids`, 
+          { data: { profile_ids: [profileId] } }
+        );
+
+        if (response.data.deleted_profiles.includes(profileId)) {
+          setFormData((prev) => prev.filter((record) => record.profile_id !== profileId));
+          setFilteredData((prev) => prev.filter((record) => record.profile_id !== profileId));
+          alert("Profile deleted successfully.");
+        } else {
+          alert(`Profile ID ${profileId} not found.`);
         }
+      } catch (error) {
+        console.error("Error deleting profile:", error);
+        alert("Failed to delete profile.");
       }
-    };
+    }
+  };
 
   const handleSearch = (term: string, column: string | null) => {
     setSearchTerm(term);
@@ -91,12 +114,15 @@ const PersonalTab = () => {
       rowsToExport.map((record) => ({
         "Profile ID": record.profile_id,
         "Parent's Name": `${record.parent_name?.first || ""} ${record.parent_name?.last || ""}`,
-        Email: record.email,
-        Phone: record.phone,
-        Online: record.online ? "Yes" : "No",
-        "Online Purchase": record.onlinePurchase ? "Yes" : "No",
-        program:record.program,
-        USCF_Rating:record.USCF_Rating
+        "Child's Name": `${record.child_name?.first || ""} ${record.child_name?.last || ""}`,
+         Child_grade: record.child_grade,
+        Program: record.program || "N/A",
+        USCF_Rating: record.USCF_Rating || "N/A",
+        Year: record.year || "N/A",
+        Email: record.email || "N/A",
+        Phone: record.phone || "N/A",
+        Date: record.date || "N/A",
+        Time: record.time || "N/A",
       }))
     );
     const wb = XLSX.utils.book_new();
@@ -132,31 +158,36 @@ const PersonalTab = () => {
       return newSelectedRows;
     });
   };
+
   const handleProfileClick = (profileId: string) => {
-    setSelectedProfileId(profileId);  // Set the selected profile id
-    setIsModalOpen(true);  // Open the modal
+    setSelectedProfileId(profileId);
+    setIsModalOpen(true);
   };
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+
   return (
     <Card>
       <CardHeader>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-         
-           <h4>
+          <h4>
            Bear Middletown Chess Tournament List{" "}
-                      <a
+            <a
                         href="https://chesschampsus.vercel.app/Bear-and-middletown"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        // style={buttonStyles}
-                      >
-                        <FaExternalLinkAlt />
-                      </a>
-                    </h4>
-          <Button color="primary" onClick={exportToExcel} disabled={selectedRows.size === 0}>
+              target="_blank"
+              rel="noopener noreferrer"
+                        style={buttonStyles}
+            >
+              <FaExternalLinkAlt />
+            </a>
+          </h4>
+          <Button
+            color="primary"
+            onClick={exportToExcel}
+            disabled={selectedRows.size === 0}
+          >
             Export to Excel
           </Button>
         </div>
@@ -179,13 +210,11 @@ const PersonalTab = () => {
                             : new Set()
                         )
                       }
-                      checked={
-                        selectedRows.size > 0 && selectedRows.size === filteredData.length
-                      }
+                      checked={selectedRows.size > 0 && selectedRows.size === filteredData.length}
                     />
                   </th>
                   <th>Sl.</th>
-                  {["profile_id", "parent_name", "email", "onlinePurchase", "online", "phone","program"].map(
+                  {["profile_id", "parent_name", "child_name", "email", "phone","Child's_grade","program","USCF_Rating", "date", "time"].map(
                     (column) => (
                       <th key={column}>
                         <div style={{ display: "flex", alignItems: "center" }}>
@@ -224,67 +253,79 @@ const PersonalTab = () => {
                     </td>
                     <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
                     <td>
-                        <a
-                          href="#"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handleProfileClick(record.profile_id);
-                          }}
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleProfileClick(record.profile_id);
+                        }}
                           style={{
                             color: 'blue',  // Make the profile ID blue
                             textDecoration: 'underline', // Add underline to indicate clickability
                             cursor: 'pointer', // Change cursor to pointer on hover
                           }}
-                        >
-                          {record.profile_id}
-                        </a>
-                      </td>
+                      >
+                        {record.profile_id}
+                      </a>
+                    </td>
                     <td>
                       {record.parent_name
                         ? `${record.parent_name.first || ""} ${record.parent_name.last || ""}`
                         : "N/A"}
                     </td>
-                    <td>{record.email || "N/A"}</td>
-                    <td>{record.onlinePurchase ? "Yes" : "No"}</td>
-                    <td>{record.online ? "Yes" : "No"}</td>
-                    <td>{record.phone || "N/A"}</td>
-                    <td>{record.program || "N/A"}</td>
                     <td>
-                                        <FaTrashAlt
-                                          style={{ color: "red", cursor: "pointer" }}
-                                          onClick={() => deleteProfile(record.profile_id)}
-                                          title="Delete"
-                                        />
-                                      </td>
+                      {record.child_name
+                        ? `${record.child_name.first || ""} ${record.child_name.last || ""}`
+                        : "N/A"}
+                    </td>
+                    <td>{record.email || "N/A"}</td>
+                    <td>{record.phone || "N/A"}</td>
+                    <td>{record.child_grade || "N/A"}</td>
+                    <td>{record.program || "N/A"}</td>
+                    <td>{record.USCF_Rating || "N/A"}</td>
+
+                    <td>{record.date || "N/A"}</td>
+                    <td>{record.time || "N/A"}</td>
+                    <td>
+                      <FaTrashAlt
+                        style={{ color: "red", cursor: "pointer" }}
+                        onClick={() => deleteProfile(record.profile_id)}
+                        title="Delete"
+                      />
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </Table>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Button
+                color="secondary"
+                onClick={handlePrevious}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </Button>
+              <span>
+                Page {currentPage} of {Math.ceil(filteredData.length / itemsPerPage)}
+              </span>
+              <Button
+                color="secondary"
+                onClick={handleNext}
+                disabled={currentPage * itemsPerPage >= filteredData.length}
+              >
+                Next
+              </Button>
+            </div>
           </div>
         )}
-        <div style={{ display: "flex", justifyContent: "space-between", marginTop: "10px" }}>
-          <Button color="secondary" onClick={handlePrevious} disabled={currentPage === 1}>
-            Previous
-          </Button>
-          <span>
-            Page {currentPage} of {Math.ceil(filteredData.length / itemsPerPage)}
-          </span>
-          <Button
-            color="secondary"
-            onClick={handleNext}
-            disabled={currentPage === Math.ceil(filteredData.length / itemsPerPage)}
-          >
-            Next
-          </Button>
-        </div>
       </CardBody>
-<ProfileModal
-        isOpen={isModalOpen}
-        toggle={toggleModal}
-        profileId={selectedProfileId}
-      />
-
-
+      {isModalOpen && profileData && (
+        <ProfileModal
+          isOpen={isModalOpen}
+          profileData={profileData}
+          toggle={toggleModal}
+        />
+      )}
     </Card>
   );
 };
