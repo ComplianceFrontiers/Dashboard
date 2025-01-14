@@ -166,7 +166,7 @@ const PersonalTab = () => {
     <Card>
       <CardHeader>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <h4>Chess Club Tournament List</h4>
+          <h4>Chess Club List</h4>
           <Button color="primary" onClick={exportToExcel} disabled={selectedRows.size === 0}>
             Export to Excel
           </Button>
