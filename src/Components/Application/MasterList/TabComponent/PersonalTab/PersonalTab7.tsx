@@ -175,7 +175,7 @@ const PersonalTab = () => {
           <h4>
            Bear Middletown Chess Tournament List{" "}
             <a
-                        href="https://chesschampsus.vercel.app/Bear-and-middletown"
+                        href="https://www.chesschamps.us/DCC-Tournament/"
               target="_blank"
               rel="noopener noreferrer"
                         style={buttonStyles}
