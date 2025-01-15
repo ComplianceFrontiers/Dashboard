@@ -69,7 +69,7 @@ Bear_Middletown_Chess_Coaching?:boolean;
         const fetchProfileData = async () => {
           try {
             const response = await axios.get(
-              "https://backend-chess-tau.vercel.app/get_record_by_profile_id",
+              "https://backend-chess-tau.vercel.app/masterlist_by_profile_id",
               {
                 params: { profile_id: profileId },
               }
