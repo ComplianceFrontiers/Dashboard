@@ -47,7 +47,7 @@ const PersonalTab = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://backend-chess-tau.vercel.app/get_master_list");
+        const response = await axios.get("https://backend-chess-tau.vercel.app/get_form_master_list");
         setFormData(response.data);
         setFilteredData(response.data);
       } catch (error) {
@@ -81,7 +81,7 @@ const PersonalTab = () => {
     if (window.confirm("Are you sure you want to delete this profile?")) {
       try {
         const response = await axios.delete(
-          "https://backend-chess-tau.vercel.app/delete_records_by_profile_ids",
+          "https://backend-chess-tau.vercel.app/masterlist_bp_delete_records_by_profile_ids",
           { data: { profile_ids: [profileId] } }
         );
 
