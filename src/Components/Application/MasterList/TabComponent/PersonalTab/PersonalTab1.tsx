@@ -40,10 +40,10 @@ const PersonalTab = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms");
+        const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms_form_Basics_Of_Chess");
         const data = response.data;
 
-        const lombardyData = data.filter((record: FormRecord) => record.SchoolName === "Mount Pleasant Elementary School");
+        const lombardyData = data.filter((record: FormRecord) => record.mpes === true);
 
         setFormData(lombardyData);
         setFilteredData(lombardyData);
@@ -61,7 +61,7 @@ const PersonalTab = () => {
       try {
         // Send a list containing a single profile ID
         const response = await axios.delete(
-          `https://backend-chess-tau.vercel.app/delete_records_by_profile_ids`, 
+          `https://backend-chess-tau.vercel.app/form_Basics_Of_Chess_bp_delete_records_by_profile_ids`, 
           { data: { profile_ids: [profileId] } }
         );
   
