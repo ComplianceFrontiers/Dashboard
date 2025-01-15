@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardHeader, Table, Button, Input } from "reactstrap";
-import { FaSearch, FaTrashAlt } from "react-icons/fa"; // Import search and trash icons
+import { FaExternalLinkAlt,FaSearch, FaTrashAlt } from "react-icons/fa"; // Import search and trash icons
 import axios from "axios";
 import * as XLSX from "xlsx";
 import ProfileModal from "./ProfileModal"; // Ensure this component exists
@@ -36,7 +36,7 @@ const PersonalTab = () => {
   const itemsPerPage = 10;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProfileId, setSelectedProfileId] = useState<string>("");
-
+  const buttonStyles = { color: "blue", marginLeft: "10px", textDecoration: "none" };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -164,7 +164,18 @@ const PersonalTab = () => {
     <Card>
       <CardHeader>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <h4>MPES List</h4>
+     
+           <h4>
+           MPES List{" "}
+                      <a
+                                  href="https://chesschampsus.vercel.app/mpes"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                                  style={buttonStyles}
+                      >
+                        <FaExternalLinkAlt />
+                      </a>
+                    </h4>
           <Button
             color="primary"
             onClick={exportToExcel}

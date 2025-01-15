@@ -3,11 +3,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardHeader, Table, Button, Input } from "reactstrap";
-import { FaSearch, FaTrashAlt } from "react-icons/fa";
+import {FaExternalLinkAlt, FaSearch, FaTrashAlt } from "react-icons/fa";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import ProfileModal from "./ProfileModal";
-import { FaExternalLinkAlt } from "react-icons/fa"; // Add this import
 
 interface FormRecord {
   profile_id: string;

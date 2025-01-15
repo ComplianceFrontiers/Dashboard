@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect, useMemo } from "react";
 import { Card, CardBody, CardHeader, Table, Button, Input } from "reactstrap";
-import { FaSearch, FaTrashAlt } from "react-icons/fa";
+import {FaExternalLinkAlt, FaSearch, FaTrashAlt } from "react-icons/fa";
 import axios from "axios";
 import * as XLSX from "xlsx";
 import ProfileModal from "./ProfileModal";
