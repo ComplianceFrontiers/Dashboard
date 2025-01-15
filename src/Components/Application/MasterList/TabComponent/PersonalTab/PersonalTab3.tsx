@@ -165,7 +165,7 @@ const PersonalTab = () => {
         <h4>
         JCC List{" "}
             <a
-                        href="https://www.chesschamps.us/DCC-Tournament/"
+                        href="https://chesschampsus.vercel.app/JCC_ChessChamps"
               target="_blank"
               rel="noopener noreferrer"
                         style={buttonStyles}

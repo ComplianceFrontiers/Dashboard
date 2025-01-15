@@ -164,9 +164,9 @@ const PersonalTab = () => {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
  
         <h4>
-        JCC List{" "}
+        JCC KP List{" "}
             <a
-                        href="https://www.chesschamps.us/DCC-Tournament/"
+                        href="https://chesschampsus.vercel.app/JCC_KP"
               target="_blank"
               rel="noopener noreferrer"
                         style={buttonStyles}
