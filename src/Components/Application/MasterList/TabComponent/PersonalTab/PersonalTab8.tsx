@@ -291,8 +291,8 @@ const PersonalTab = () => {
                 <td>{record.phone || "N/A"}</td>
                 <td>{record.RequestFinancialAssistance ? "Yes" : "No"}</td>
                 <td>{record.SchoolName || "N/A"}</td>
-                <td>{record.Group || "N/A"}</td>
-                <td>{record.Level || "N/A"}</td>
+                <td>{record.group || "N/A"}</td>
+                <td>{record.level || "N/A"}</td>
                 <td>{record.program || "N/A"}</td>
                 <td>{record.year || "N/A"}</td>
                 <td>

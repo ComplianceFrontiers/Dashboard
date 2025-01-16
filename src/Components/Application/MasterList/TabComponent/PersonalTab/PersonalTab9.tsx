@@ -113,8 +113,8 @@ const PersonalTab = () => {
           : "N/A",
         Email: record.email || "N/A",
         Phone: record.phone || "N/A",
-        Group: record.Group || "N/A",
-        Level: record.Level || "N/A",
+        Group: record.group || "N/A",
+        Level: record.level || "N/A",
         "Online Purchase": record.onlinePurchase ? "Yes" : "No",
         Date: record.date || "N/A",
         Time: record.time || "N/A",
@@ -289,8 +289,8 @@ const PersonalTab = () => {
                 <td>{record.phone || "N/A"}</td>
                
                 
-                <td>{record.Group || "N/A"}</td>
-                <td>{record.Level || "N/A"}</td>
+                <td>{record.group || "N/A"}</td>
+                <td>{record.level || "N/A"}</td>
                 <td>{record.onlinePurchase ? "Yes" : "No"}</td>
                   <td>{record.date || "N/A"}</td>
                   <td>{record.time || "N/A"}</td>
