@@ -103,28 +103,29 @@ const PersonalTab = () => {
     const rowsToExport = filteredData.filter((record) =>
       selectedRows.has(record.profile_id)
     );
+  
     const ws = XLSX.utils.json_to_sheet(
-      rowsToExport.map((record) => ({
-        "Sl.": record.profile_id,
-        "Parent's Name": `${record.parent_name?.first || ""} ${record.parent_name?.last || ""}`,
-        "Child's Name": `${record.child_name?.first || ""} ${record.child_name?.last || ""}`,
-        Grade: record.child_grade,
-        Email: record.email,
-        Phone: record.phone,
-        RequestFinancialAssistance: record.RequestFinancialAssistance ? "Yes" : "No",
-        "School Name": record.SchoolName,
-        group: record.group || "N/A",
-        level: record.level || "N/A",
-        Program: record.program || "N/A",
-        Year: record.year || "N/A",
-        USCF_Rating:record.USCF_Rating||"N/A",
-        New_Jersey_Masterclass:record.New_Jersey_Masterclass||"N/A"
+      rowsToExport.map((record, index) => ({
+        "Sl.": index + 1,
+        "Profile ID": record.profile_id,
+        Name: record.child_name
+          ? `${record.child_name.first || ""} ${record.child_name.last || ""}`
+          : "N/A",
+        Email: record.email || "N/A",
+        Phone: record.phone || "N/A",
+        Group: record.Group || "N/A",
+        Level: record.Level || "N/A",
+        "Online Purchase": record.onlinePurchase ? "Yes" : "No",
+        Date: record.date || "N/A",
+        Time: record.time || "N/A",
       }))
     );
+  
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Selected Data");
     XLSX.writeFile(wb, "selected_data.xlsx");
   };
+  
 
   const paginatedData = filteredData.slice(
     (currentPage - 1) * itemsPerPage,
@@ -168,9 +169,9 @@ const PersonalTab = () => {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
  
         <h4>
-        New Jersey Masterclass{" "}
+        Basics of Chess Online{" "}
             <a
-                        href="https://www.chesschamps.us/NJCC-Masterclass/"
+                        href="https://www.chesschamps.us/online-store/"
               target="_blank"
               rel="noopener noreferrer"
                         style={buttonStyles}

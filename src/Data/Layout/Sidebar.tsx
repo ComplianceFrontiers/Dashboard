@@ -114,7 +114,7 @@ export const MenuList: MenuItem[] = [
                 { path:  `/masterlist/jcc`, type: "link", title: "JCC" },
                 { path:  `/masterlist/JCC_KP`, type: "link", title: "JCC KP" },
             ]},
-            { path: `/masterlist/basicsofchess`, type: "link", title: "Basics of Chess List" },
+            { path: `/masterlist/basicsofchess`, type: "link", title: "BOC Online" },
             { path: `/masterlist/phone`, type: "link", title: "Phone List" },
             { path: `/masterlist/whatsapp`, type: "link", title: "WhatsApp List" },
             { path: `/masterlist/website`, type: "link", title: "Website List" },
