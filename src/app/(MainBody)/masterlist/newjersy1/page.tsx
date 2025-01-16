@@ -23,6 +23,9 @@ interface FormRecord {
   USCF_Rating?:string;
   location?:string;
   New_Jersey_Masterclass?:boolean;
+  onlinePurchase?: boolean;
+  date?: string;
+  time?: string;
   [key: string]: any;
 }
 
@@ -213,17 +216,14 @@ const PersonalTab = () => {
               <th>Sl.</th>
               {[
                 "profile_id",
-                "parent_name",
-                "child_name",
-                "child_grade",
+                "name",
                 "email",
                 "phone",
-                "RequestFinancialAssistance",
-                "SchoolName",
                 "Group",
                 "Level",
-                "program",
-                "year",
+                "Online Purchase",
+                "Date",
+                "Time",
               ].map((column) => (
                 <th key={column}>
                   <div style={{ display: "flex", alignItems: "center" }}>
@@ -278,25 +278,22 @@ const PersonalTab = () => {
                           {record.profile_id}
                         </a>
                       </td>
-                <td>
-                  {record.parent_name
-                    ? `${record.parent_name.first || ""} ${record.parent_name.last || ""}`
-                    : "N/A"}
-                </td>
+                
                 <td>
                   {record.child_name
                     ? `${record.child_name.first || ""} ${record.child_name.last || ""}`
                     : "N/A"}
                 </td>
-                <td>{record.child_grade || "N/A"}</td>
+                
                 <td>{record.email || "N/A"}</td>
                 <td>{record.phone || "N/A"}</td>
-                <td>{record.RequestFinancialAssistance ? "Yes" : "No"}</td>
-                <td>{record.SchoolName || "N/A"}</td>
+               
+                
                 <td>{record.Group || "N/A"}</td>
                 <td>{record.Level || "N/A"}</td>
-                <td>{record.program || "N/A"}</td>
-                <td>{record.year || "N/A"}</td>
+                <td>{record.onlinePurchase ? "Yes" : "No"}</td>
+                  <td>{record.date || "N/A"}</td>
+                  <td>{record.time || "N/A"}</td>
                 <td>
                                         <FaTrashAlt
                                           style={{ color: "red", cursor: "pointer" }}
