@@ -16,6 +16,7 @@ interface FormRecord {
   jcc_kp?:boolean;
   App?: boolean;
   mpes?: boolean;
+  BasicsOfChess_Online?: boolean;
   Lombardy?: boolean;
   online?: boolean;
   Bear_Middletown_Chess_Tournament?: boolean;
@@ -230,8 +231,8 @@ const PersonalTab = () => {
       <option value="New_Jersey_Masterclass">New Jersey Masterclass</option>
       <option value="WilmingtonChessCoaching">Wilmington Chess Coaching</option>
       <option value="chessclub">Chess Club Tournament</option>
-      <option value="
-Bear_Middletown_Chess_Coaching">Bear Chess Coaching</option>
+      <option value="Bear_Middletown_Chess_Coaching">Bear Chess Coaching</option>
+      <option value="BasicsOfChess_Online">Basics of Chess Online</option>
 
 
     </select>
@@ -277,8 +278,10 @@ Bear_Middletown_Chess_Coaching">Bear Chess Coaching</option>
   {record.New_Jersey_Masterclass && <span className="badge bg-primary">New Jersey Masterclass</span>}
   {record.WilmingtonChessCoaching && <span className="badge bg-primary">Wilmington Chess Coaching</span>}
   {record.chessclub && <span className="badge bg-primary"> Chess Club Tournament</span>}
-  {record.
-Bear_Middletown_Chess_Coaching && <span className="badge bg-primary"> Bear Chess Coaching</span>}
+  {record.Bear_Middletown_Chess_Coaching && <span className="badge bg-primary"> Bear Chess Coaching</span>}
+
+{record.BasicsOfChess_Online && <span className="badge bg-primary">Basics of Chess Online</span>}
+
 
 </td>
 
