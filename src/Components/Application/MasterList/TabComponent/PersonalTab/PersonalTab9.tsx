@@ -32,26 +32,36 @@ const PersonalTab = () => {
   const [formData, setFormData] = useState<FormRecord[]>([]);
   const [filteredData, setFilteredData] = useState<FormRecord[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeColumn, setActiveColumn] = useState<string | null>(null); // Track active search column
+  const [activeColumn, setActiveColumn] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const itemsPerPage = 10;
-  const [isModalOpen, setIsModalOpen] = useState(false);  // To control the modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProfileId, setSelectedProfileId] = useState<string>("");
-  const buttonStyles = { color: "blue", marginLeft: "10px", textDecoration: "none" };
-  const [onlinePurchaseFilter, setOnlinePurchaseFilter] = useState<string>(""); // "" means no filter applied
+  const [onlinePurchaseFilter, setOnlinePurchaseFilter] = useState<string>("true"); // Default filter value set to true
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms_form_Basics_Of_Chess");
-        const data = response.data;
+        
+        const data = response.data.filter((record: FormRecord) => record.BasicsOfChess_Online === true);
 
-        // Filter data for "Lombardy Elementary School"
-        const lombardyData = data.filter((record: FormRecord) => record.BasicsOfChess_Online === true);
 
-        setFormData(lombardyData); // Set filtered data to state
-        setFilteredData(lombardyData);
+        // Ensure onlinePurchase is boolean and default it to true if not provided
+        const updatedData = data.map((record: FormRecord) => ({
+          ...record,
+          onlinePurchase: record.onlinePurchase === undefined ? true : record.onlinePurchase,
+        }));
+
+        // Set the fetched data to state
+        setFormData(updatedData);
+        setFilteredData(updatedData);
+
+        // Apply the default filter when data is loaded
+        applyFilters(updatedData, onlinePurchaseFilter);
+
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -61,64 +71,75 @@ const PersonalTab = () => {
     fetchData();
   }, []);
   useEffect(() => {
-    handleSearch(searchTerm, activeColumn); // Call search when onlinePurchaseFilter changes
-  }, [onlinePurchaseFilter]); // Depend on onlinePurchaseFilter to trigger when it changes
+     applyFilters(formData, onlinePurchaseFilter);
+  }, [onlinePurchaseFilter, searchTerm, formData]);
   const matchesOnlinePurchase = (record: FormRecord) => {
     if (onlinePurchaseFilter === "") return true; // No filter applied
     const filterValue = onlinePurchaseFilter === "true"; // Convert string "true" to boolean
     console.log("Record onlinePurchase:", record.onlinePurchase, "Filter Value:", filterValue); // Debug
     return record.onlinePurchase === filterValue; // Compare boolean values
   };
-  
-   const deleteProfile = async (profileId: string) => {
-      if (window.confirm("Are you sure you want to delete this profile?")) {
-        try {
+  const applyFilters = (data: FormRecord[], filter: string) => {
+    const filterValue = filter === "true"; // Convert the string to boolean
+    const filtered = data.filter((record) => {
+      const matchesOnlinePurchase = filter === "" || record.onlinePurchase === filterValue;
+      return matchesOnlinePurchase;
+    });
+    setFilteredData(filtered);
+    setCurrentPage(1); // Reset to first page when filters change
+  };
+
+   
+
+  const deleteProfile = async (profileId: string) => {
+    if (window.confirm("Are you sure you want to delete this profile?")) {
+      try {
           // Send a list containing a single profile ID
-          const response = await axios.delete(
-            `https://backend-chess-tau.vercel.app/form_Basics_Of_Chess_bp_delete_records_by_profile_ids`, 
-            { data: { profile_ids: [profileId] } }
-          );
-    
+        const response = await axios.delete(
+          `https://backend-chess-tau.vercel.app/form_Basics_Of_Chess_bp_delete_records_by_profile_ids`, 
+          { data: { profile_ids: [profileId] } }
+        );
+
           // Handle the response appropriately
-          if (response.data.deleted_profiles.includes(profileId)) {
-            setFormData((prev) => prev.filter((record) => record.profile_id !== profileId));
-            setFilteredData((prev) => prev.filter((record) => record.profile_id !== profileId));
-            alert("Profile deleted successfully.");
-          } else {
-            alert(`Profile ID ${profileId} not found.`);
-          }
-        } catch (error) {
-          console.error("Error deleting profile:", error);
-          alert("Failed to delete profile.");
+        if (response.data.deleted_profiles.includes(profileId)) {
+          setFormData((prev) => prev.filter((record) => record.profile_id !== profileId));
+          setFilteredData((prev) => prev.filter((record) => record.profile_id !== profileId));
+          alert("Profile deleted successfully.");
+        } else {
+          alert(`Profile ID ${profileId} not found.`);
         }
+      } catch (error) {
+        console.error("Error deleting profile:", error);
+        alert("Failed to delete profile.");
       }
-    };
-    const handleSearch = (term: string, column: string | null) => {
-      console.log("Handling search with term:", term); // Debug: Show search term
-      setSearchTerm(term);
-      const lowercasedTerm = term.toLowerCase();
-    
-      // Debug: Show filter settings
-      console.log("Online Purchase Filter:", onlinePurchaseFilter);
-    
-      const filtered = formData.filter((record) => {
-        console.log("Checking record:", record);
-    
-        const matchesColumn =
-          column && record[column]?.toString().toLowerCase().includes(lowercasedTerm);
-    
-        // Combine column search and `onlinePurchase` filter
-        const result = matchesOnlinePurchase(record) && (!column || matchesColumn);
-    
-        console.log("Match result for record:", result); // Debug: Show the match result
-    
-        return result;
-      });
-    
-      console.log("Filtered data:", filtered); // Debug: Show the filtered results
-      setFilteredData(filtered);
-      setCurrentPage(1); // Reset to the first page
-    };
+    }
+  };
+  const handleSearch = (term: string, column: string | null) => {
+    console.log("Handling search with term:", term); // Debug: Show search term
+    setSearchTerm(term);
+    const lowercasedTerm = term.toLowerCase();
+  
+    // Debug: Show filter settings
+    console.log("Online Purchase Filter:", onlinePurchaseFilter);
+  
+    const filtered = formData.filter((record) => {
+      console.log("Checking record:", record);
+  
+      const matchesColumn =
+        column && record[column]?.toString().toLowerCase().includes(lowercasedTerm);
+  
+      // Combine column search and `onlinePurchase` filter
+      const result = matchesOnlinePurchase(record) && (!column || matchesColumn);
+  
+      console.log("Match result for record:", result); // Debug: Show the match result
+  
+      return result;
+    });
+  
+    console.log("Filtered data:", filtered); // Debug: Show the filtered results
+    setFilteredData(filtered);
+    setCurrentPage(1); // Reset to the first page
+  };
     
     
     
@@ -126,7 +147,7 @@ const PersonalTab = () => {
     const rowsToExport = filteredData.filter((record) =>
       selectedRows.has(record.profile_id)
     );
-  
+
     const ws = XLSX.utils.json_to_sheet(
       rowsToExport.map((record, index) => ({
         "Sl.": index + 1,
@@ -143,7 +164,7 @@ const PersonalTab = () => {
         Time: record.time || "N/A",
       }))
     );
-  
+
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Selected Data");
     XLSX.writeFile(wb, "selected_data.xlsx");
@@ -182,61 +203,59 @@ const PersonalTab = () => {
     setSelectedProfileId(profileId);  // Set the selected profile id
     setIsModalOpen(true);  // Open the modal
   };
+  
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
   return (
     <Card>
       <CardHeader>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
  
-        <h4>
-        Basics of Chess Online{" "}
+          <h4>
+            Basics of Chess Online{" "}
             <a
-                        href="https://www.chesschamps.us/online-store/"
+              href="https://www.chesschamps.us/online-store/"
               target="_blank"
               rel="noopener noreferrer"
-                        style={buttonStyles}
+              style={{ color: "blue", marginLeft: "10px", textDecoration: "none" }}
             >
               <FaExternalLinkAlt />
             </a>
           </h4>
-        <Button
-          color="primary"
-          onClick={exportToExcel}
+          <Button
+            color="primary"
+            onClick={exportToExcel}
           disabled={selectedRows.size === 0} // Disable button if no rows are selected
-        >
-          Export to Excel
-        </Button>
+          >
+            Export to Excel
+          </Button>
         </div>
       </CardHeader>
       <CardBody>
-  {loading ? (
-    <p>Loading data...</p>
-  ) : (
-    <>
-      <div style={{ overflowX: "auto" }}>
-        <Table bordered>
-          <thead>
-            <tr>
-              <th>
-                <Input
-                  type="checkbox"
-                  onChange={(e) =>
-                    setSelectedRows(
-                      e.target.checked
-                        ? new Set(filteredData.map((record) => record.profile_id))
-                        : new Set()
-                    )
-                  }
-                  checked={
-                    selectedRows.size > 0 &&
-                    selectedRows.size === filteredData.length
-                  }
-                />
-              </th>
-              <th>Sl.</th>
+        {loading ? (
+          <p>Loading data...</p>
+        ) : (
+          <>
+            <div style={{ overflowX: "auto" }}>
+              <Table bordered>
+                <thead>
+                  <tr>
+                    <th>
+                      <Input
+                        type="checkbox"
+                        onChange={(e) =>
+                          setSelectedRows(
+                            e.target.checked
+                              ? new Set(filteredData.map((record) => record.profile_id))
+                              : new Set()
+                          )
+                        }
+                        checked={
+                          selectedRows.size > 0 &&
+                          selectedRows.size === filteredData.length
+                        }
+                      />
+                    </th>
+                    <th>Sl.</th>
               {[
                 "profile_id",
                 "name",
@@ -270,39 +289,34 @@ const PersonalTab = () => {
 
                 </th>
               ))}
-           <th>
+                    <th>
   <div style={{ display: "flex", alignItems: "center" }}>
     Online Purchase
    </div>
-   <Input
-  type="select"
-  value={onlinePurchaseFilter}
-  onChange={(e) => {
-    const selectedFilter = e.target.value;
-    console.log("Selected Online Purchase Filter:", selectedFilter); // Debug: Show selected filter value
-    setOnlinePurchaseFilter(selectedFilter); // Ensure the state is updated correctly
-    handleSearch(searchTerm, activeColumn); // Trigger search with updated filter
-  }}
-  style={{ marginTop: "5px", padding: "0px 5px" }}
->
-  <option value="">All</option>
-  <option value="true">True</option>
-  <option value="false">False</option>
-</Input>
-
-</th>
-
-
-                <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {paginatedData.map((record, index) => (
-              <tr key={record.profile_id}>
-                <td>
-                  <Input
-                    type="checkbox"
-                    checked={selectedRows.has(record.profile_id)}
+                      <Input
+                        type="select"
+                        value={onlinePurchaseFilter}
+                        onChange={(e) => {
+                          const selectedFilter = e.target.value;
+                          setOnlinePurchaseFilter(selectedFilter);
+                        }}
+                        style={{ marginTop: "5px", padding: "0px 5px" }}
+                      >
+                        <option value="">All</option>
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                      </Input>
+                    </th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {paginatedData.map((record, index) => (
+                    <tr key={record.profile_id}>
+                      <td>
+                        <Input
+                          type="checkbox"
+                          checked={selectedRows.has(record.profile_id)}
                     onChange={() => handleSelectRow(record.profile_id)}
                   />
                 </td>
@@ -341,49 +355,49 @@ const PersonalTab = () => {
                   <td>{record.time || "N/A"}</td>
                   <td>{record.onlinePurchase ? 'True' : 'False'}</td>
 
-                <td>
-                                        <FaTrashAlt
-                                          style={{ color: "red", cursor: "pointer" }}
-                                          onClick={() => deleteProfile(record.profile_id)}
-                                          title="Delete"
-                                        />
-                                      </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginTop: "10px",
-        }}
-      >
-        <Button
-          color="secondary"
-          onClick={handlePrevious}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </Button>
-        <span>
-          Page {currentPage} of {Math.ceil(filteredData.length / itemsPerPage)}
-        </span>
-        <Button
-          color="secondary"
-          onClick={handleNext}
-          disabled={currentPage === Math.ceil(filteredData.length / itemsPerPage)}
-        >
-          Next
-        </Button>
-      </div>
-    </>
-  )}
-</CardBody>
-<ProfileModal
+                      <td>
+                        <FaTrashAlt
+                          style={{ color: "red", cursor: "pointer" }}
+                          onClick={() => deleteProfile(record.profile_id)}
+                          title="Delete"
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: "10px",
+              }}
+            >
+              <Button
+                color="secondary"
+                onClick={handlePrevious}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </Button>
+              <span>
+                Page {currentPage} of {Math.ceil(filteredData.length / itemsPerPage)}
+              </span>
+              <Button
+                color="secondary"
+                onClick={handleNext}
+                disabled={currentPage === Math.ceil(filteredData.length / itemsPerPage)}
+              >
+                Next
+              </Button>
+            </div>
+          </>
+        )}
+      </CardBody>
+      <ProfileModal
         isOpen={isModalOpen}
-        toggle={toggleModal}
+        toggle={() => setIsModalOpen(!isModalOpen)}
         profileId={selectedProfileId}
       />
 
