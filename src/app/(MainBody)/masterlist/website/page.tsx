@@ -45,7 +45,7 @@ const PersonalTab = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://backend-chess-tau.vercel.app/get_forms");
+        const response = await axios.get("https://backend-chess-tau.vercel.app/get_form_master_list");
         const data = response.data;
 
          const njTournamentData = data.filter(
