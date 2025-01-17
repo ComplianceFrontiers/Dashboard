@@ -120,7 +120,7 @@ export const MenuList: MenuItem[] = [
             { path: `/masterlist/website`, type: "link", title: "Website List" },
             { path: `/masterlist/chess-club-tournament`, type: "link", title: "Chess Club List" },
             { path: `/masterlist/middletown`, type: "link", title: "Bear/Middletown C.T" },
-            { path: `/masterlist/Bear_Chess_Coaching`, type: "link", title: "Bear Chess Coaching" },
+            { path: `/masterlist/Bear_Middletown_Chess_Coaching`, type: "link", title: "Bear Chess Coaching" },
             { path: `/masterlist/newjersy`, type: "link", title: "New Jersy C T" },
             { path: `/masterlist/wilmington`, type: "link", title: "Wilmington C C" },
           { path: `/masterlist/newjersy1`, type: "link", title: "New Jersy Master C" },

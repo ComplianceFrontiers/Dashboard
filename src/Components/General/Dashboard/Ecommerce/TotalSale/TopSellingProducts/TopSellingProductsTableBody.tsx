@@ -9,7 +9,7 @@ const TopSellingProductsTableBody = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://backend-chess-tau.vercel.app/get_forms");
+        const response = await fetch("https://backend-chess-tau.vercel.app/get_form_master_list");
         const data = await response.json();
 
         const fieldsToCount = [
@@ -22,8 +22,8 @@ const TopSellingProductsTableBody = () => {
           "Bear_Middletown_Chess_Tournament",
           "New_Jersey_Masterclass",
           "New_Jersey_Chess_Tournament",
-          "chessclub",
-          "Bear_Chess_Coaching",
+          "chess_club",
+          "Bear_Middletown_Chess_Coaching",
         ];
 
         const counts: Record<string, number> = {};
@@ -51,8 +51,8 @@ const TopSellingProductsTableBody = () => {
     Bear_Middletown_Chess_Tournament: "/masterlist/middletown",
     New_Jersey_Masterclass: "/masterlist/newjersy1",
     New_Jersey_Chess_Tournament: "/masterlist/newjersy",
-    chessclub: "/masterlist/chess-club-tournament",
-    Bear_Chess_Coaching: "/masterlist/Bear_Chess_Coaching",
+    chess_club: "/masterlist/chess-club-tournament",
+    Bear_Middletown_Chess_Coaching: "/masterlist/Bear_Middletown_Chess_Coaching",
   };
 
   const buttonColors: Record<string, string> = {
@@ -65,8 +65,8 @@ const TopSellingProductsTableBody = () => {
     Bear_Middletown_Chess_Tournament: "#5733FF",
     New_Jersey_Masterclass: "#FFC300",
     New_Jersey_Chess_Tournament: "#33C4FF",
-    chessclub: "#FF33C4",
-    Bear_Chess_Coaching: "#C70039",
+    chess_club: "#FF33C4",
+    Bear_Middletown_Chess_Coaching: "#C70039",
   };
 
   const handleRedirect = (field: string) => {

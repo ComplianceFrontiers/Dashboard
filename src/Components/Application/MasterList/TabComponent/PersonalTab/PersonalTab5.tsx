@@ -14,7 +14,7 @@ interface FormRecord {
   child_name?: { first: string; last: string };
   email?: string;
   phone?: string;
-  chessclub?: boolean;
+  chess_club?: boolean;
   year?: string;
   date?: string;
   time?: string;

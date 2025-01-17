@@ -13,7 +13,7 @@ interface FormRecord {
   email?: string;
   phone?: string;
   child_grade?: string;
-  chessclub?: boolean;
+  chess_club?: boolean;
   year?: string;
   date?: string;
   time?: string;
