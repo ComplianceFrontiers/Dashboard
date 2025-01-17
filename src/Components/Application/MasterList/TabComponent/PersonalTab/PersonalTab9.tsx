@@ -40,6 +40,7 @@ const PersonalTab = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);  // To control the modal visibility
   const [selectedProfileId, setSelectedProfileId] = useState<string>("");
   const buttonStyles = { color: "blue", marginLeft: "10px", textDecoration: "none" };
+  const [onlinePurchaseFilter, setOnlinePurchaseFilter] = useState<string>(""); // "" means no filter applied
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -59,6 +60,16 @@ const PersonalTab = () => {
     };
     fetchData();
   }, []);
+  useEffect(() => {
+    handleSearch(searchTerm, activeColumn); // Call search when onlinePurchaseFilter changes
+  }, [onlinePurchaseFilter]); // Depend on onlinePurchaseFilter to trigger when it changes
+  const matchesOnlinePurchase = (record: FormRecord) => {
+    if (onlinePurchaseFilter === "") return true; // No filter applied
+    const filterValue = onlinePurchaseFilter === "true"; // Convert string "true" to boolean
+    console.log("Record onlinePurchase:", record.onlinePurchase, "Filter Value:", filterValue); // Debug
+    return record.onlinePurchase === filterValue; // Compare boolean values
+  };
+  
    const deleteProfile = async (profileId: string) => {
       if (window.confirm("Are you sure you want to delete this profile?")) {
         try {
@@ -82,23 +93,35 @@ const PersonalTab = () => {
         }
       }
     };
-
-  const handleSearch = (term: string, column: string | null) => {
-    setSearchTerm(term);
-    const lowercasedTerm = term.toLowerCase();
-    const filtered = formData.filter((record) =>
-      column
-        ? record[column]?.toString().toLowerCase().includes(lowercasedTerm) ||
-          (column === "child_name" &&
-            `${record.child_name?.first || ""} ${record.child_name?.last || ""}`
-              .toLowerCase()
-              .includes(lowercasedTerm))
-        : true
-    );
-    setFilteredData(filtered);
-    setCurrentPage(1);
-  };
-
+    const handleSearch = (term: string, column: string | null) => {
+      console.log("Handling search with term:", term); // Debug: Show search term
+      setSearchTerm(term);
+      const lowercasedTerm = term.toLowerCase();
+    
+      // Debug: Show filter settings
+      console.log("Online Purchase Filter:", onlinePurchaseFilter);
+    
+      const filtered = formData.filter((record) => {
+        console.log("Checking record:", record);
+    
+        const matchesColumn =
+          column && record[column]?.toString().toLowerCase().includes(lowercasedTerm);
+    
+        // Combine column search and `onlinePurchase` filter
+        const result = matchesOnlinePurchase(record) && (!column || matchesColumn);
+    
+        console.log("Match result for record:", result); // Debug: Show the match result
+    
+        return result;
+      });
+    
+      console.log("Filtered data:", filtered); // Debug: Show the filtered results
+      setFilteredData(filtered);
+      setCurrentPage(1); // Reset to the first page
+    };
+    
+    
+    
   const exportToExcel = () => {
     const rowsToExport = filteredData.filter((record) =>
       selectedRows.has(record.profile_id)
@@ -115,7 +138,7 @@ const PersonalTab = () => {
         Phone: record.phone || "N/A",
         Group: record.group || "N/A",
         Level: record.level || "N/A",
-        "Online Purchase": record.onlinePurchase ? "Yes" : "No",
+        "Online Purchase": record.onlinePurchase ||"N/A",
         Date: record.date || "N/A",
         Time: record.time || "N/A",
       }))
@@ -220,8 +243,7 @@ const PersonalTab = () => {
                 "email",
                 "phone",
                 "Group",
-                "Level",
-                "Online Purchase",
+                "Level", 
                 "Date",
                 "Time",
               ].map((column) => (
@@ -248,6 +270,29 @@ const PersonalTab = () => {
 
                 </th>
               ))}
+           <th>
+  <div style={{ display: "flex", alignItems: "center" }}>
+    Online Purchase
+   </div>
+   <Input
+  type="select"
+  value={onlinePurchaseFilter}
+  onChange={(e) => {
+    const selectedFilter = e.target.value;
+    console.log("Selected Online Purchase Filter:", selectedFilter); // Debug: Show selected filter value
+    setOnlinePurchaseFilter(selectedFilter); // Ensure the state is updated correctly
+    handleSearch(searchTerm, activeColumn); // Trigger search with updated filter
+  }}
+  style={{ marginTop: "5px", padding: "0px 5px" }}
+>
+  <option value="">All</option>
+  <option value="true">True</option>
+  <option value="false">False</option>
+</Input>
+
+</th>
+
+
                 <th>Actions</th>
             </tr>
           </thead>
@@ -291,9 +336,11 @@ const PersonalTab = () => {
                 
                 <td>{record.group || "N/A"}</td>
                 <td>{record.level || "N/A"}</td>
-                <td>{record.onlinePurchase ? "Yes" : "No"}</td>
+                
                   <td>{record.date || "N/A"}</td>
                   <td>{record.time || "N/A"}</td>
+                  <td>{record.onlinePurchase ? 'True' : 'False'}</td>
+
                 <td>
                                         <FaTrashAlt
                                           style={{ color: "red", cursor: "pointer" }}
