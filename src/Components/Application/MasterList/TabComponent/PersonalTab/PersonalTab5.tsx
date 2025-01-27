@@ -70,27 +70,28 @@ const PersonalTab = () => {
     }
   }, [selectedProfileId]);
 
-  const deleteProfile = async (profileId: string) => {
-    if (window.confirm("Are you sure you want to delete this profile?")) {
-      try {
-        const response = await axios.delete(
+   const deleteProfile = async (profileId: string) => {
+      if (window.confirm("Are you sure you want to delete this profile?")) {
+        try {
+          const response = await axios.delete(
           `https://backend-chess-tau.vercel.app/form_chess_club_bp_delete_records_by_profile_ids`,
-          { data: { profile_ids: [profileId] } }
-        );
-
-        if (response.data.deleted_profiles.includes(profileId)) {
-          setFormData((prev) => prev.filter((record) => record.profile_id !== profileId));
-          setFilteredData((prev) => prev.filter((record) => record.profile_id !== profileId));
-          alert("Profile deleted successfully.");
-        } else {
-          alert(`Profile ID ${profileId} not found.`);
+            { data: { profile_ids: [profileId] } }
+          );
+    
+          // Handle the response appropriately
+          if (response.data.deleted_profiles.includes(profileId)) {
+            setFormData((prev) => prev.filter((record) => record.profile_id !== profileId));
+            setFilteredData((prev) => prev.filter((record) => record.profile_id !== profileId));
+            alert("Profile deleted successfully.");
+          } else {
+            alert(`Profile ID ${profileId} not found.`);
+          }
+        } catch (error) {
+          console.error("Error deleting profile:", error);
+          alert("Failed to delete profile.");
         }
-      } catch (error) {
-        console.error("Error deleting profile:", error);
-        alert("Failed to delete profile.");
       }
-    }
-  };
+    };
 
   const handleSearch = (term: string, column: string | null) => {
     setSearchTerm(term);
@@ -161,7 +162,6 @@ const PersonalTab = () => {
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-
   return (
     <Card>
       <CardHeader>
@@ -249,21 +249,21 @@ const PersonalTab = () => {
                     </td>
                     <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
                     <td>
-                      <a
-                        href="#"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleProfileClick(record.profile_id);
-                        }}
-                        style={{
+                        <a
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleProfileClick(record.profile_id);
+                          }}
+                          style={{
                           color: "blue",
                           textDecoration: "underline",
                           cursor: "pointer",
-                        }}
-                      >
-                        {record.profile_id}
-                      </a>
-                    </td>
+                          }}
+                        >
+                          {record.profile_id}
+                        </a>
+                      </td>
                     <td>
                       {record.parent_name
                         ? `${record.parent_name.first || ""} ${record.parent_name.last || ""}`
@@ -279,33 +279,32 @@ const PersonalTab = () => {
                     <td>{record.date || "N/A"}</td>
                     <td>{record.time || "N/A"}</td>
                     <td>
-                    <FaTrashAlt
-                        style={{ color: "red", cursor: "pointer" }}
-                        onClick={() => deleteProfile(record.profile_id)}
-                      />
-                    </td>
+                                        <FaTrashAlt
+                                          style={{ color: "red", cursor: "pointer" }}
+                                          onClick={() => deleteProfile(record.profile_id)}
+                                        />
+                                      </td>
                   </tr>
                 ))}
               </tbody>
             </Table>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Button
-                color="secondary"
-                onClick={handlePrevious}
-                disabled={currentPage === 1}
-              >
-                Previous
-              </Button>
-              <Button
-                color="secondary"
-                onClick={handleNext}
-                disabled={currentPage * itemsPerPage >= filteredData.length}
-              >
-                Next
-              </Button>
-            </div>
           </div>
         )}
+        <div style={{ display: "flex", justifyContent: "space-between", marginTop: "10px" }}>
+          <Button color="secondary" onClick={handlePrevious} disabled={currentPage === 1}>
+            Previous
+          </Button>
+          <span>
+            Page {currentPage} of {Math.ceil(filteredData.length / itemsPerPage)}
+          </span>
+          <Button
+            color="secondary"
+            onClick={handleNext}
+            disabled={currentPage === Math.ceil(filteredData.length / itemsPerPage)}
+          >
+            Next
+          </Button>
+        </div>
       </CardBody>
       {isModalOpen && profileData && (
         <ProfileModal
@@ -314,9 +313,10 @@ const PersonalTab = () => {
           toggle={toggleModal}
         />
       )}
+
+
     </Card>
   );
 };
 
 export default PersonalTab;
-
