@@ -36,7 +36,6 @@ interface ProfileData {
     Bear_Middletown_Chess_Tournament?:boolean;
     WilmingtonChessCoaching?:boolean;
     chess_club?:boolean;
-    chess_club?:boolean;
     
 Bear_Middletown_Chess_Coaching?:boolean;
     WhatsApp?: boolean;
@@ -131,10 +130,7 @@ Bear_Middletown_Chess_Coaching?:boolean;
 Bear_Middletown_Chess_Coaching ? "Yes" : "No"}
   </p>
   <p>
-    <strong>chess club Tournament:</strong> {profileData.chess_club ? "Yes" : "No"}
-  </p>
-  <p>
-    <strong>chess club:</strong> {profileData.chess_club ? "true" : "N/A"}
+    <strong>chess club:</strong> {profileData.chess_club ? "Yes" : "No"}
   </p>
   <p>
     <strong>Location:</strong> {profileData.location}
