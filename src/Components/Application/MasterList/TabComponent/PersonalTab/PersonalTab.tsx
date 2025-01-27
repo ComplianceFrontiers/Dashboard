@@ -230,7 +230,7 @@ const PersonalTab = () => {
       <option value="New_Jersey_Chess_Tournament">New Jersey Chess Tournament</option>
       <option value="New_Jersey_Masterclass">New Jersey Masterclass</option>
       <option value="WilmingtonChessCoaching">Wilmington Chess Coaching</option>
-      <option value="chess_club">Chess Club Tournament</option>
+      <option value="chess_club">Chess Club </option>
       <option value="Bear_Middletown_Chess_Coaching">Bear Chess Coaching</option>
       <option value="BasicsOfChess_Online">Basics of Chess Online</option>
 
@@ -277,7 +277,7 @@ const PersonalTab = () => {
   {record.New_Jersey_Chess_Tournament && <span className="badge bg-primary">New Jersey Chess Tournament</span>}
   {record.New_Jersey_Masterclass && <span className="badge bg-primary">New Jersey Masterclass</span>}
   {record.WilmingtonChessCoaching && <span className="badge bg-primary">Wilmington Chess Coaching</span>}
-  {record.chess_club && <span className="badge bg-primary"> Chess Club Tournament</span>}
+  {record.chess_club && <span className="badge bg-primary"> Chess Club</span>}
   {record.Bear_Middletown_Chess_Coaching && <span className="badge bg-primary"> Bear Chess Coaching</span>}
 
 {record.BasicsOfChess_Online && <span className="badge bg-primary">Basics of Chess Online</span>}
