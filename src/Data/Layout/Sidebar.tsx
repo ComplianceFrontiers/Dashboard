@@ -123,7 +123,7 @@ export const MenuList: MenuItem[] = [
             { path: `/masterlist/Bear_Middletown_Chess_Coaching`, type: "link", title: "Bear Chess Coaching" },
             { path: `/masterlist/newjersy`, type: "link", title: "New Jersy C T" },
             { path: `/masterlist/wilmington`, type: "link", title: "Wilmington C C" },
-          { path: `/masterlist/newjersy1`, type: "link", title: "New Jersy Master C" },
+          // { path: `/masterlist/newjersy1`, type: "link", title: "New Jersy Master C" },
         ],
     },
       // { path: `/app/MasterList`, title: "MasterList", icon: "Contacts", type: "link", id: 11, active: false },
