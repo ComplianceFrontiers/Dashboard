@@ -6,7 +6,7 @@ import axios from "axios";
 import * as XLSX from "xlsx";
 import ProfileModal from "./ProfileModal";
 import SendEmail from "@/app/SendEmail";
-
+import Chessclubemail from "@/app/chessclub";
 interface FormRecord {
   profile_id: string;
   email?: string;
@@ -39,6 +39,8 @@ const PersonalTab = () => {
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set());
   const [selectAll, setSelectAll] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [emailType, setEmailType] = useState<string>(""); // "plain" or "chessclub"
+
   const [selectedProfileId, setSelectedProfileId] = useState<string>("");
   const [searchVisibility, setSearchVisibility] = useState<Record<string, boolean>>({});
   const [showSendEmail, setShowSendEmail] = useState(false);
@@ -153,14 +155,15 @@ const PersonalTab = () => {
         <div style={{ display: "flex", justifyContent: "space-between" }}>
         <h4>Master List</h4>
         {!showSendEmail && ( <div >
-        <Button
+          <Button
   style={{ marginRight: "20px", cursor: "pointer" }}
   color="primary"
-  onClick={() =>   setShowSendEmail(true)} // Show the SendEmail component conditionally
+  onClick={() => setShowSendEmail(true)} // Show the options to select email type
   disabled={selectedRows.size === 0}
 >
   Send Email
 </Button>
+
 
           <Button
            style={{marginRight:"20px",cursor:"pointer"}}
@@ -172,13 +175,34 @@ const PersonalTab = () => {
           </Button>
           </div>)}
           {showSendEmail && (
-  <SendEmail
-    selectedEmails={formData
-      .filter((record) => selectedRows.has(record.profile_id))
-      .map((record) => record.email || "")}
-    onClose={() => setShowSendEmail(false)}
-  />
+  <div>
+    <select onChange={(e) => setEmailType(e.target.value)} value={emailType}>
+      <option value="">Select Email Type</option>
+      <option value="plain">Plain Email</option>
+      <option value="chessclub">Chess Club Email</option>
+    </select>
+
+    {/* Render the selected email component based on the selected type */}
+    {emailType === "plain" && (
+      <SendEmail
+        selectedEmails={formData
+          .filter((record) => selectedRows.has(record.profile_id))
+          .map((record) => record.email || "")}
+        onClose={() => setShowSendEmail(false)}
+      />
+    )}
+    {emailType === "chessclub" && (
+      <Chessclubemail
+        selectedEmails={formData
+          .filter((record) => selectedRows.has(record.profile_id))
+          .map((record) => record.email || "")}
+        onClose={() => setShowSendEmail(false)}
+      />
+    )}
+  </div>
 )}
+
+
 
         </div>
           </CardHeader>
