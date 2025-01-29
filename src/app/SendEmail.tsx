@@ -183,6 +183,7 @@ const handleRemove = (email: string) => {
     formData.append('bcc', bccEmails);
     formData.append('subject', subject);
     formData.append('message', emailBody); 
+    formData.append('displayname', "Chess Champs Academy"); 
     if (image) {
       formData.append('image', image);
     }

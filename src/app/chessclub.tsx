@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,7 +8,6 @@ import { faCoffee, faHome, faUser, faSearch } from '@fortawesome/free-solid-svg-
 // Add icons to the library
 library.add(faFacebook, faYoutube, faTwitter, faInstagram, faLinkedin, faCoffee, faHome, faUser, faSearch);
 
-
 interface chessclubemailProps {
   selectedRecords: { name: string; email: string; }[];
   onBack: () => void;
@@ -17,7 +15,8 @@ interface chessclubemailProps {
 
 const chessclubemail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onClose: () => void }) => {
   const router = useRouter();
-  const [subject, setSubject] = useState('');
+  const [subject] = useState('Thursdays are Chess Days'); // Hardcoded subject
+  const [displayname] = useState('Chess Champs'); 
   const [message, setMessage] = useState('');
   const [image, setImage] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
@@ -76,21 +75,20 @@ const chessclubemail = ({ selectedEmails, onClose }: { selectedEmails: string[];
   
 
 
-const [emails, setEmails] = useState<string[]>(selectedEmails);
+  const [emails, setEmails] = useState<string[]>(selectedEmails);
 
-const removeEmail = (emailToRemove: string) => {
+  const removeEmail = (emailToRemove: string) => {
     setEmails(emails.filter(email => email !== emailToRemove));
-};
+  };
 
-const handleRemove = (email: string) => {
-  console.log("Removing email:", email);
-  removeEmail(email);
-};
-
+  const handleRemove = (email: string) => {
+    console.log("Removing email:", email);
+    removeEmail(email);
+  };
 
   const handlechessclubemail = async () => {
-    if (!subject) {
-      setErrorMessage('Subject, message, and API link are required.');
+    if (!message) {
+      setErrorMessage('Message and API link are required.');
       setShowPopup(true);
       return;
     }
@@ -105,6 +103,7 @@ const handleRemove = (email: string) => {
     formData.append('bcc', bccEmails);
     formData.append('subject', subject);
     formData.append('message', emailBody); 
+    formData.append('displayname', displayname); 
     if (image) {
       formData.append('image', image);
     }
@@ -139,7 +138,7 @@ const handleRemove = (email: string) => {
           <input
             type="text"
             value={subject}
-            onChange={e => setSubject(e.target.value)}
+            disabled
             required
             className="input"
           />
@@ -171,49 +170,33 @@ const handleRemove = (email: string) => {
           />
         </label>
         <div
-      style={{
-        fontFamily: 'Arial, sans-serif',
-        fontSize: '12px',
-        color: '#333',
-        padding: '10px',
-        border: '1px solid #ccc',
-        borderRadius: '5px',
-        backgroundColor: '#f9f9f9',
-        margin: '10px 0',
-        width: '300px',
-      }}
-    >
-      Selected Emails:
-      <div style={{ fontWeight: 'bold' }}>
-        {emails.map((email, index) => (
-          <div key={index} style={{ marginBottom: '5px' }}>
-            {email}
-            {/* <button
-              onClick={() => handleRemove(email)}
-              style={{
-                marginLeft: '10px',
-                fontSize: '10px',
-                cursor: 'pointer',
-                backgroundColor: '#f44336',
-                color: 'white',
-                border: 'none',
-                borderRadius: '3px',
-                padding: '2px 5px',
-              }}
-            >
-              Remove
-            </button> */}
+          style={{
+            fontFamily: 'Arial, sans-serif',
+            fontSize: '12px',
+            color: '#333',
+            padding: '10px',
+            border: '1px solid #ccc',
+            borderRadius: '5px',
+            backgroundColor: '#f9f9f9',
+            margin: '10px 0',
+            width: '300px',
+          }}
+        >
+          Selected Emails:
+          <div style={{ fontWeight: 'bold' }}>
+            {emails.map((email, index) => (
+              <div key={index} style={{ marginBottom: '5px' }}>
+                {email}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
         <div className="buttonContainer">
-  <button onClick={handlechessclubemail} disabled={loading} className="button">
-    {loading ? 'Sending...' : 'Send Email'}
-  </button>
-  <button  className="backButton" onClick={onClose} >Back</button>
-</div>
-
+          <button onClick={handlechessclubemail} disabled={loading} className="button">
+            {loading ? 'Sending...' : 'Send Email'}
+          </button>
+          <button className="backButton" onClick={onClose}>Back</button>
+        </div>
       </div>
       <div className="previewSection">
         <h2 className="previewTitle">Email Preview</h2>

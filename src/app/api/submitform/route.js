@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 export async function POST(req) {
   const formData = await req.formData(); // Use formData() to parse the multipart form data
   
-  // const name = formData.get('name');
+  const displayname = formData.get('displayname');
   const bcc = formData.get('bcc'); // Assuming this is a comma-separated list of emails
   const subject = formData.get('subject');
   const message = formData.get('message'); // This will be the HTML message
@@ -28,7 +28,7 @@ export async function POST(req) {
   // Define a helper function to send a batch of emails
   const sendBatchEmails = async (batch) => {
     const mailOptions = {
-      from: `"Chess Champs Academy" <${process.env.EMAIL_USER}>`, 
+      from: `${displayname}<${process.env.EMAIL_USER}>`, 
       bcc: batch, // Send batch of emails as BCC
       subject: subject,
       html: message, // Send the message as HTML content
