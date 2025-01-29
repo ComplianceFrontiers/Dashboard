@@ -125,7 +125,7 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
       
       <div style="color: white; padding: 0px; margin-top: 30px;">   
           <div style="background-color: #343a40; color: #fff; padding: 20px; border-radius: 5px 5px 0 0;">
-              <h1 style="margin-bottom: 5px;color:white; font-size: 14px;">About the Chess Champs</h1>
+              <h1 style="margin-bottom: 5px;color:white; font-size: 14px;">About Chess Champs</h1>
               <p style="margin-bottom: 0px; font-size:12px;">Chess Champs is dedicated to nurturing young minds through the timeless game of chess. We provide engaging programs, tournaments, and training sessions for players of all ages and skill levels. Our mission is to inspire critical thinking, strategic planning, and a love for learning in a supportive and fun environment.</p>
               <p style="margin-bottom: 0px; font-size:12px;">From beginner-friendly lessons to competitive tournaments, Chess Champs offers something for everyone, helping players build confidence, sharpen problem-solving skills, and foster a lifelong passion for chess.</p>
           </div>

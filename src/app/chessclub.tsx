@@ -36,7 +36,7 @@ const chessclubemail = ({ selectedEmails, onClose }: { selectedEmails: string[];
       
       <div style="color: white; padding: 0px; margin-top: 10px;">   
           <div style="background-color: #343a40; color: #fff; padding: 20px; border-radius: 5px 5px 0 0;">
-              <h1 style="margin-bottom: 5px;color:white; font-size: 14px;">About the Chess Champs</h1>
+              <h1 style="margin-bottom: 5px;color:white; font-size: 14px;">About Chess Champs</h1>
               <p style="margin-bottom: 0px; font-size:12px;">Chess Champs is dedicated to nurturing young minds through the timeless game of chess. We provide engaging programs, tournaments, and training sessions for players of all ages and skill levels. Our mission is to inspire critical thinking, strategic planning, and a love for learning in a supportive and fun environment.</p>
               <p style="margin-bottom: 0px; font-size:12px;">From beginner-friendly lessons to competitive tournaments, Chess Champs offers something for everyone, helping players build confidence, sharpen problem-solving skills, and foster a lifelong passion for chess.</p>
           </div>
@@ -44,17 +44,13 @@ const chessclubemail = ({ selectedEmails, onClose }: { selectedEmails: string[];
               <div style="background-color: #007BFF; padding: 10px; border-radius: 5px; text-align: center;">
                   <p  style="margin-bottom: 1px;color:white; font-size: 14px;"><strong>CHESS CHAMPS</strong></p>
                   <p style="margin: 10px; font-size: 10px;">
-                      <a href="https://www.google.com/maps?q=510+Duncan+Rd,+Wilmington,+DE+19809" target="_blank" style="text-decoration: underline; font-size: 12px; color: #ffff00;">510 Duncan Rd</a> | 
-                      <a href="tel:+13022764141" style="text-decoration: underline; font-size: 12px; color: #ffff00;">Wilmington, DE 19809</a> | 
-                      <a href="tel:+13022764141" style="text-decoration: underline;font-size: 12px; color: #ffff00;">302-276-4141</a>
+                      <a href="https://www.google.com/maps?q=510+Duncan+Rd,+Wilmington,+DE+19809" target="_blank" style="text-decoration: underline; font-size: 12px; color: #fff;">510 Duncan Rd</a> | 
+                      <a href="tel:+13022764141" style="text-decoration: underline; font-size: 12px; color: #fff;">Wilmington, DE 19809</a> | 
+                      <a href="tel:+13022764141" style="text-decoration: underline;font-size: 12px; color:#fff;">302-276-4141</a>
                   </p>
-              </div>
-              <div>
-                  <p style="font-size: 11px;">We like to connect in ways that work for you: <a href="#" style="color: #fff; text-decoration: none;">Update Profile</a></p>
-              </div>
-          </div>
-      </div>
-      <table align="center" style="margin: 1px auto; margin-bottom: 20px;">
+              
+              
+                <table align="center" style="margin: 1px auto; margin-bottom: 10px; margin-top: 20px;">
     <tr>
       <td style="text-align: center;">
         <a href="https://www.chesschamps.us/" style="display: inline-block; padding: 12px 20px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 14px;">
@@ -62,8 +58,11 @@ const chessclubemail = ({ selectedEmails, onClose }: { selectedEmails: string[];
         </a>
       </td>
     </tr>
-  </table>
-      <p style="font-size: 14px; color: #666; text-align: center; margin-top: 0px;">
+  </table></div>
+          </div>
+      </div>
+    
+      <p style="font-size: 14px; color: #666; text-align: center; margin-top:10px;">
   You are receiving this email because you signed up to receive updates and communications from 
   <a href="https://chesschamps.us" style="color: #f53db8; text-decoration: none;">Chess Champs</a>. 
   If you wish to stop receiving these emails, you can 
@@ -87,11 +86,7 @@ const chessclubemail = ({ selectedEmails, onClose }: { selectedEmails: string[];
   };
 
   const handlechessclubemail = async () => {
-    if (!message) {
-      setErrorMessage('Message and API link are required.');
-      setShowPopup(true);
-      return;
-    }
+    
     setLoading(true);
     setSuccessMessage('');
     setErrorMessage('');
@@ -133,6 +128,16 @@ const chessclubemail = ({ selectedEmails, onClose }: { selectedEmails: string[];
   return (
     <div className="containerSendEmail">
       <div className="formSection"> 
+      <label className="label">
+          Display from :  
+          <input
+            type="text"
+            value={displayname}
+            disabled
+            required
+            className="input"
+          />
+        </label>
         <label className="label">
           Subject:  
           <input
