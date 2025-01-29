@@ -27,24 +27,24 @@ const chessclubemail = ({ selectedEmails, onClose }: { selectedEmails: string[];
   const [apiLink, setApiLink] = useState('');
 
   const emailBody = `
-  <div style="font-family: Arial, sans-serif; color: #333; padding: 20px; text-align: center; display: block; margin: 0 auto; max-width: 800px;">
-      <div style="text-align: center;">
-        <img src="https://res.cloudinary.com/dtgje24ez/image/upload/v1738066572/mrri2dqpotlha9pd6u7r.jpg" alt="Chess Champs Banner" style="max-width: 100%; height: auto;">
-      </div>
+  <div style="font-family: Arial, sans-serif; color: #333;  text-align: center; display: block; margin: 0 auto; max-width: 800px;">
+    
+        <img src="https://res.cloudinary.com/dtgje24ez/image/upload/v1738124100/lrt4ul175g3wjllnbpmg.jpg" alt="Chess Champs Banner" style="max-width: 100%; height: auto;">
+ 
     
 </div>
 
       
-      <div style="color: white; padding: 0px; margin-top: 30px;">   
+      <div style="color: white; padding: 0px; margin-top: 10px;">   
           <div style="background-color: #343a40; color: #fff; padding: 20px; border-radius: 5px 5px 0 0;">
               <h1 style="margin-bottom: 5px;color:white; font-size: 14px;">About the Chess Champs</h1>
               <p style="margin-bottom: 0px; font-size:12px;">Chess Champs is dedicated to nurturing young minds through the timeless game of chess. We provide engaging programs, tournaments, and training sessions for players of all ages and skill levels. Our mission is to inspire critical thinking, strategic planning, and a love for learning in a supportive and fun environment.</p>
               <p style="margin-bottom: 0px; font-size:12px;">From beginner-friendly lessons to competitive tournaments, Chess Champs offers something for everyone, helping players build confidence, sharpen problem-solving skills, and foster a lifelong passion for chess.</p>
           </div>
           <div>
-              <div style="background-color: #007BFF; padding: 1px; border-radius: 5px; text-align: center;">
+              <div style="background-color: #007BFF; padding: 10px; border-radius: 5px; text-align: center;">
                   <p  style="margin-bottom: 1px;color:white; font-size: 14px;"><strong>CHESS CHAMPS</strong></p>
-                  <p style="margin: 0; font-size: 10px;">
+                  <p style="margin: 10px; font-size: 10px;">
                       <a href="https://www.google.com/maps?q=510+Duncan+Rd,+Wilmington,+DE+19809" target="_blank" style="text-decoration: underline; font-size: 12px; color: #ffff00;">510 Duncan Rd</a> | 
                       <a href="tel:+13022764141" style="text-decoration: underline; font-size: 12px; color: #ffff00;">Wilmington, DE 19809</a> | 
                       <a href="tel:+13022764141" style="text-decoration: underline;font-size: 12px; color: #ffff00;">302-276-4141</a>
@@ -55,11 +55,21 @@ const chessclubemail = ({ selectedEmails, onClose }: { selectedEmails: string[];
               </div>
           </div>
       </div>
+      <table align="center" style="margin: 1px auto; margin-bottom: 20px;">
+    <tr>
+      <td style="text-align: center;">
+        <a href="https://www.chesschamps.us/" style="display: inline-block; padding: 12px 20px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 14px;">
+          Visit Website
+        </a>
+      </td>
+    </tr>
+  </table>
       <p style="font-size: 14px; color: #666; text-align: center; margin-top: 0px;">
-          You are receiving this email because you signed up to receive updates and communications from 
-          <a href="https://chesschamps.us" style="color: #f53db8; text-decoration: none;">Chess Champs</a>. 
-          If you wish to stop receiving these emails, you can contact connect@chesschamps.us.
-      </p>
+  You are receiving this email because you signed up to receive updates and communications from 
+  <a href="https://chesschamps.us" style="color: #f53db8; text-decoration: none;">Chess Champs</a>. 
+  If you wish to stop receiving these emails, you can 
+  <a href="https://chesschampsus.vercel.app/unsubscribe" style="color: #f53db8; text-decoration: none;">unsubscribe here</a>.
+</p>
   </div>
   `;
 

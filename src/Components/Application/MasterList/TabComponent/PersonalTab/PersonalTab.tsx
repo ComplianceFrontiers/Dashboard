@@ -153,29 +153,10 @@ const PersonalTab = () => {
     <Card>
       <CardHeader>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <h4>Master List</h4>
-        {!showSendEmail && ( <div >
-          <Button
-  style={{ marginRight: "20px", cursor: "pointer" }}
-  color="primary"
-  onClick={() => setShowSendEmail(true)} // Show the options to select email type
-  disabled={selectedRows.size === 0}
->
-  Send Email
-</Button>
-
-
-          <Button
-           style={{marginRight:"20px",cursor:"pointer"}}
-            color="primary"
-            onClick={handleExportToExcel}
-            disabled={selectedRows.size === 0}
-          >
-            Export to Excel
-          </Button>
-          </div>)}
-          {showSendEmail && (
-  <div>
+        {!showSendEmail &&
+        ( <h4>Master List</h4>)}
+              {showSendEmail && (
+            <div >
     <select onChange={(e) => setEmailType(e.target.value)} value={emailType}>
       <option value="">Select Email Type</option>
       <option value="plain">Plain Email</option>
@@ -201,6 +182,27 @@ const PersonalTab = () => {
     )}
   </div>
 )}
+        {!showSendEmail && ( <div >
+          <Button
+  style={{ marginRight: "20px", cursor: "pointer" }}
+  color="primary"
+  onClick={() => setShowSendEmail(true)} // Show the options to select email type
+  disabled={selectedRows.size === 0}
+>
+  Send Email
+</Button>
+
+
+          <Button
+           style={{marginRight:"20px",cursor:"pointer"}}
+            color="primary"
+            onClick={handleExportToExcel}
+            disabled={selectedRows.size === 0}
+          >
+            Export to Excel
+          </Button>
+          </div>)}
+    
 
 
 
