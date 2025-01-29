@@ -24,6 +24,7 @@ interface FormRecord {
   New_Jersey_Masterclass?: boolean;
   WilmingtonChessCoaching?: boolean;
   chess_club?:boolean;
+  email_request?:boolean;
   
 Bear_Middletown_Chess_Coaching?:boolean;
 
@@ -259,6 +260,7 @@ const PersonalTab = () => {
       <option value="chess_club">Chess Club </option>
       <option value="Bear_Middletown_Chess_Coaching">Bear Chess Coaching</option>
       <option value="BasicsOfChess_Online">Basics of Chess Online</option>
+      <option value="email_request">Send email</option>
 
 
     </select>
@@ -307,6 +309,7 @@ const PersonalTab = () => {
   {record.Bear_Middletown_Chess_Coaching && <span className="badge bg-primary"> Bear Chess Coaching</span>}
 
 {record.BasicsOfChess_Online && <span className="badge bg-primary">Basics of Chess Online</span>}
+{record.email_request && <span className="badge bg-primary">Send Email</span>}
 
 
 </td>

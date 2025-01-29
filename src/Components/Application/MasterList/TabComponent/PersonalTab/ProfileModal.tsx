@@ -40,6 +40,7 @@ interface ProfileData {
 Bear_Middletown_Chess_Coaching?:boolean;
     WhatsApp?: boolean;
     jcc_kp?:boolean;
+    email_request?:boolean;
     
   }
   
@@ -140,6 +141,9 @@ Bear_Middletown_Chess_Coaching ? "Yes" : "No"}
   </p>
   <p>
     <strong>JCC KP:</strong> {profileData.jcc_kp ? "Yes" : "No"}
+  </p>
+  <p>
+    <strong>Email Request:</strong> {profileData.email_request ? "Yes" : "No"}
   </p>
 </div>
 
