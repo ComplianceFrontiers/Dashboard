@@ -1,4 +1,4 @@
-// chess club
+// chess club middletown
 
 "use client";
 import React, { useEffect, useState } from "react";
@@ -15,6 +15,7 @@ interface FormRecord {
   email?: string;
   phone?: string;
   chess_club?: boolean;
+
   year?: string;
   date?: string;
   time?: string;
@@ -35,29 +36,29 @@ const PersonalTab = () => {
 
   const itemsPerPage = 10;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://backend-chess-tau.vercel.app/get_forms_form_chess_club"
-        );
-        const data = response.data;
-        
-        // Exclude data where chess_club_middletown is true
-        const filteredResults = data.filter((item: any) => item.chess_club_middletown !== true);
-        
-        setFormData(data);
-        setFilteredData(filteredResults);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-  
-    fetchData();
-  }, []);
-  
+ useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        "https://backend-chess-tau.vercel.app/get_forms_form_chess_club"
+      );
+      const data = response.data;
+      
+      // Filter data where chess_club_middletown is true
+      const filteredResults = data.filter((item: any) => item.chess_club_middletown === true);
+      
+      setFormData(data);
+      setFilteredData(filteredResults);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchData();
+}, []);
+
   const fetchProfileData = async (profileId: string) => {
     try {
       const response = await axios.get(`https://backend-chess-tau.vercel.app/form_chess_club_by_profile_id`, {
@@ -172,7 +173,7 @@ const PersonalTab = () => {
       <CardHeader>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <h4>
-      Chess Club List{" "}
+      Chess Club MiddleTown List{" "}
       <a
         href="https://chess-champs-tournaments.vercel.app/"
         target="_blank"

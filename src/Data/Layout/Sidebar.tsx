@@ -118,7 +118,10 @@ export const MenuList: MenuItem[] = [
             { path: `/masterlist/phone`, type: "link", title: "Phone List" },
             { path: `/masterlist/whatsapp`, type: "link", title: "WhatsApp List" },
             { path: `/masterlist/website`, type: "link", title: "Website List" },
-            { path: `/masterlist/chess-club-tournament`, type: "link", title: "Chess Club List" },
+            { path: `/masterlist/chess-club-tournament`, type: "link", title: "Chess Club List", children: [
+              { path: `/masterlist/chess-club-tournament`, type: "link", title: "Chess Club List" },
+              { path:  `/masterlist/middle_town`, type: "link", title: "chess_club_middletown" },
+          ] },
             { path: `/masterlist/middletown`, type: "link", title: "Bear/Middletown C.T" },
             { path: `/masterlist/Bear_Middletown_Chess_Coaching`, type: "link", title: "Bear Chess Coaching" },
             { path: `/masterlist/newjersy`, type: "link", title: "New Jersy C T" },
