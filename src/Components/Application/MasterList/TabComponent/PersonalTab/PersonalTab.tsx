@@ -238,7 +238,7 @@ const PersonalTab = () => {
                 </th>
               ))}
               <th>
-  Tabs
+  Tags
   <div style={{ marginTop: "5px" }}>
     <select
       onChange={(e) => handleSearchChange("tabs", e.target.value)}
