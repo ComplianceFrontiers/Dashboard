@@ -197,6 +197,21 @@ const PersonalTab = () => {
               <FaExternalLinkAlt />
             </a>
           </h4>
+          <h4>
+            Chess Club Middletown{" "}
+            <a
+              href="https://chess-champs-tournaments.vercel.app/middletown"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: "blue",
+                marginLeft: "10px",
+                textDecoration: "none",
+              }}
+            >
+              <FaExternalLinkAlt />
+            </a>
+          </h4>
           <Button color="primary" onClick={exportToExcel} disabled={selectedRows.size === 0}>
             Export to Excel
           </Button>
