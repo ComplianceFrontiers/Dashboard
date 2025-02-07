@@ -262,6 +262,7 @@ const PersonalTab = () => {
       <option value="BasicsOfChess_Online">Basics of Chess Online</option>
       <option value="email_request">Send email</option>
       <option value="chess_club_middletown">chess_club_middletown</option>
+      <option value="chess_club_pennsylvania">chess_club_pennsylvania</option>
 
 
     </select>
@@ -302,6 +303,7 @@ const PersonalTab = () => {
   {record.WhatsApp && <span className="badge bg-primary">WhatsApp</span>}
   {record.jcc_kp && <span className="badge bg-primary">JCC KP</span>}
   {record.chess_club_middletown && <span className="badge bg-primary">chess_club_middletown</span>}
+  {record.chess_club_pennsylvania && <span className="badge bg-primary">chess_club_pennsylvania</span>}
   {record.Bear_Middletown_Chess_Tournament && <span className="badge bg-primary">Bear/Middletown Chess Tournament</span>}
   {record.New_Jersey_Chess_Tournament && <span className="badge bg-primary">New Jersey Chess Tournament</span>}
   {record.New_Jersey_Masterclass && <span className="badge bg-primary">New Jersey Masterclass</span>}
