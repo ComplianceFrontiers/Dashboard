@@ -188,7 +188,7 @@ const PersonalTab = () => {
           <h4>
             Chess Club List{" "}
             <a
-              href="https://chess-champs-tournaments.vercel.app/"
+              href="https://chess-champs-club.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -203,7 +203,7 @@ const PersonalTab = () => {
           <h4>
             Chess Club Middletown{" "}
             <a
-              href="https://chess-champs-tournaments.vercel.app/middletown"
+              href="https://chess-champs-club.vercel.app/middletown"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -218,7 +218,7 @@ const PersonalTab = () => {
           <h4>
             Chess Club Pennsylvania{" "}
             <a
-              href="https://chess-champs-tournaments.vercel.app/PA"
+              href="https://chess-champs-club.vercel.app/PA"
               target="_blank"
               rel="noopener noreferrer"
               style={{
