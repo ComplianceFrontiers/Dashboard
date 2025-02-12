@@ -19,8 +19,8 @@ export const authoption: NextAuthOptions = {
       credentials: {},
       async authorize(credentials: any) {    
         const user = {
-          email: "Test123@gmail.com",
-          password: "Test@123",
+          email: "connect@chesschamps.com",
+          password: "ChessChamps@2025",
         };
         if (
           isEqual(user, {

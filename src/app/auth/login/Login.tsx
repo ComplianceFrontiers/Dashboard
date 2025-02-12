@@ -10,8 +10,8 @@ import SocialApp from "./SocialApp";
 
 const Login = () => {
   const [show, setShow] = useState(false);
-  const [email, setEmail] = useState("Test123@gmail.com");
-  const [password, setPassword] = useState("Test@123");
+  const [email, setEmail] = useState("connect@chesschamps.com");
+  const [password, setPassword] = useState("ChessChamps@2025");
   const router = useRouter();
  
   const formSubmitHandle = async (event: React.FormEvent<HTMLFormElement>) => {
