@@ -62,17 +62,27 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
     <strong>TOURNAMENT FORMAT:</strong>
   </h3>
   <ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 5px;">
-    <li>4 Rounds | G/25 Time Control (Each player gets 25 minutes).</li>
-    <li>
-      Awards:
-      <ul style="margin-left: 5px;">
-        <li>🏆 Winner: Trophy</li>
-        <li>🥈 2nd Place: Medal</li>
-        <li>🥉 3rd Place: Medal</li>
-      </ul>
-    </li>
-    <li>Registration Fee: $25 (Online registration only; no onsite registration available).</li>
-  </ul>
+  <li>4 Rounds | G/25 d5 Time Control (Each player gets 25 minutes).</li>
+  <li>
+    Awards:
+    <ul style="margin-left: 5px; padding-left: 0;">
+      <li style="display: flex; align-items: center;">
+        <span>🏆</span>
+        <span style="margin-left: 8px;">Winner&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Trophy</span>
+      </li>
+      <li style="display: flex; align-items: center;">
+        <span>🥈</span>
+        <span style="margin-left: 8px;">2nd Place&nbsp;&nbsp;&nbsp;: Medal</span>
+      </li>
+      <li style="display: flex; align-items: center;">
+        <span>🥉</span>
+        <span style="margin-left: 8px;">3rd Place&nbsp;&nbsp;&nbsp;: Medal</span>
+      </li>
+    </ul>
+  </li>
+  <li>Registration Fee: $25 (Online registration only; no onsite registration available).</li>
+</ul>
+
 
   <h3 style="color: #f53db8; text-align: left; font-size: 14px; margin-top: 2px; margin-bottom: 2px;">
     <strong>TROPHY TITLES:</strong>
