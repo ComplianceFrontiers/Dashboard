@@ -33,8 +33,8 @@ const chessclubemail = ({ selectedEmails, onClose }: { selectedEmails: string[];
     
 </div>
 
-      
-      <div style="color: white; padding: 0px; margin-top: 10px;">   
+   
+     <div style="color: white; padding: 0px; margin-top: 10px;">   
           <div style="background-color: #343a40; color: #fff; padding: 20px; border-radius: 5px 5px 0 0;">
               <h1 style="margin-bottom: 5px;color:white; font-size: 14px;">About Chess Champs</h1>
               <p style="margin-bottom: 0px; font-size:12px;">Chess Champs is dedicated to nurturing young minds through the timeless game of chess. We provide engaging programs, tournaments, and training sessions for players of all ages and skill levels. Our mission is to inspire critical thinking, strategic planning, and a love for learning in a supportive and fun environment.</p>
@@ -71,6 +71,7 @@ const chessclubemail = ({ selectedEmails, onClose }: { selectedEmails: string[];
   </div>
   `;
 
+  
   
 
 
