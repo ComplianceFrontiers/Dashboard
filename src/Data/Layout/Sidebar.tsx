@@ -1,8 +1,7 @@
 import { MenuItem } from "@/Type/Layout/Sidebar";
 
 export const MenuList: MenuItem[] = [
-  {
-    title: "General",
+  { 
     Items: [
       {
         path: "/dashboard/ecommerce",

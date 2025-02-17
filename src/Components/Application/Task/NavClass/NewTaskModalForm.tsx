@@ -48,11 +48,7 @@ export const NewTaskModalForm = () => {
           </FormGroup>
         </Col>
         <Col md="6" className="mt-0">
-          <FormGroup>
-            <select className={`js-example-disabled-results form-control form-select js-example-basic-single `}>
-              <option value="General">General</option>
-            </select>
-          </FormGroup>
+          
         </Col>
         <Col md="12" className="my-0">
           <FormGroup>

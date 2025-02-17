@@ -79,7 +79,7 @@ export const Accept = "Accept";
 
 // Ecommerce Dashboard
 export const EcommerceDashboard = "Ecommerce Dashboard";
-export const TopSellingProductsHeading = "Top Selling Products";
+export const TopSellingProductsHeading = "Chess Champs Activities";
 export const CategoryOverviewHeading = "Category Overview";
 export const ManageOrderHeading = "Manage Order";
 export const SalesSummaryHeading = "Sales Summary";
