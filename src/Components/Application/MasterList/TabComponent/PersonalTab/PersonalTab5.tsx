@@ -15,6 +15,7 @@ interface FormRecord {
   chess_club?: boolean;
   chess_club_middletown?: boolean;
   chess_club_pennsylvania?: boolean;
+  chess_club_cttcs?: boolean;
   year?: string;
   date?: string;
   time?: string;
@@ -115,6 +116,8 @@ const PersonalTab = () => {
         return record.chess_club_middletown;
       } else if (tag === "chess_club_pennsylvania") {
         return record.chess_club_pennsylvania;
+      } else if (tag === "chess_club_cttcs") {
+        return record.chess_club_cttcs;
       } else {
         return record;
       }
@@ -230,6 +233,21 @@ const PersonalTab = () => {
               <FaExternalLinkAlt />
             </a>
           </h4>
+          <h4>
+            Chess Club Cttcs{" "}
+            <a
+              href="https://chess-champs-club.vercel.app/CTTCS"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: "blue",
+                marginLeft: "10px",
+                textDecoration: "none",
+              }}
+            >
+              <FaExternalLinkAlt />
+            </a>
+          </h4>
           <Button color="primary" onClick={exportToExcel} disabled={selectedRows.size === 0}>
             Export to Excel
           </Button>
@@ -294,6 +312,8 @@ const PersonalTab = () => {
                         <option value="chess_club">Chess Club</option>
                         <option value="chess_club_middletown">Chess Club Middletown</option>
                         <option value="chess_club_pennsylvania">Chess Club Pennsylvania</option>
+                        <option value="chess_club_cttcs">Chess Club Cttcs</option>
+
                       </select>
                     </div>
                   </th>
@@ -344,6 +364,8 @@ const PersonalTab = () => {
                       {record.chess_club && <span className="badge bg-primary">chess_club</span>}
                       {record.chess_club_middletown && <span className="badge bg-primary">chess_club_middletown</span>}
                       {record.chess_club_pennsylvania && <span className="badge bg-primary">chess_club_pennsylvania</span>}
+                      {record.chess_club_cttcs && <span className="badge bg-primary">chess_club_cttcs</span>}
+                     
                     </td>
                     <td>
                       <FaTrashAlt
