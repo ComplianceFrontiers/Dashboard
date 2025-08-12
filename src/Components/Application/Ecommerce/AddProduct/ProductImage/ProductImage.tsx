@@ -22,7 +22,15 @@ const ProductImage = () => {
         <div className="product-info">
           <h4>{ProductImageHeading}</h4>
           <Form>
-            <Dropzone onChange={(files) => updateFiles(files)} value={files} maxFiles={1} header={false} footer={false} minHeight="80px" name="fileName1">
+          <Dropzone
+            onChange={(files: ExtFile[]) => updateFiles(files)}
+            value={files}
+            maxFiles={1}
+            header={false}
+            footer={false}
+            minHeight="80px"
+            name="fileName1"
+          >
               {files.map((file: ExtFile) => (
                 <FileMosaic key={file.id} {...file} onDelete={removeFile} info={true} />
               ))}
