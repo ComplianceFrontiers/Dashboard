@@ -26,7 +26,6 @@ interface ProfileData {
     stripe?:string;
     program?:string;
     category?:string;
-    section?:string;
     location?:string;
     USCF_Rating?:string;
     uscf_id?:string;
