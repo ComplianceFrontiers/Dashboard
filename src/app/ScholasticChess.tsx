@@ -30,22 +30,29 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
   const emailBody = `
   <div style="font-family: Arial, sans-serif; color: #333; padding: 20px; text-align: center; display: block; margin: 0 auto; max-width: 800px;">
       <div style="text-align: center;">
-        <img src="https://res.cloudinary.com/dtgje24ez/image/upload/v1739701307/ackqrxb07m47cpzmffps.jpg" alt="Chess Champs Banner" style="max-width: 100%; height: auto;">
+        <img src="https://res.cloudinary.com/duvifszan/image/upload/v1760095765/E-Mail_Banner_2_elrzgm.png" alt="Chess Champs Banner" style="max-width: 100%; height: auto;">
       </div>
      <div style="border: 2px solid #ccc; padding: 20px; border-radius: 8px; max-width: 850px; margin: 0 auto;margin-top: 10px;margin-bottom: 20px;">
   <h1 style="color: #000; text-align: left; font-size: 16px; font-weight: bold; margin-bottom: 10px;"> 
-    Now Enrolling for the 2025 Robbinsville Chess Championship!
+   Scholastic Chess Tournament (K-12)
+Charity Event organized by Christ the Teacher Catholic School
   </h1>
-  <p style="font-size: 14px; line-height: 1.6; margin-top: 20px; margin-bottom: 10px; text-align: left; max-width: 800px; margin-right: auto;">
-    <strong> Tournament Date: </strong> Saturday, February 22, 2025, from 1:00 PM to 5:00 PM.<br>
-    <strong> Location: </strong> 4620 Nottingham Way, Hamilton Square, NJ 08690.
-  </p>
-  <h2 style="text-align: left; font-size: 16px; color: #f53db8; margin-bottom: 10px; margin-left: 5px;"><strong>PLAY CATEGORIES:</strong></h2>
-  <ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 5px; margin-right: auto; list-style-type: disc; padding-left: 20px;">
-    <li><strong>K-5 Championship (Casual Only)</strong></li>
-    <li><strong>K-12 Championship (Casual & Rated)</strong></li>
-    <li><strong>Open (Rated Only)</strong></li>
-  </ul>
+ <p style="font-size: 14px; line-height: 1.6; margin-top: 20px; margin-bottom: 10px; text-align: left; max-width: 800px; margin-right: auto;">
+  <strong>Tournament Date:</strong> Saturday, November 01, 2025, from 10:30 AM to 2:30 PM.<br>
+  <strong>Location:</strong> 2451 Frazer Rd, Newark, DE 19702
+</p>
+
+<h2 style="text-align: left; font-size: 16px; color: #f53db8; margin-bottom: 10px; margin-left: 5px;">
+  <strong>PLAY CATEGORIES:</strong>
+</h2>
+
+<ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 25px; margin-right: auto; list-style-type: disc; padding-left: 20px;">
+  <li><strong>K–1st Grade</strong></li>
+  <li><strong>2nd–4th Grade</strong></li>
+  <li><strong>5th–8th Grade</strong></li>
+  <li><strong>9th–12th Grade</strong></li>
+</ul>
+
   <table align="center" style="margin: 10px auto;">
     <tr>
       <td style="text-align: center;">
@@ -58,49 +65,37 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
 </div>
 
 <div style="border: 2px solid #ccc; padding: 15px; border-radius: 8px; max-width: 850px; margin: 0 auto;">
-  <h3 style="color: #f53db8; text-align: left; font-size: 14px; margin-top: 1px; margin-bottom: 2px;">
-    <strong>TOURNAMENT FORMAT:</strong>
-  </ h3>
-  <ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 5px;">
-  <li>4 Rounds | G/25 d5 Time Control (Each player gets 25 minutes).</li>
-  <li>
-    Awards:
-    <ul style="margin-left: 5px; padding-left: 0;">
-      <li style="display: flex; align-items: center;">
-        <span>🏆</span>
-        <span style="margin-left: 8px;">Winner&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Trophy</span>
-      </li>
-      <li style="display: flex; align-items: center;">
-        <span>🥈</span>
-        <span style="margin-left: 8px;">2nd Place&nbsp;&nbsp;&nbsp;: Medal</span>
-      </li>
-      <li style="display: flex; align-items: center;">
-        <span>🥉</span>
-        <span style="margin-left: 8px;">3rd Place&nbsp;&nbsp;&nbsp;: Medal</span>
-      </li>
-    </ul>
-  </li>
-  <li>Registration Fee: $25 (Online registration only; no onsite registration available).</li>
+  <h3 style="color: #f53db8; text-align: left; font-size: 14px; margin-top: 1px; margin-bottom: 6px;">
+  <strong>TOURNAMENT DETAILS:</strong>
+</h3>
+<ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 25px; list-style-type: disc; padding-left: 20px;">
+  <li>4 Rounds | G/15 Time Control (Each player gets 15 minutes).</li>
+  <li>Casual Tournament (Non-USCF affiliated)</li>
+  <li>Registration Fees: $25 till October 15th; $30 thereafter; onsite registration $45</li>
 </ul>
 
+<h3 style="color: #f53db8; text-align: left; font-size: 14px; margin-top: 15px; margin-bottom: 6px;">
+  <strong>OTHER DETAILS:</strong>
+</h3>
+<ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 25px; list-style-type: disc; padding-left: 20px;">
+  <li>Food/Beverages available for purchase by Zach's Street Grill.</li>
+</ul>
 
-  <h3 style="color: #f53db8; text-align: left; font-size: 14px; margin-top: 2px; margin-bottom: 2px;">
-    <strong>TROPHY TITLES:</strong>
-  </h3>
-  <ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 5px; margin-right: auto; list-style-type: disc; padding-left: 20px;">
-    <li><strong>Rated Section:</strong>
-      <ul style="list-style-type: disc; margin-left: 5px;">
-        <li><strong>Robbinsville Chess Champion:</strong> (Rated Open).</li>
-        <li><strong>Robbinsville Jr. Chess Champion:</strong> (K-12 Rated).</li>
-      </ul>
-    </li>
-    <li><strong>Casual Section:</strong>
-      <ul style="list-style-type: disc; margin-left: 5px;">
-        <li><strong>Robbinsville Scholastic Champion:</strong> (K-12 Casual).</li>
-        <li><strong>Scholastic Jr. Club Champion:</strong> (K-5 Casual).</li>
-      </ul>
-    </li>
-  </ul>
+<h3 style="color: #f53db8; text-align: left; font-size: 14px; margin-top: 15px; margin-bottom: 6px;">
+  <strong>Sponsorship Opportunities Available:</strong>
+</h3>
+<ul style="font-size: 14px; line-height: 1.6; text-align: left; max-width: 800px; margin-left: 25px; list-style-type: disc; padding-left: 20px;">
+  <li>
+    <strong>Event Sponsor - $1,000:</strong> Company name/logo on all promotions including: Email blasts to CTTCS families; Advertisements & social media posts; CTTCS weekly newsletter; Promotional flyers distributed to libraries and schools from Wilmington to Smyrna; Company logo on FB event page cover; Shout-out as Event Sponsor on CTTS IG and FB pages; Opportunity to set up a table at the event; Recognition at the event.
+  </li>
+  <li>
+    <strong>Table Sponsor - $500:</strong> Company name/logo on all of the tournament tables; Company name/logo on FB event page; Shout-out on CTTCS IG and FB pages; Recognition at the event.
+  </li>
+  <li>
+    <strong>Participation Sponsor - $200:</strong> Logo on FB event page; Shout-out on CTTCS IG and FB pages; Recognition at the event.
+  </li>
+</ul>
+
   <table align="center" style="margin: 10px auto;">
     <tr>
       <td style="text-align: center;">
@@ -115,10 +110,11 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
 
 
 
-   <p style="font-size: 14px; color: #666; text-align: center; margin-top: 20px;">Spots are limited, so secure yours today and join us for an unforgettable chess experience!</p>
+ 
+            <p style="font-size: 14px; color: #666; text-align: center; margin-top: 20px;">Spots are limited, so secure yours today and join us for an unforgettable chess experience!</p>
 <p><strong>For more information,</strong> contact connect@chesschamps.us.</p>
       
-    <div style="color: white; padding: 0px; margin-top: 10px;text-align: left;">   
+     <div style="color: white; padding: 0px; margin-top: 10px;">   
           <div style="background-color: #343a40; color: #fff; padding: 20px; border-radius: 5px 5px 0 0;">
               <h1 style="margin-bottom: 5px;color:white; font-size: 14px;">About Chess Champs</h1>
               <p style="margin-bottom: 0px; font-size:12px;">Chess Champs is dedicated to nurturing young minds through the timeless game of chess. We provide engaging programs, tournaments, and training sessions for players of all ages and skill levels. Our mission is to inspire critical thinking, strategic planning, and a love for learning in a supportive and fun environment.</p>
@@ -155,8 +151,6 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
   </div>
   `;
 
-    
-
   
 
 
@@ -189,7 +183,7 @@ const handleRemove = (email: string) => {
     formData.append('bcc', bccEmails);
     formData.append('subject', subject);
     formData.append('message', emailBody); 
-    formData.append('displayname', "Chess Champs"); 
+    formData.append('displayname', "Chess Champs Academy"); 
     if (image) {
       formData.append('image', image);
     }

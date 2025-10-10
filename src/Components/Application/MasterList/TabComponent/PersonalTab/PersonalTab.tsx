@@ -7,6 +7,10 @@ import * as XLSX from "xlsx";
 import ProfileModal from "./ProfileModal";
 import SendEmail from "@/app/SendEmail";
 import SendEmailnjc from "@/app/SendEmailnjc tournament";
+import PerformanceCoaching from "@/app/PerformanceCoaching";
+import ScholasticChess from "@/app/ScholasticChess";
+
+
 import Chessclubemail from "@/app/chessclub";
 interface FormRecord {
   profile_id: string;
@@ -164,7 +168,10 @@ const PersonalTab = () => {
       <option value="plain">Plain Email</option>
       <option value="chessclub">Chess Club Email</option>
       <option value="Nj Chess Tournament">Nj Chess Tournament</option>
+      <option value="PerformanceCoaching">PerformanceCoaching</option>
+      <option value="ScholasticChess">ScholasticChess</option>
 
+      
     </select>
 
     {/* Render the selected email component based on the selected type */}
@@ -192,6 +199,24 @@ const PersonalTab = () => {
         onClose={() => setShowSendEmail(false)}
       />
     )}
+{emailType === "PerformanceCoaching" && (
+      <PerformanceCoaching
+        selectedEmails={formData
+          .filter((record) => selectedRows.has(record.profile_id))
+          .map((record) => record.email || "")}
+        onClose={() => setShowSendEmail(false)}
+      />
+    )}
+    {emailType === "ScholasticChess" && (
+      <ScholasticChess
+        selectedEmails={formData
+          .filter((record) => selectedRows.has(record.profile_id))
+          .map((record) => record.email || "")}
+        onClose={() => setShowSendEmail(false)}
+      />
+    )}
+    
+
   </div>
 )}
         {!showSendEmail && ( <div >
