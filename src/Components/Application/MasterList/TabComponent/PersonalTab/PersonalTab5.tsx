@@ -11,6 +11,7 @@ interface FormRecord {
   parent_name?: { first: string; last: string };
   child_name?: { first: string; last: string };
   email?: string;
+  section?:string;
   phone?: string;
   chess_club?: boolean;
   chess_club_middletown?: boolean;
@@ -136,6 +137,7 @@ const PersonalTab = () => {
         "Parent's Name": `${record.parent_name?.first || ""} ${record.parent_name?.last || ""}`,
         "Child's Name": `${record.child_name?.first || ""} ${record.child_name?.last || ""}`,
         Email: record.email || "N/A",
+        Section:record.section||"N/A",
         Phone: record.phone || "N/A",
         Date: record.date || "N/A",
         Time: record.time || "N/A",
@@ -277,7 +279,7 @@ const PersonalTab = () => {
                     />
                   </th>
                   <th>Sl.</th>
-                  {["profile_id", "parent_name", "child_name", "email", "phone", "date"].map(
+                  {["profile_id", "parent_name", "child_name", "email","section", "phone", "date"].map(
                     (column) => (
                       <th key={column}>
                         <div style={{ display: "flex", alignItems: "center" }}>
@@ -358,6 +360,7 @@ const PersonalTab = () => {
                         : "N/A"}
                     </td>
                     <td>{record.email || "N/A"}</td>
+                    <td>{record.section  || "N/A"}</td>
                     <td>{record.phone || "N/A"}</td>
                     <td>{record.date || "N/A"}</td>
                     <td>
