@@ -33,10 +33,15 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
         <img src="https://res.cloudinary.com/duvifszan/image/upload/v1760095728/E-Mail_Banner_1_mws6wr.png" alt="Chess Champs Banner" style="max-width: 100%; height: auto;">
       </div>
      <div style="border: 2px solid #ccc; padding: 20px; border-radius: 8px; max-width: 850px; margin: 0 auto;margin-top: 10px;margin-bottom: 20px;">
-  <h1 style="color: #000; text-align: left; font-size: 16px; font-weight: bold; margin-bottom: 10px;"> 
+ <h1 style="color: #000; text-align: left; margin-bottom: 10px; line-height: 1.4;">
+  <span style="font-size: 18px; font-weight: bold; display: block;">
     Performance Coaching for Beginners
-$35 for 4 Interactive Sessions | Starts October 15 | Limited to 7 Students Only
-  </h1>
+  </span>
+  <span style="font-size: 14px; font-weight: normal; display: block;">
+    $35 for 4 Interactive Sessions | Starts October 22 | Limited to 7 Students Only
+  </span>
+</h1>
+
 <p style="font-size: 14px; line-height: 1.6; margin-top: 20px; margin-bottom: 10px; text-align: left; max-width: 800px; margin-right: auto;">
   Dear Patron,
 </p>
@@ -44,7 +49,7 @@ $35 for 4 Interactive Sessions | Starts October 15 | Limited to 7 Students Only
   If your child already knows how to move the pieces, it’s time to help them think like a chess player.
 </p>
 <p style="font-size: 14px; line-height: 1.6; margin-bottom: 10px; text-align: left; max-width: 800px; margin-right: auto;">
-  Join International Master (WIM) Tatiana Kasparova for an engaging 4-session online coaching program designed especially for 2nd–5th graders who want to take their first confident steps into real chess mastery.
+  Join <strong>International Master (WIM) Tatiana Kasparova</strong> for an engaging 4-session online coaching program designed especially for 2nd–5th graders who want to take their first confident steps into real chess mastery.
 </p>
 <p style="font-size: 14px; line-height: 1.6; margin-bottom: 10px; text-align: left; max-width: 800px; margin-right: auto;">
   This program blends fun learning with structured skill development, helping kids build focus, logic, and strategy through guided practice.
@@ -53,7 +58,7 @@ $35 for 4 Interactive Sessions | Starts October 15 | Limited to 7 Students Only
   <table align="center" style="margin: 10px auto;">
     <tr>
       <td style="text-align: center;">
-        <a href="https://www.chesschamps.us/performance-coaching/" style="display: inline-block; padding: 12px 20px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 14px;">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfD_BhNfgCgsVTpMDNrTPREHB5rXiRB3ZL5oHKlz0dU3e_rJQ/viewform?urp=gmail_link" style="display: inline-block; padding: 12px 20px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 14px;">
           REGISTER NOW
         </a>
       </td>
@@ -81,7 +86,7 @@ $35 for 4 Interactive Sessions | Starts October 15 | Limited to 7 Students Only
   <li><strong>Grades:</strong> 2nd–5th</li>
   <li><strong>Proficiency Level:</strong> Beginner</li>
   <li><strong>Format:</strong> Small Group Online Coaching (Max 7 students)</li>
-  <li><strong>Dates:</strong> Oct 15 | Oct 22 | Oct 29 | Nov 5</li>
+  <li><strong>Dates:</strong> Oct-22 | Oct -29 | Nov-5 | Nov-12</li>
   <li><strong>Time:</strong> 7:00–8:00 PM EST</li>
   <li><strong>Fee:</strong> $35 (all 4 sessions included)</li>
 </ul>
@@ -90,7 +95,7 @@ $35 for 4 Interactive Sessions | Starts October 15 | Limited to 7 Students Only
   <table align="center" style="margin: 10px auto;">
     <tr>
       <td style="text-align: center;">
-        <a href="https://www.chesschamps.us/performance-coaching/" style="display: inline-block; padding: 12px 20px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 14px;">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfD_BhNfgCgsVTpMDNrTPREHB5rXiRB3ZL5oHKlz0dU3e_rJQ/viewform?urp=gmail_link" style="display: inline-block; padding: 12px 20px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 14px;">
           REGISTER NOW
         </a>
       </td>
@@ -157,29 +162,39 @@ const handleRemove = (email: string) => {
 };
 
 
-  const handleSendEmail = async () => {
-    if (!subject) {
-      setErrorMessage('Subject, message, and API link are required.');
-      setShowPopup(true);
-      return;
-    }
-    setLoading(true);
-    setSuccessMessage('');
-    setErrorMessage('');
+const handleSendEmail = async () => {
+  if (!subject) {
+    setErrorMessage('Subject, message, and API link are required.');
+    setShowPopup(true);
+    return;
+  }
 
-    const bccEmails = selectedEmails.join(', ');
+  setLoading(true);
+  setSuccessMessage('');
+  setErrorMessage('');
 
-    const formData = new FormData();
-    formData.append('name', 'Default Name');
-    formData.append('bcc', bccEmails);
-    formData.append('subject', subject);
-    formData.append('message', emailBody); 
-    formData.append('displayname', "Chess Champs Academy"); 
-    if (image) {
-      formData.append('image', image);
+  try {
+    // Split emails into batches of 50
+    const batchSize = 50;
+    const batches = [];
+    for (let i = 0; i < emails.length; i += batchSize) {
+      batches.push(emails.slice(i, i + batchSize));
     }
 
-    try {
+    for (let i = 0; i < batches.length; i++) {
+      const batch = batches[i];
+      const bccEmails = batch.join(', ');
+
+      const formData = new FormData();
+      formData.append('name', 'Default Name');
+      formData.append('bcc', bccEmails);
+      formData.append('subject', subject);
+      formData.append('message', emailBody);
+      formData.append('displayname', 'Chess Champs Academy');
+      if (image) {
+        formData.append('image', image);
+      }
+
       const response = await fetch('/api/submitform', {
         method: 'POST',
         body: formData,
@@ -187,19 +202,27 @@ const handleRemove = (email: string) => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Error sending email');
+        throw new Error(errorData.error || `Error sending batch ${i + 1}`);
       }
 
       const data = await response.json();
-      setSuccessMessage(data.message);
-      setShowPopup(true);
-    } catch (error) {
-      setErrorMessage('Error sending email: ' + error);
-      setShowPopup(true);
-    } finally {
-      setLoading(false);
+      console.log(`✅ Batch ${i + 1} sent successfully`, data);
+
+      // Optional: small delay between batches (to avoid throttling)
+      await new Promise((resolve) => setTimeout(resolve, 9000));
     }
-  };
+
+    setSuccessMessage('All batches sent successfully!');
+    setShowPopup(true);
+  } catch (error) {
+    console.error('Error sending emails:', error);
+    setErrorMessage('Error sending email: ' + error);
+    setShowPopup(true);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="containerSendEmail">

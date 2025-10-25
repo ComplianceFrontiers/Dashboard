@@ -33,10 +33,15 @@ const SendEmail = ({ selectedEmails, onClose }: { selectedEmails: string[]; onCl
         <img src="https://res.cloudinary.com/duvifszan/image/upload/v1760095765/E-Mail_Banner_2_elrzgm.png" alt="Chess Champs Banner" style="max-width: 100%; height: auto;">
       </div>
      <div style="border: 2px solid #ccc; padding: 20px; border-radius: 8px; max-width: 850px; margin: 0 auto;margin-top: 10px;margin-bottom: 20px;">
-  <h1 style="color: #000; text-align: left; font-size: 16px; font-weight: bold; margin-bottom: 10px;"> 
-   Scholastic Chess Tournament (K-12)
-Charity Event organized by Christ the Teacher Catholic School
-  </h1>
+ <h1 style="color: #000; text-align: left; margin-bottom: 10px; line-height: 1.4;">
+  <span style="font-size: 18px; font-weight: bold; display: block;">
+    Scholastic Chess Tournament (K-12)
+  </span>
+  <span style="font-size: 14px; font-weight: normal; display: block;">
+    Charity Event organized by Christ the Teacher Catholic School
+  </span>
+</h1>
+
  <p style="font-size: 14px; line-height: 1.6; margin-top: 20px; margin-bottom: 10px; text-align: left; max-width: 800px; margin-right: auto;">
   <strong>Tournament Date:</strong> Saturday, November 01, 2025, from 10:30 AM to 2:30 PM.<br>
   <strong>Location:</strong> 2451 Frazer Rd, Newark, DE 19702
@@ -56,7 +61,7 @@ Charity Event organized by Christ the Teacher Catholic School
   <table align="center" style="margin: 10px auto;">
     <tr>
       <td style="text-align: center;">
-        <a href="https://www.chesschamps.us/NJCC-Tournament/" style="display: inline-block; padding: 12px 20px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 14px;">
+        <a href="https://chess-champs-tournaments.vercel.app/CTTCS" style="display: inline-block; padding: 12px 20px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 14px;">
           REGISTER NOW
         </a>
       </td>
@@ -99,7 +104,7 @@ Charity Event organized by Christ the Teacher Catholic School
   <table align="center" style="margin: 10px auto;">
     <tr>
       <td style="text-align: center;">
-        <a href="https://www.chesschamps.us/NJCC-Tournament/" style="display: inline-block; padding: 12px 20px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 14px;">
+        <a href="https://chess-champs-tournaments.vercel.app/CTTCS" style="display: inline-block; padding: 12px 20px; background-color: #f53db8; color: white; text-align: center; border-radius: 5px; text-decoration: none; font-size: 14px;">
           REGISTER NOW
         </a>
       </td>
@@ -176,7 +181,7 @@ const handleRemove = (email: string) => {
     setSuccessMessage('');
     setErrorMessage('');
 
-    const bccEmails = selectedEmails.join(', ');
+    const bccEmails = emails.join(', ');
 
     const formData = new FormData();
     formData.append('name', 'Default Name');
